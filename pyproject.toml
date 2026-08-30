@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openhandle"
+version = "0.1.0"
+description = "Official Python SDK for OpenHandle"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "OpenHandle", email = "support@openhandle.dev" }]
+requires-python = ">=3.10"
+dependencies = ["httpx>=0.27", "typing-extensions>=4.10"]
+keywords = ["openhandle", "social-media", "api", "sdk"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://openhandle.dev"
+Documentation = "https://openhandle.dev/docs/sdks"
+Repository = "https://github.com/openhandlehq/openhandle-python"
+Issues = "https://github.com/openhandlehq/openhandle-python/issues"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.14",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "ruff>=0.9",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/openhandle", "README.md", "LICENSE"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/openhandle"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/generate.py" = ["E501"]
+"src/openhandle/models.py" = ["E501"]
+"src/openhandle/_operations.py" = ["E501"]
+"src/openhandle/_sync_resources.py" = ["E501"]
+"src/openhandle/_async_resources.py" = ["E501"]
+
+[tool.ruff.format]
+exclude = [
+    "src/openhandle/models.py",
+    "src/openhandle/_operations.py",
+    "src/openhandle/_sync_resources.py",
+    "src/openhandle/_async_resources.py",
+]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+mypy_path = "src"
+files = ["src/openhandle", "scripts", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

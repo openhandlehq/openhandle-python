@@ -1,0 +1,54 @@
+[
+    {
+        "id": "01-profile-get",
+        "prompt": "Write a function returning the named InstagramProfile model that gets username northstar_forge_test with 24-hour freshness.",
+        "required": ["from openhandle", "InstagramProfile", ".instagram.profile(", ".get(", "freshness=\"24h\""]
+    },
+    {
+        "id": "02-explicit-references",
+        "prompt": "Select a TikTok profile by opaque platform ID and an Instagram post by URL, then fetch both resources.",
+        "required": ["from openhandle", ".tiktok.profile(id=", ".instagram.post(url=", ".get("]
+    },
+    {
+        "id": "03-pagination",
+        "prompt": "Collect post IDs from every page of an Instagram profile's posts without constructing cursors manually. Use the named page type in the implementation.",
+        "required": ["from openhandle", "Page[InstagramPost]", ".posts.list(", "page.data", "page.next()"]
+    },
+    {
+        "id": "04-nested-replies",
+        "prompt": "List replies for a known Instagram post ID and comment ID using the nested resource graph.",
+        "required": ["from openhandle", ".instagram.post(", ".comment(", ".replies.list("]
+    },
+    {
+        "id": "05-search",
+        "prompt": "Search TikTok posts for synthetic with 24-hour freshness and return the named TikTokPost models.",
+        "required": ["from openhandle", "TikTokPost", ".tiktok.search.posts.list(", "q=\"synthetic\"", "freshness=\"24h\""]
+    },
+    {
+        "id": "06-url-fetch",
+        "prompt": "Fetch the resource represented by an Instagram post URL when the caller does not know its resource type.",
+        "required": ["from openhandle", ".fetch(", "https://www.instagram.com/p/"]
+    },
+    {
+        "id": "07-errors",
+        "prompt": "Handle an SDK failure by returning its code, request ID, and retryable flag. Do not branch on the message.",
+        "required": ["from openhandle", "OpenHandleError", ".code", ".request_id", ".retryable"],
+        "forbidden": [".message ==", ".message !="]
+    },
+    {
+        "id": "08-request-controls",
+        "prompt": "Get a Twitter profile with retries disabled and a five-second timeout for this one request.",
+        "required": ["from openhandle", ".twitter.profile(", "max_retries=0", "timeout=5"]
+    },
+    {
+        "id": "09-billing-metadata",
+        "prompt": "Get an Instagram profile using the named response type and return its authoritative cost, environment, and request ID metadata.",
+        "required": ["from openhandle", "Response[InstagramProfile]", ".billing.cost", ".billing.environment", ".request_id"]
+    },
+    {
+        "id": "10-key-selects-environment",
+        "prompt": "Create a reusable client from a caller-provided Test or Live API key without adding a separate environment option.",
+        "required": ["from openhandle", "OpenHandle(api_key"],
+        "forbidden": ["environment=", "test_mode=", "live_mode="]
+    }
+]
