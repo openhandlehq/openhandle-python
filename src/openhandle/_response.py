@@ -50,7 +50,7 @@ class ResponseMetadata:
 
     @property
     def captured_at(self) -> datetime | None:
-        value = self._body.get("captured_at")
+        value = self._body.get("capturedAt")
         if not isinstance(value, str):
             return None
         try:

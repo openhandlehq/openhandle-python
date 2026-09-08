@@ -1442,155 +1442,6 @@ class AsyncTikTokHashtagResource:
         return self._transport.response(result)
 
 
-class AsyncTikTokLiveEventResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokLiveRoom]:
-        """Get a live event
-
-        Get a live event from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.live.event("920100000000000001").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-live-event-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/live/events/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
-
-
-class AsyncTikTokLiveFeedResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, draw_room_id: str | None = None, max_time: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokLiveRoom]:
-        """List live feed
-
-        List live feed from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.live.feed.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-live-feed-list
-        """
-        params: dict[str, Any] = {"draw_room_id": draw_room_id, "max_time": max_time, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/live/feed", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/live/feed", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, draw_room_id: str | None = None, max_time: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokLiveRoom]:
-        """Iterate items lazily across pages of tiktok.live.feed.list, one request per page."""
-        page: AsyncPage[models.TikTokLiveRoom] | None = await self.list(draw_room_id=draw_room_id, max_time=max_time, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokLiveRoomRankingTypesResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, user_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokOption]:
-        """List live ranking types
-
-        List live ranking types from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.live.room("920100000000000001").ranking_types.list(user_id="920000000001", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-live-ranking-types-list
-        """
-        params: dict[str, Any] = {"user_id": user_id, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/live/rooms/{identifier}/ranking-types", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/live/rooms/{identifier}/ranking-types", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, user_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokOption]:
-        """Iterate items lazily across pages of tiktok.live.room.rankingTypes.list, one request per page."""
-        page: AsyncPage[models.TikTokOption] | None = await self.list(user_id=user_id, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokLiveRoomRankingsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, user_id: str, rank_type: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokLiveRanking]:
-        """Get a live ranking
-
-        Get a live ranking from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.live.room("920100000000000001").rankings.list(user_id="920000000001", rank_type="daily", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-live-ranking-list
-        """
-        params: dict[str, Any] = {"user_id": user_id, "rank_type": rank_type, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/live/rooms/{identifier}/rankings", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/live/rooms/{identifier}/rankings", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, user_id: str, rank_type: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokLiveRanking]:
-        """Iterate items lazily across pages of tiktok.live.room.rankings.list, one request per page."""
-        page: AsyncPage[models.TikTokLiveRanking] | None = await self.list(user_id=user_id, rank_type=rank_type, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokLiveRoomResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.ranking_types = AsyncTikTokLiveRoomRankingTypesResource(transport, bindings)
-        self.rankings = AsyncTikTokLiveRoomRankingsResource(transport, bindings)
-
-    async def get(self, *, user_id: str, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokLiveRoom]:
-        """Get live room info
-
-        Get live room info from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.live.room("920100000000000001").get(user_id="920000000001", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-live-info-get
-        """
-        params: dict[str, Any] = {"user_id": user_id, "freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/live/rooms/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
-
-
-class AsyncTikTokLiveResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.feed = AsyncTikTokLiveFeedResource(transport, bindings)
-
-    def event(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokLiveEventResource:
-        """Select the event resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="event")
-        return AsyncTikTokLiveEventResource(self._transport, {**self._bindings, "identifier": identifier})
-
-    def room(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokLiveRoomResource:
-        """Select the room resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="room")
-        return AsyncTikTokLiveRoomResource(self._transport, {**self._bindings, "identifier": identifier})
-
-
 class AsyncTikTokLocationPostsResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -1722,20 +1573,6 @@ class AsyncTikTokPostCommentResource:
         self._transport = transport
         self._bindings = bindings
         self.replies = AsyncTikTokPostCommentRepliesResource(transport, bindings)
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokComment]:
-        """Get a comment
-
-        Get a comment from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.post("920100000000000001").comment("920200000000000001").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-comment-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/posts/{identifier}/comments/{comment_id}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
 
 
 class AsyncTikTokPostCommentsResource:
@@ -1879,34 +1716,6 @@ class AsyncTikTokProfileLikedPostsResource:
             page = await page.next()
 
 
-class AsyncTikTokProfileMusicResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.Music]:
-        """List profile music
-
-        Return sounds published by a public TikTok profile. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.profile("@pixel_orchard_tt_test").music.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-profile-music-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/profiles/{identifier}/music", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/profiles/{identifier}/music", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.Music]:
-        """Iterate items lazily across pages of tiktok.profile.music.list, one request per page."""
-        page: AsyncPage[models.Music] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
 class AsyncTikTokProfilePlaylistPostsResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -2012,54 +1821,6 @@ class AsyncTikTokProfilePostsResource:
             page = await page.next()
 
 
-class AsyncTikTokProfileQRCodeResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokQRCode]:
-        """Get a profile QR code
-
-        Get a profile QR code from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.profile("@pixel_orchard_tt_test").qr_code.get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-profile-qr-code-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/profiles/{identifier}/qr-code", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
-
-
-class AsyncTikTokProfileStoriesResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokPost]:
-        """List profile stories
-
-        Return a cursor-paginated Tiktok profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.profile("@pixel_orchard_tt_test").stories.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-profile-stories-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/profiles/{identifier}/stories", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/profiles/{identifier}/stories", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokPost]:
-        """Iterate items lazily across pages of tiktok.profile.stories.list, one request per page."""
-        page: AsyncPage[models.TikTokPost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
 class AsyncTikTokProfileResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -2067,11 +1828,8 @@ class AsyncTikTokProfileResource:
         self.followers = AsyncTikTokProfileFollowersResource(transport, bindings)
         self.following = AsyncTikTokProfileFollowingResource(transport, bindings)
         self.liked_posts = AsyncTikTokProfileLikedPostsResource(transport, bindings)
-        self.music = AsyncTikTokProfileMusicResource(transport, bindings)
         self.playlists = AsyncTikTokProfilePlaylistsResource(transport, bindings)
         self.posts = AsyncTikTokProfilePostsResource(transport, bindings)
-        self.qr_code = AsyncTikTokProfileQRCodeResource(transport, bindings)
-        self.stories = AsyncTikTokProfileStoriesResource(transport, bindings)
 
     def playlist(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokProfilePlaylistResource:
         """Select the playlist resource using a supported string shorthand or an explicit ID or URL reference.
@@ -2096,34 +1854,6 @@ class AsyncTikTokProfileResource:
         return self._transport.response(result)
 
 
-class AsyncTikTokSearchCommentSuggestionsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokSuggestion]:
-        """Search comment suggestions
-
-        Search comment suggestions from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.search.comment_suggestions.list(q="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-search-comment-suggestions-list
-        """
-        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/search/comment-suggestions", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/search/comment-suggestions", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokSuggestion]:
-        """Iterate items lazily across pages of tiktok.search.commentSuggestions.list, one request per page."""
-        page: AsyncPage[models.TikTokSuggestion] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
 class AsyncTikTokSearchHashtagsResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -2146,62 +1876,6 @@ class AsyncTikTokSearchHashtagsResource:
     async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.Hashtag]:
         """Iterate items lazily across pages of tiktok.search.hashtags.list, one request per page."""
         page: AsyncPage[models.Hashtag] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokSearchInsightsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokInsight]:
-        """Search insights
-
-        Search insights from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.search.insights.list(q="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-search-insights-list
-        """
-        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/search/insights", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/search/insights", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokInsight]:
-        """Iterate items lazily across pages of tiktok.search.insights.list, one request per page."""
-        page: AsyncPage[models.TikTokInsight] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokSearchLiveResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokLiveRoom]:
-        """Search live streams
-
-        Search live streams from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.search.live.list(q="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-search-live-list
-        """
-        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/search/live", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/search/live", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokLiveRoom]:
-        """Iterate items lazily across pages of tiktok.search.live.list, one request per page."""
-        page: AsyncPage[models.TikTokLiveRoom] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             for item in page.data:
                 yield item
@@ -2320,584 +1994,15 @@ class AsyncTikTokSearchProfilesResource:
             page = await page.next()
 
 
-class AsyncTikTokSearchTopResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokSearchResult]:
-        """Search all TikTok results
-
-        Search all TikTok results from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.search.top.list(q="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-search-top-list
-        """
-        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/search/top", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/search/top", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokSearchResult]:
-        """Iterate items lazily across pages of tiktok.search.top.list, one request per page."""
-        page: AsyncPage[models.TikTokSearchResult] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
 class AsyncTikTokSearchResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
         self._bindings = bindings
-        self.comment_suggestions = AsyncTikTokSearchCommentSuggestionsResource(transport, bindings)
         self.hashtags = AsyncTikTokSearchHashtagsResource(transport, bindings)
-        self.insights = AsyncTikTokSearchInsightsResource(transport, bindings)
-        self.live = AsyncTikTokSearchLiveResource(transport, bindings)
         self.locations = AsyncTikTokSearchLocationsResource(transport, bindings)
         self.music = AsyncTikTokSearchMusicResource(transport, bindings)
         self.posts = AsyncTikTokSearchPostsResource(transport, bindings)
         self.profiles = AsyncTikTokSearchProfilesResource(transport, bindings)
-        self.top = AsyncTikTokSearchTopResource(transport, bindings)
-
-
-class AsyncTikTokShopDealsFlashSaleResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List flash-sale products
-
-        List flash-sale products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.deals.flash_sale.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-flash-sale-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/deals/flash-sale", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/deals/flash-sale", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.deals.flashSale.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopDealsNewUserResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List new-user deals
-
-        List new-user deals from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.deals.new_user.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-new-user-deals-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/deals/new-user", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/deals/new-user", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.deals.newUser.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopDealsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.flash_sale = AsyncTikTokShopDealsFlashSaleResource(transport, bindings)
-        self.new_user = AsyncTikTokShopDealsNewUserResource(transport, bindings)
-
-
-class AsyncTikTokShopHomeResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List shop home sections
-
-        List shop home sections from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.home.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-home-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/home", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/home", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.home.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopLiveProductsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, room_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List livestream products
-
-        List livestream products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.live("920100000000000001").products.list(room_id="950000000009", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-live-products-list
-        """
-        params: dict[str, Any] = {"room_id": room_id, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/live/{identifier}/products", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/live/{identifier}/products", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, room_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.live.products.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(room_id=room_id, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopLiveResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.products = AsyncTikTokShopLiveProductsResource(transport, bindings)
-
-
-class AsyncTikTokShopProductReviewsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopReview]:
-        """List product reviews
-
-        List product reviews from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.product("920100000000000001").reviews.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-product-reviews-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/products/{identifier}/reviews", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/products/{identifier}/reviews", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopReview]:
-        """Iterate items lazily across pages of tiktok.shop.product.reviews.list, one request per page."""
-        page: AsyncPage[models.TikTokShopReview] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopProductResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.reviews = AsyncTikTokShopProductReviewsResource(transport, bindings)
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokShopProduct]:
-        """Get a shop product
-
-        Get a shop product from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.product("920100000000000001").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-product-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/shop/products/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
-
-
-class AsyncTikTokShopProfilePageResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, tab_id: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List seller page products
-
-        List seller page products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.profile("@pixel_orchard_tt_test").page.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-profile-page-list
-        """
-        params: dict[str, Any] = {"tab_id": tab_id, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/profiles/{identifier}/page", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/profiles/{identifier}/page", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, tab_id: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.profile.page.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(tab_id=tab_id, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopProfileProductsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List profile shop products
-
-        List profile shop products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.profile("@pixel_orchard_tt_test").products.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-profile-products-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/profiles/{identifier}/products", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/profiles/{identifier}/products", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.profile.products.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopProfileTabsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokOption]:
-        """List seller tabs
-
-        List seller tabs from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.profile("@pixel_orchard_tt_test").tabs.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-profile-tabs-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/profiles/{identifier}/tabs", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/profiles/{identifier}/tabs", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokOption]:
-        """Iterate items lazily across pages of tiktok.shop.profile.tabs.list, one request per page."""
-        page: AsyncPage[models.TikTokOption] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopProfileResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.page = AsyncTikTokShopProfilePageResource(transport, bindings)
-        self.products = AsyncTikTokShopProfileProductsResource(transport, bindings)
-        self.tabs = AsyncTikTokShopProfileTabsResource(transport, bindings)
-
-
-class AsyncTikTokShopRecommendationsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, category_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List recommended shop products
-
-        List recommended shop products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.recommendations.list(category_id="950000000008", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-recommendations-list
-        """
-        params: dict[str, Any] = {"category_id": category_id, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/recommendations", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/recommendations", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, category_id: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.recommendations.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(category_id=category_id, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSearchResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """Search shop products
-
-        Search shop products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.search.list(q="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-search-list
-        """
-        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/search", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/search", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.search.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSellerCategoriesResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopCategory]:
-        """List seller categories
-
-        List seller categories from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.seller("920100000000000001").categories.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-seller-categories-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/sellers/{identifier}/categories", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/sellers/{identifier}/categories", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopCategory]:
-        """Iterate items lazily across pages of tiktok.shop.seller.categories.list, one request per page."""
-        page: AsyncPage[models.TikTokShopCategory] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSellerCategoryProductsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, product_source_type: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List seller category products
-
-        List seller category products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.seller("920100000000000001").category("950000000008").products.list(product_source_type="0", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-seller-category-products-list
-        """
-        params: dict[str, Any] = {"product_source_type": product_source_type, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/sellers/{identifier}/categories/{category_id}/products", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/sellers/{identifier}/categories/{category_id}/products", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, product_source_type: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.seller.category.products.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(product_source_type=product_source_type, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSellerCategoryResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.products = AsyncTikTokShopSellerCategoryProductsResource(transport, bindings)
-
-
-class AsyncTikTokShopSellerProductsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, sort_field: str | None = None, sort_order: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokShopProduct]:
-        """List seller products
-
-        List seller products from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.seller("920100000000000001").products.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-seller-products-list
-        """
-        params: dict[str, Any] = {"sort_field": sort_field, "sort_order": sort_order, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/sellers/{identifier}/products", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/sellers/{identifier}/products", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, sort_field: str | None = None, sort_order: str | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokShopProduct]:
-        """Iterate items lazily across pages of tiktok.shop.seller.products.list, one request per page."""
-        page: AsyncPage[models.TikTokShopProduct] | None = await self.list(sort_field=sort_field, sort_order=sort_order, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSellerSortTypesResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokOption]:
-        """List seller product sort types
-
-        List seller product sort types from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.seller("920100000000000001").sort_types.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-seller-sort-types-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/shop/sellers/{identifier}/sort-types", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/shop/sellers/{identifier}/sort-types", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokOption]:
-        """Iterate items lazily across pages of tiktok.shop.seller.sortTypes.list, one request per page."""
-        page: AsyncPage[models.TikTokOption] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokShopSellerResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.categories = AsyncTikTokShopSellerCategoriesResource(transport, bindings)
-        self.products = AsyncTikTokShopSellerProductsResource(transport, bindings)
-        self.sort_types = AsyncTikTokShopSellerSortTypesResource(transport, bindings)
-
-    def category(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokShopSellerCategoryResource:
-        """Select the category resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="category")
-        return AsyncTikTokShopSellerCategoryResource(self._transport, {**self._bindings, "category_id": identifier})
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokShopSeller]:
-        """Get a seller
-
-        Get a seller from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.shop.seller("920100000000000001").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-shop-seller-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/shop/sellers/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
-
-
-class AsyncTikTokShopResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-        self.deals = AsyncTikTokShopDealsResource(transport, bindings)
-        self.home = AsyncTikTokShopHomeResource(transport, bindings)
-        self.recommendations = AsyncTikTokShopRecommendationsResource(transport, bindings)
-        self.search = AsyncTikTokShopSearchResource(transport, bindings)
-
-    def live(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokShopLiveResource:
-        """Select the live resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="live")
-        return AsyncTikTokShopLiveResource(self._transport, {**self._bindings, "identifier": identifier})
-
-    def product(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokShopProductResource:
-        """Select the product resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="product")
-        return AsyncTikTokShopProductResource(self._transport, {**self._bindings, "identifier": identifier})
-
-    def profile(self, reference: str | None = None, *, username: str | None = None, id: str | None = None, url: str | None = None) -> AsyncTikTokShopProfileResource:
-        """Select the profile resource using a username shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, username=username, id=id, url=url, platform="tiktok", resource="profile")
-        return AsyncTikTokShopProfileResource(self._transport, {**self._bindings, "identifier": identifier})
-
-    def seller(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokShopSellerResource:
-        """Select the seller resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="seller")
-        return AsyncTikTokShopSellerResource(self._transport, {**self._bindings, "identifier": identifier})
-
-
-class AsyncTikTokStoryResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokPost]:
-        """Get a story
-
-        Return one public TikTok story by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.story("920100000000000001").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-story-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = await self._transport.request("get", "/v1/tiktok/stories/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
 
 
 class AsyncTikTokTrendingCategoriesResource:
@@ -2922,34 +2027,6 @@ class AsyncTikTokTrendingCategoriesResource:
     async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TrendingCategory]:
         """Iterate items lazily across pages of tiktok.trending.categories.list, one request per page."""
         page: AsyncPage[models.TrendingCategory] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTikTokTrendingInsightsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, tab: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokInsight]:
-        """List trending insights
-
-        List trending insights from public Tiktok data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.tiktok.trending.insights.list(tab="synthetic", freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/tiktok-trending-insights-list
-        """
-        params: dict[str, Any] = {"tab": tab, "freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/tiktok/trending/insights", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/tiktok/trending/insights", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, tab: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TikTokInsight]:
-        """Iterate items lazily across pages of tiktok.trending.insights.list, one request per page."""
-        page: AsyncPage[models.TikTokInsight] | None = await self.list(tab=tab, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             for item in page.data:
                 yield item
@@ -3009,7 +2086,6 @@ class AsyncTikTokTrendingResource:
         self._transport = transport
         self._bindings = bindings
         self.categories = AsyncTikTokTrendingCategoriesResource(transport, bindings)
-        self.insights = AsyncTikTokTrendingInsightsResource(transport, bindings)
         self.music = AsyncTikTokTrendingMusicResource(transport, bindings)
         self.posts = AsyncTikTokTrendingPostsResource(transport, bindings)
 
@@ -3019,9 +2095,7 @@ class AsyncTikTokResource:
         self._transport = transport
         self._bindings = bindings
         self.effects = AsyncTikTokEffectsResource(transport, bindings)
-        self.live = AsyncTikTokLiveResource(transport, bindings)
         self.search = AsyncTikTokSearchResource(transport, bindings)
-        self.shop = AsyncTikTokShopResource(transport, bindings)
         self.trending = AsyncTikTokTrendingResource(transport, bindings)
 
     def effect(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokEffectResource:
@@ -3071,14 +2145,6 @@ class AsyncTikTokResource:
         """
         identifier = resolve_selector(reference, username=username, id=id, url=url, platform="tiktok", resource="profile")
         return AsyncTikTokProfileResource(self._transport, {**self._bindings, "identifier": identifier})
-
-    def story(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTikTokStoryResource:
-        """Select the story resource using a supported string shorthand or an explicit ID or URL reference.
-
-        Resource selection is synchronous and does not perform a request.
-        """
-        identifier = resolve_selector(reference, id=id, url=url, platform="tiktok", resource="story")
-        return AsyncTikTokStoryResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
 class AsyncTwitterListMembersResource:
@@ -3222,34 +2288,6 @@ class AsyncTwitterPostCommentsResource:
             page = await page.next()
 
 
-class AsyncTwitterPostLikersResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TwitterProfile]:
-        """List post likers
-
-        Return public profiles that interacted with a Twitter post. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.twitter.post("940100000000000001").likers.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/twitter-post-likers-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/twitter/posts/{identifier}/likers", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/twitter/posts/{identifier}/likers", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TwitterProfile]:
-        """Iterate items lazily across pages of twitter.post.likers.list, one request per page."""
-        page: AsyncPage[models.TwitterProfile] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
 class AsyncTwitterPostRepostersResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3283,7 +2321,6 @@ class AsyncTwitterPostResource:
         self._transport = transport
         self._bindings = bindings
         self.comments = AsyncTwitterPostCommentsResource(transport, bindings)
-        self.likers = AsyncTwitterPostLikersResource(transport, bindings)
         self.reposters = AsyncTwitterPostRepostersResource(transport, bindings)
 
     def comment(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncTwitterPostCommentResource:
@@ -3359,34 +2396,6 @@ class AsyncTwitterProfileFollowingResource:
     async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TwitterProfile]:
         """Iterate items lazily across pages of twitter.profile.following.list, one request per page."""
         page: AsyncPage[models.TwitterProfile] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            for item in page.data:
-                yield item
-            page = await page.next()
-
-
-class AsyncTwitterProfileListsResource:
-    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TwitterList]:
-        """List profile lists
-
-        Return a cursor-paginated collection of public Twitter lists owned by a profile. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            await openhandle.twitter.profile("@copperfield_lab_x_test").lists.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/twitter-profile-lists-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = await self._transport.request("get", "/v1/twitter/profiles/{identifier}/lists", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/twitter/profiles/{identifier}/lists", self._bindings, params, timeout, max_retries)
-
-    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.TwitterList]:
-        """Iterate items lazily across pages of twitter.profile.lists.list, one request per page."""
-        page: AsyncPage[models.TwitterList] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             for item in page.data:
                 yield item
@@ -3483,7 +2492,6 @@ class AsyncTwitterProfileResource:
         self._bindings = bindings
         self.followers = AsyncTwitterProfileFollowersResource(transport, bindings)
         self.following = AsyncTwitterProfileFollowingResource(transport, bindings)
-        self.lists = AsyncTwitterProfileListsResource(transport, bindings)
         self.media = AsyncTwitterProfileMediaResource(transport, bindings)
         self.posts = AsyncTwitterProfilePostsResource(transport, bindings)
         self.replies = AsyncTwitterProfileRepliesResource(transport, bindings)

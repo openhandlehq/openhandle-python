@@ -20,7 +20,7 @@ def profile_response() -> httpx.Response:
         {
             "platform": "instagram",
             "resource": "profile",
-            "captured_at": "2026-08-26T12:00:00Z",
+            "capturedAt": "2026-08-26T12:00:00Z",
             "source": "live",
             "data": {"id": "25025320", "handle": "openai"},
         }
@@ -32,7 +32,7 @@ def page_response(cursor: str | None, items: list[dict[str, Any]] | None = None)
         {
             "platform": "instagram",
             "resource": "comment",
-            "captured_at": "2026-08-26T12:00:00Z",
+            "capturedAt": "2026-08-26T12:00:00Z",
             "source": "live",
             "data": items or [],
             "meta": {"cursors": {"next": cursor}},

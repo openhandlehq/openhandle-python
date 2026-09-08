@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from collections.abc import Callable
 from datetime import datetime, timezone
+from pathlib import Path
 
 import httpx
 import pytest
@@ -22,7 +23,17 @@ def client(handler: Callable[[httpx.Request], httpx.Response], max_retries: int 
 
 
 def test_generates_every_openapi_operation_exactly_once() -> None:
-    assert len(OPERATIONS) == 126
+    document = json.loads((Path(__file__).parent.parent / "openapi" / "openhandle.json").read_text())
+    expected_operations = {
+        (api_path, method)
+        for api_path, path_item in document["paths"].items()
+        for method in path_item
+        if method in {"get", "post", "put", "patch", "delete"}
+    }
+    generated_operations = {(operation["api_path"], operation["method"]) for operation in OPERATIONS}
+
+    assert len(generated_operations) == len(OPERATIONS)
+    assert generated_operations == expected_operations
     assert len({operation["path"] for operation in OPERATIONS}) == len(OPERATIONS)
 
 
@@ -118,7 +129,7 @@ def test_raises_typed_api_errors_without_retrying_non_retryable_failures() -> No
                     "error": {
                         "code": "PROFILE_PRIVATE",
                         "message": "This profile is private.",
-                        "request_id": "req_private",
+                        "requestId": "req_private",
                         "retryable": False,
                     }
                 }
@@ -161,7 +172,7 @@ def test_retries_explicitly_retryable_failures_and_honors_retry_after() -> None:
                         "error": {
                             "code": "UPSTREAM_DEGRADED",
                             "message": "Try again.",
-                            "request_id": "req_retry",
+                            "requestId": "req_retry",
                             "retryable": True,
                         }
                     }

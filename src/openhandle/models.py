@@ -11,7 +11,7 @@ class ErrorEnvelopeError(TypedDict):
     code: str
     details: NotRequired[dict[str, Any]]
     message: str
-    request_id: str
+    requestId: str
     retryable: bool
 
 
@@ -48,16 +48,16 @@ Comment: TypeAlias = "CommentCore"
 class CommentCore(TypedDict):
     author: PostAuthor
     id: str
-    is_liked_by_post_author: bool | None
-    is_pinned: bool | None
+    isLikedByPostAuthor: bool | None
+    isPinned: bool | None
     media: list[PostMedia]
     metrics: CommentMetrics
-    parent_id: str | None
-    pinned_position: int | None
-    published_at: str
-    reply_preview: NotRequired[list[Comment]]
+    parentId: str | None
+    pinnedPosition: int | None
+    publishedAt: str
+    replyPreview: NotRequired[list[Comment]]
     text: str
-    thread_root_id: str | None
+    threadRootId: str | None
 
 
 class CommentMetrics(TypedDict):
@@ -112,10 +112,10 @@ class InstagramClipMetadata(TypedDict):
     id: str
     media: list[PostMedia]
     music: NotRequired[PostMusic]
-    play_count: NotRequired[int]
-    published_at: NotRequired[str]
+    playCount: NotRequired[int]
+    publishedAt: NotRequired[str]
     title: NotRequired[str]
-    view_count: NotRequired[int]
+    viewCount: NotRequired[int]
     width: NotRequired[int]
 
 
@@ -124,19 +124,19 @@ class InstagramComment(CommentCore, TypedDict):
 
 
 class InstagramCommentMetadata(TypedDict):
-    can_comment: NotRequired[bool]
-    can_view_more: NotRequired[bool]
-    comment_count: NotRequired[int]
-    comments_disabled: NotRequired[bool]
+    canComment: NotRequired[bool]
+    canViewMore: NotRequired[bool]
+    commentCount: NotRequired[int]
+    commentsDisabled: NotRequired[bool]
     id: str
-    preview_count: NotRequired[int]
+    previewCount: NotRequired[int]
 
 
 class InstagramCommentModeration(TypedDict):
     id: str
-    is_bullying: NotRequired[bool]
-    is_offensive: NotRequired[bool]
-    is_spam: NotRequired[bool]
+    isBullying: NotRequired[bool]
+    isOffensive: NotRequired[bool]
+    isSpam: NotRequired[bool]
     reasons: list[str]
     score: NotRequired[float]
     text: NotRequired[str]
@@ -149,7 +149,7 @@ class InstagramEntity(EntityCore, TypedDict):
 class InstagramHighlight(TypedDict):
     cover: NotRequired[MediaReference]
     id: str
-    item_count: NotRequired[int]
+    itemCount: NotRequired[int]
     items: list[InstagramStory]
     owner: NotRequired[EntityReference]
     title: NotRequired[str]
@@ -160,7 +160,7 @@ class InstagramLocationGuide(TypedDict):
     description: NotRequired[str]
     id: str
     image: NotRequired[MediaReference]
-    item_count: NotRequired[int]
+    itemCount: NotRequired[int]
     location: NotRequired[PostLocation]
     title: NotRequired[str]
     url: NotRequired[str]
@@ -169,21 +169,21 @@ class InstagramLocationGuide(TypedDict):
 class InstagramMusicStream(TypedDict):
     bitrate: NotRequired[int]
     duration: NotRequired[float]
-    expires_at: NotRequired[str]
+    expiresAt: NotRequired[str]
     id: str
-    mime_type: NotRequired[str]
+    mimeType: NotRequired[str]
     page: NotRequired[int]
     url: NotRequired[str]
 
 
 class InstagramOEmbed(TypedDict):
-    author_name: NotRequired[str]
-    author_url: NotRequired[str]
+    authorName: NotRequired[str]
+    authorUrl: NotRequired[str]
     height: NotRequired[int]
     html: NotRequired[str]
     id: str
-    provider_name: NotRequired[str]
-    provider_url: NotRequired[str]
+    providerName: NotRequired[str]
+    providerUrl: NotRequired[str]
     thumbnail: NotRequired[MediaReference]
     title: NotRequired[str]
     type: NotRequired[str]
@@ -199,13 +199,13 @@ class InstagramPlayCountBreakdown(TypedDict):
 class PostCore(TypedDict):
     author: PostAuthor
     caption: str | None
-    comments_disabled: bool | None
+    commentsDisabled: bool | None
     format: Literal["post", "reel", "story"]
     hashtags: list[str]
     id: str
     media: list[PostMedia]
     mentions: list[str]
-    published_at: str
+    publishedAt: str
     title: str | None
     type: Literal["text", "image", "video", "carousel"]
     url: str
@@ -214,24 +214,24 @@ class PostCore(TypedDict):
 class InstagramPost(PostCore, TypedDict):
     collaborators: list[PostAuthor] | None
     extended: NotRequired[InstagramPostExtended]
-    is_ad: bool | None
-    is_paid_partnership: bool | None
+    isAd: bool | None
+    isPaidPartnership: bool | None
     location: PostLocation | None
     metrics: InstagramPostMetrics
     music: PostMusic | None
     shortcode: str | None
     sponsors: list[PostAuthor] | None
-    tagged_users: list[PostAuthor] | None
+    taggedUsers: list[PostAuthor] | None
 
 
 class InstagramPostExtended(TypedDict):
-    accessibility_caption: str | None
-    like_counts_hidden: bool | None
-    product_type: str | None
+    accessibilityCaption: str | None
+    likeCountsHidden: bool | None
+    productType: str | None
 
 
 class InstagramPostInsight(TypedDict):
-    average_watch_time: NotRequired[float]
+    averageWatchTime: NotRequired[float]
     comments: NotRequired[int]
     follows: NotRequired[int]
     id: str
@@ -239,12 +239,12 @@ class InstagramPostInsight(TypedDict):
     interactions: NotRequired[int]
     likes: NotRequired[int]
     plays: NotRequired[int]
-    profile_visits: NotRequired[int]
+    profileVisits: NotRequired[int]
     reach: NotRequired[int]
     saves: NotRequired[int]
     shares: NotRequired[int]
     views: NotRequired[int]
-    watch_time: NotRequired[float]
+    watchTime: NotRequired[float]
 
 
 class PostMetrics(TypedDict):
@@ -257,21 +257,21 @@ class PostMetrics(TypedDict):
 
 
 class InstagramPostMetrics(PostMetrics, TypedDict):
-    play_count_breakdown: NotRequired[InstagramPlayCountBreakdown | None]
+    playCountBreakdown: NotRequired[InstagramPlayCountBreakdown | None]
 
 
 class ProfileCore(TypedDict):
-    account_type: Literal["page", "profile"] | None
+    accountType: Literal["page", "profile"] | None
     avatar: MediaReference | None
     bio: str
     category: str | None
-    display_name: str
-    external_url: str | None
+    displayName: str
+    externalUrl: str | None
     handle: str
     id: str
-    is_business: bool
-    is_private: bool
-    is_verified: bool
+    isBusiness: bool
+    isPrivate: bool
+    isVerified: bool
     metrics: ProfileMetrics
 
 
@@ -283,41 +283,41 @@ class InstagramProfileAbout(TypedDict):
     bio: NotRequired[str]
     category: NotRequired[str]
     country: NotRequired[str]
-    display_name: NotRequired[str]
-    external_url: NotRequired[str]
-    former_username_count: NotRequired[int]
+    displayName: NotRequired[str]
+    externalUrl: NotRequired[str]
+    formerUsernameCount: NotRequired[int]
     handle: NotRequired[str]
     id: str
-    is_business: NotRequired[bool]
-    is_private: NotRequired[bool]
-    is_verified: NotRequired[bool]
-    joined_at: NotRequired[str]
+    isBusiness: NotRequired[bool]
+    isPrivate: NotRequired[bool]
+    isVerified: NotRequired[bool]
+    joinedAt: NotRequired[str]
 
 
 class InstagramProfileExtended(TypedDict):
-    account_type_code: int | None
-    address_street: str | None
-    bio_links: list[ProfileLink]
-    business_contact_method: str | None
+    accountTypeCode: int | None
+    addressStreet: str | None
+    bioLinks: list[ProfileLink]
+    businessContactMethod: str | None
     city: str | None
     latitude: float | None
     longitude: float | None
-    postal_code: str | None
-    public_email: str | None
-    public_phone_country_code: str | None
-    public_phone_number: str | None
+    postalCode: str | None
+    publicEmail: str | None
+    publicPhoneCountryCode: str | None
+    publicPhoneNumber: str | None
 
 
 class InstagramProfileSummary(TypedDict):
     avatar: NotRequired[MediaReference]
     bio: NotRequired[str]
     category: NotRequired[str]
-    display_name: NotRequired[str]
+    displayName: NotRequired[str]
     followers: NotRequired[int]
     handle: NotRequired[str]
     id: str
-    is_private: NotRequired[bool]
-    is_verified: NotRequired[bool]
+    isPrivate: NotRequired[bool]
+    isVerified: NotRequired[bool]
     url: NotRequired[str]
 
 
@@ -335,17 +335,17 @@ class InstagramSearchResult(TypedDict):
 
 class InstagramStory(TypedDict):
     author: NotRequired[EntityReference]
-    can_quick_reply: NotRequired[bool]
-    can_reply: NotRequired[bool]
-    can_reshare: NotRequired[bool]
-    expires_at: NotRequired[str]
+    canQuickReply: NotRequired[bool]
+    canReply: NotRequired[bool]
+    canReshare: NotRequired[bool]
+    expiresAt: NotRequired[str]
     hashtags: list[str]
     id: str
     links: list[StoryLink]
     locations: list[PostLocation]
     media: list[PostMedia]
     mentions: list[EntityReference]
-    published_at: NotRequired[str]
+    publishedAt: NotRequired[str]
     shortcode: NotRequired[str]
     stickers: list[StorySticker]
     type: NotRequired[Literal["image", "video"]]
@@ -366,29 +366,24 @@ class Location(TypedDict):
     address: str | None
     category: str | None
     city: str | None
-    country_code: str | None
+    countryCode: str | None
     id: str
     latitude: float | None
     longitude: float | None
     name: str
     phone: str | None
-    postal_code: str | None
+    postalCode: str | None
     region: str | None
     website: str | None
 
 
 class MediaReference(TypedDict):
-    expires_at: NotRequired[str]
+    expiresAt: NotRequired[str]
     url: str
 
 
 class MessageEnvelope(TypedDict):
     message: str
-
-
-class Money(TypedDict):
-    amount: str
-    currency: NotRequired[str]
 
 
 class Music(TypedDict):
@@ -398,40 +393,40 @@ class Music(TypedDict):
     audio: MediaReference | None
     duration: float | None
     id: str
-    is_commercial: bool | None
-    is_explicit: bool | None
-    is_original: bool | None
+    isCommercial: bool | None
+    isExplicit: bool | None
+    isOriginal: bool | None
     metrics: MusicMetrics
     title: str
 
 
 class PostAuthor(TypedDict):
     avatar: MediaReference | None
-    display_name: str | None
+    displayName: str | None
     handle: str
     id: str
-    is_verified: bool | None
+    isVerified: bool | None
 
 
 class PostLocation(TypedDict):
     address: str | None
     category: str | None
     city: str | None
-    country_code: str | None
+    countryCode: str | None
     id: str | None
     latitude: float | None
     longitude: float | None
     name: str | None
     phone: str | None
-    postal_code: str | None
+    postalCode: str | None
     region: str | None
     website: str | None
 
 
 class PostMedia(TypedDict):
-    alt_text: NotRequired[str]
+    altText: NotRequired[str]
     duration: NotRequired[float]
-    expires_at: NotRequired[str]
+    expiresAt: NotRequired[str]
     height: NotRequired[int]
     id: NotRequired[str]
     thumbnail: NotRequired[MediaReference]
@@ -443,9 +438,9 @@ class PostMedia(TypedDict):
 
 class PostMediaVariant(TypedDict):
     bitrate: NotRequired[int]
-    expires_at: NotRequired[str]
+    expiresAt: NotRequired[str]
     height: NotRequired[int]
-    mime_type: NotRequired[str]
+    mimeType: NotRequired[str]
     role: NotRequired[str]
     url: str
     watermarked: NotRequired[bool]
@@ -459,9 +454,9 @@ class PostMusic(TypedDict):
     audio: MediaReference | None
     duration: float | None
     id: str
-    is_commercial: bool | None
-    is_explicit: bool | None
-    is_original: bool | None
+    isCommercial: bool | None
+    isExplicit: bool | None
+    isOriginal: bool | None
     title: str | None
 
 
@@ -494,7 +489,7 @@ class SearchResultMetrics(TypedDict):
 
 
 class StoryLink(TypedDict):
-    display_url: NotRequired[str]
+    displayUrl: NotRequired[str]
     height: NotRequired[float]
     rotation: NotRequired[float]
     title: NotRequired[str]
@@ -516,7 +511,7 @@ class StorySticker(TypedDict):
 
 
 class SuccessEnvelope(TypedDict):
-    captured_at: str
+    capturedAt: str
     data: Any
     meta: NotRequired[SuccessEnvelopeMeta]
     platform: Literal["instagram", "tiktok", "twitter"]
@@ -587,98 +582,54 @@ class TikTokComment(CommentCore, TypedDict):
 
 
 class TikTokEffect(TypedDict):
-    created_at: NotRequired[str]
+    createdAt: NotRequired[str]
     description: NotRequired[str]
     id: str
     image: NotRequired[MediaReference]
-    is_commercial: NotRequired[bool]
+    isCommercial: NotRequired[bool]
     name: NotRequired[str]
-    post_count: NotRequired[int]
+    postCount: NotRequired[int]
     type: NotRequired[str]
     url: NotRequired[str]
-    view_count: NotRequired[int]
+    viewCount: NotRequired[int]
 
 
 class TikTokEntity(EntityCore, TypedDict):
     pass
 
 
-class TikTokInsight(TypedDict):
-    growth_rate: NotRequired[float]
-    id: str
-    keyword: NotRequired[str]
-    period: NotRequired[str]
-    post_count: NotRequired[int]
-    rank: NotRequired[int]
-    related_keywords: list[str]
-    search_volume: NotRequired[int]
-    title: NotRequired[str]
-    trend: NotRequired[str]
-    view_count: NotRequired[int]
-
-
-class TikTokLiveRanking(TypedDict):
-    id: str
-    rank: NotRequired[int]
-    score: NotRequired[int]
-    user: NotRequired[EntityReference]
-
-
-class TikTokLiveRoom(TypedDict):
-    cover: NotRequired[MediaReference]
-    ended_at: NotRequired[str]
-    host: NotRequired[EntityReference]
-    id: str
-    like_count: NotRequired[int]
-    product_count: NotRequired[int]
-    started_at: NotRequired[str]
-    status: NotRequired[str]
-    title: NotRequired[str]
-    url: NotRequired[str]
-    viewer_count: NotRequired[int]
-
-
-class TikTokOption(TypedDict):
-    description: NotRequired[str]
-    id: str
-    is_selected: NotRequired[bool]
-    label: NotRequired[str]
-    position: NotRequired[int]
-    value: NotRequired[str]
-
-
 class TikTokPlaylist(TypedDict):
     cover: NotRequired[MediaReference]
-    created_at: NotRequired[str]
+    createdAt: NotRequired[str]
     description: NotRequired[str]
     id: str
     name: NotRequired[str]
     owner: NotRequired[EntityReference]
-    play_count: NotRequired[int]
-    post_count: NotRequired[int]
-    updated_at: NotRequired[str]
+    playCount: NotRequired[int]
+    postCount: NotRequired[int]
+    updatedAt: NotRequired[str]
     url: NotRequired[str]
 
 
 class TikTokPost(PostCore, TypedDict):
     collaborators: list[PostAuthor] | None
     extended: NotRequired[TikTokPostExtended]
-    is_ad: bool | None
-    is_paid_partnership: bool | None
+    isAd: bool | None
+    isPaidPartnership: bool | None
     location: PostLocation | None
     metrics: TikTokPostMetrics
     music: PostMusic | None
     sponsors: list[PostAuthor] | None
-    tagged_users: list[PostAuthor] | None
+    taggedUsers: list[PostAuthor] | None
 
 
 class TikTokPostExtended(TypedDict):
-    ai_label_type: NotRequired[int | None]
-    allows_duet: NotRequired[bool | None]
-    allows_stitch: NotRequired[bool | None]
-    is_ai_generated: NotRequired[bool | None]
-    is_downloadable: NotRequired[bool | None]
-    uses_promotional_music: NotRequired[bool | None]
+    aiLabelType: NotRequired[int | None]
+    allowsDuet: NotRequired[bool | None]
+    allowsStitch: NotRequired[bool | None]
+    isAiGenerated: NotRequired[bool | None]
+    isDownloadable: NotRequired[bool | None]
+    usesPromotionalMusic: NotRequired[bool | None]
 
 
 class TikTokPostMetrics(PostMetrics, TypedDict):
@@ -690,87 +641,10 @@ class TikTokProfile(ProfileCore, TypedDict):
 
 
 class TikTokProfileExtended(TypedDict):
-    has_commerce: bool | None
-    is_pro_account: bool | None
-    verification_label: str | None
-    verification_type: int | None
-
-
-class TikTokQRCode(TypedDict):
-    expires_at: NotRequired[str]
-    height: NotRequired[int]
-    id: str
-    image: NotRequired[MediaReference]
-    url: NotRequired[str]
-    width: NotRequired[int]
-
-
-class TikTokSearchResult(TypedDict):
-    author: NotRequired[EntityReference]
-    description: NotRequired[str]
-    handle: NotRequired[str]
-    id: str
-    image: NotRequired[MediaReference]
-    metrics: NotRequired[SearchResultMetrics]
-    title: NotRequired[str]
-    type: NotRequired[str]
-    url: NotRequired[str]
-
-
-class TikTokShopCategory(TypedDict):
-    id: str
-    name: NotRequired[str]
-    parent_id: NotRequired[str]
-    product_count: NotRequired[int]
-
-
-class TikTokShopProduct(TypedDict):
-    description: NotRequired[str]
-    discount: NotRequired[str]
-    id: str
-    images: list[MediaReference]
-    name: NotRequired[str]
-    original_price: NotRequired[Money]
-    price: NotRequired[Money]
-    rating: NotRequired[float]
-    review_count: NotRequired[int]
-    seller: NotRequired[EntityReference]
-    sold: NotRequired[int]
-    stock: NotRequired[int]
-    url: NotRequired[str]
-
-
-class TikTokShopReview(TypedDict):
-    author: NotRequired[EntityReference]
-    helpful: NotRequired[int]
-    id: str
-    images: list[MediaReference]
-    published_at: NotRequired[str]
-    rating: NotRequired[float]
-    text: NotRequired[str]
-
-
-class TikTokShopSeller(TypedDict):
-    description: NotRequired[str]
-    followers: NotRequired[int]
-    handle: NotRequired[str]
-    id: str
-    image: NotRequired[MediaReference]
-    name: NotRequired[str]
-    products: NotRequired[int]
-    rating: NotRequired[float]
-    region: NotRequired[str]
-    sold: NotRequired[int]
-    url: NotRequired[str]
-
-
-class TikTokSuggestion(TypedDict):
-    highlighted: NotRequired[str]
-    id: str
-    score: NotRequired[float]
-    text: str
-    type: NotRequired[str]
-    user: NotRequired[EntityReference]
+    hasCommerce: bool | None
+    isProAccount: bool | None
+    verificationLabel: str | None
+    verificationType: int | None
 
 
 class TrendingCategory(TypedDict):
@@ -789,10 +663,10 @@ class TwitterEntity(EntityCore, TypedDict):
 
 
 class TwitterList(TypedDict):
-    created_at: str | None
+    createdAt: str | None
     description: str | None
     id: str
-    is_private: bool | None
+    isPrivate: bool | None
     metrics: TwitterListMetrics
     name: str
     owner: PostAuthor | None
@@ -801,17 +675,17 @@ class TwitterList(TypedDict):
 class TwitterPost(PostCore, TypedDict):
     extended: NotRequired[TwitterPostExtended]
     metrics: TwitterPostMetrics
-    quoted_post: NotRequired[TwitterPost | None]
-    reposted_post: NotRequired[TwitterPost | None]
+    quotedPost: NotRequired[TwitterPost | None]
+    repostedPost: NotRequired[TwitterPost | None]
 
 
 class TwitterPostExtended(TypedDict):
-    conversation_id: NotRequired[str | None]
-    in_reply_to_post_id: NotRequired[str | None]
-    in_reply_to_user_id: NotRequired[str | None]
+    conversationId: NotRequired[str | None]
+    inReplyToPostId: NotRequired[str | None]
+    inReplyToUserId: NotRequired[str | None]
     language: NotRequired[str | None]
-    quoted_post_id: NotRequired[str | None]
-    reposted_post_id: NotRequired[str | None]
+    quotedPostId: NotRequired[str | None]
+    repostedPostId: NotRequired[str | None]
 
 
 class TwitterPostMetrics(PostMetrics, TypedDict):
@@ -825,12 +699,12 @@ class TwitterProfile(ProfileCore, TypedDict):
 
 class TwitterProfileExtended(TypedDict):
     banner: MediaReference | None
-    created_at: str | None
+    createdAt: str | None
     likes: int | None
     location: str | None
     media: int | None
-    pinned_post_ids: list[str]
-    withheld_countries: list[str]
+    pinnedPostIds: list[str]
+    withheldCountries: list[str]
 
 
 class TwitterSuggestion(TypedDict):
