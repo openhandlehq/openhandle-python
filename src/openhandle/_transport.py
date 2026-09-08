@@ -150,7 +150,7 @@ def api_error(response: httpx.Response, body: dict[str, Any]) -> OpenHandleError
     error: dict[str, Any] = error_value if isinstance(error_value, dict) else {}
     code = error.get("code")
     message = error.get("message")
-    request_id = error.get("request_id")
+    request_id = error.get("requestId")
     retryable = error.get("retryable")
     details = error.get("details")
     return OpenHandleError(
