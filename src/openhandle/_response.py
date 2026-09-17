@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Generic, TypeVar, cast
 
+from .models import ResponseMeta
+
 DataT = TypeVar("DataT")
 ItemT = TypeVar("ItemT")
 
@@ -30,6 +32,12 @@ class ResponseMetadata:
         self._body = body
         self.request_id = request_id
         self.billing = billing
+
+    @property
+    def meta(self) -> ResponseMeta | None:
+        """Supplied collection context, counts, and pagination flags."""
+        value = self._body.get("meta")
+        return cast(ResponseMeta, value) if isinstance(value, dict) else None
 
     @property
     def raw(self) -> dict[str, Any]:
@@ -86,6 +94,15 @@ class Page(ResponseMetadata, Generic[ItemT]):
         return value if isinstance(value, list) else []
 
     @property
+    def is_limited(self) -> bool | None:
+        """Whether the platform explicitly limited the returned list."""
+        metadata = self._body.get("meta")
+        if not isinstance(metadata, dict):
+            return None
+        value = metadata.get("isLimited")
+        return value if isinstance(value, bool) else None
+
+    @property
     def next_cursor(self) -> str | None:
         """The opaque cursor for the next page, or None after the final page."""
         return page_cursor(self._body)
@@ -119,6 +136,15 @@ class AsyncPage(ResponseMetadata, Generic[ItemT]):
     def data(self) -> list[ItemT]:
         value = self._body.get("data")
         return value if isinstance(value, list) else []
+
+    @property
+    def is_limited(self) -> bool | None:
+        """Whether the platform explicitly limited the returned list."""
+        metadata = self._body.get("meta")
+        if not isinstance(metadata, dict):
+            return None
+        value = metadata.get("isLimited")
+        return value if isinstance(value, bool) else None
 
     @property
     def next_cursor(self) -> str | None:

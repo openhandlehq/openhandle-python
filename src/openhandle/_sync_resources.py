@@ -108,7 +108,7 @@ class InstagramHashtagResource:
         self.posts = InstagramHashtagPostsResource(transport, bindings)
         self.reels = InstagramHashtagReelsResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Hashtag]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.InstagramHashtag]:
         """Get a hashtag
 
         Return one public hashtag by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -143,33 +143,6 @@ class InstagramHighlightResource:
         return self._transport.response(result)
 
 
-class InstagramLocationGuidesResource:
-    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramLocationGuide]:
-        """List location guides
-
-        List location guides from public Instagram data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            openhandle.instagram.location("910100000001").guides.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/instagram-location-guides-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = self._transport.request("get", "/v1/instagram/locations/{identifier}/guides", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/instagram/locations/{identifier}/guides", self._bindings, params, timeout, max_retries)
-
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramLocationGuide]:
-        """Iterate items lazily across pages of instagram.location.guides.list, one request per page."""
-        page: Page[models.InstagramLocationGuide] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            yield from page.data
-            page = page.next()
-
-
 class InstagramLocationPostsResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -201,10 +174,9 @@ class InstagramLocationResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
         self._bindings = bindings
-        self.guides = InstagramLocationGuidesResource(transport, bindings)
         self.posts = InstagramLocationPostsResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Location]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.InstagramLocation]:
         """Get a location
 
         Return one public location by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -252,7 +224,7 @@ class InstagramMusicResource:
         self._bindings = bindings
         self.stream = InstagramMusicStreamResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Music]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.InstagramMusic]:
         """Get a music
 
         Return one public music by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -460,7 +432,7 @@ class InstagramPostTaggedUsersResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramProfile]:
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramUserTag]:
         """List tagged users
 
         Return public profiles tagged in an Instagram post. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -474,9 +446,9 @@ class InstagramPostTaggedUsersResource:
         result = self._transport.request("get", "/v1/instagram/posts/{identifier}/tagged-users", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/instagram/posts/{identifier}/tagged-users", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramProfile]:
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramUserTag]:
         """Iterate items lazily across pages of instagram.post.taggedUsers.list, one request per page."""
-        page: Page[models.InstagramProfile] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.InstagramUserTag] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -790,33 +762,6 @@ class InstagramProfileReelsResource:
             page = page.next()
 
 
-class InstagramProfileRelatedResource:
-    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramProfile]:
-        """List profile related
-
-        Return a cursor-paginated collection of Instagram profiles. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            openhandle.instagram.profile("@northstar_forge_test").related.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/instagram-profile-related-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = self._transport.request("get", "/v1/instagram/profiles/{identifier}/related", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/instagram/profiles/{identifier}/related", self._bindings, params, timeout, max_retries)
-
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramProfile]:
-        """Iterate items lazily across pages of instagram.profile.related.list, one request per page."""
-        page: Page[models.InstagramProfile] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            yield from page.data
-            page = page.next()
-
-
 class InstagramProfileRepostsResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -957,7 +902,6 @@ class InstagramProfileResource:
         self.pinned_posts = InstagramProfilePinnedPostsResource(transport, bindings)
         self.posts = InstagramProfilePostsResource(transport, bindings)
         self.reels = InstagramProfileReelsResource(transport, bindings)
-        self.related = InstagramProfileRelatedResource(transport, bindings)
         self.reposts = InstagramProfileRepostsResource(transport, bindings)
         self.stories = InstagramProfileStoriesResource(transport, bindings)
         self.suggested = InstagramProfileSuggestedResource(transport, bindings)
@@ -984,7 +928,7 @@ class InstagramSearchHashtagsResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Hashtag]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramHashtag]:
         """Search Instagram hashtags
 
         Search public Instagram hashtags with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -998,9 +942,9 @@ class InstagramSearchHashtagsResource:
         result = self._transport.request("get", "/v1/instagram/search/hashtags", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/instagram/search/hashtags", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Hashtag]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramHashtag]:
         """Iterate items lazily across pages of instagram.search.hashtags.list, one request per page."""
-        page: Page[models.Hashtag] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.InstagramHashtag] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1011,7 +955,7 @@ class InstagramSearchMusicResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Music]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramMusic]:
         """Search Instagram music
 
         Search public Instagram music with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1025,9 +969,9 @@ class InstagramSearchMusicResource:
         result = self._transport.request("get", "/v1/instagram/search/music", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/instagram/search/music", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Music]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramMusic]:
         """Iterate items lazily across pages of instagram.search.music.list, one request per page."""
-        page: Page[models.Music] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.InstagramMusic] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1038,7 +982,7 @@ class InstagramSearchPlacesResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Location]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.InstagramLocation]:
         """Search Instagram places
 
         Search public Instagram places with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1052,9 +996,9 @@ class InstagramSearchPlacesResource:
         result = self._transport.request("get", "/v1/instagram/search/places", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/instagram/search/places", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Location]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.InstagramLocation]:
         """Iterate items lazily across pages of instagram.search.places.list, one request per page."""
-        page: Page[models.Location] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.InstagramLocation] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1244,6 +1188,607 @@ class InstagramResource:
         return InstagramStoryResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
+class RedditDomainPostsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["hot", "new", "top", "rising", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """List domain posts
+
+        List domain posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.domain("example.com").posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-domain-posts-list
+        """
+        params: dict[str, Any] = {"sort": sort, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/domains/{identifier}/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/domains/{identifier}/posts", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["hot", "new", "top", "rising", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.domain.posts.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(sort=sort, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditDomainResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = RedditDomainPostsResource(transport, bindings)
+
+
+class RedditPostCommentsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["confidence", "top", "new", "controversial", "old", "qa"] | None = None, limit: int | None = None, depth: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditComment]:
+        """List post comments
+
+        List post comments from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.post("synthetic").comments.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-post-comments-list
+        """
+        params: dict[str, Any] = {"sort": sort, "limit": limit, "depth": depth, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/posts/{identifier}/comments", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/posts/{identifier}/comments", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["confidence", "top", "new", "controversial", "old", "qa"] | None = None, limit: int | None = None, depth: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditComment]:
+        """Iterate items lazily across pages of reddit.post.comments.list, one request per page."""
+        page: Page[models.RedditComment] | None = self.list(sort=sort, limit=limit, depth=depth, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditPostDuplicatesResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """List duplicate posts
+
+        List duplicate posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.post("synthetic").duplicates.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-post-duplicates-list
+        """
+        params: dict[str, Any] = {"limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/posts/{identifier}/duplicates", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/posts/{identifier}/duplicates", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.post.duplicates.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditPostResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.comments = RedditPostCommentsResource(transport, bindings)
+        self.duplicates = RedditPostDuplicatesResource(transport, bindings)
+
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.RedditPost]:
+        """Get a post
+
+        Get a post from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.post("synthetic").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-post-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = self._transport.request("get", "/v1/reddit/posts/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class RedditProfileCommentsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["new", "hot", "top", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditComment]:
+        """List profile comments
+
+        List profile comments from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.profile("@synthetic_reddit").comments.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-profile-comments-list
+        """
+        params: dict[str, Any] = {"sort": sort, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/profiles/{identifier}/comments", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/profiles/{identifier}/comments", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["new", "hot", "top", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditComment]:
+        """Iterate items lazily across pages of reddit.profile.comments.list, one request per page."""
+        page: Page[models.RedditComment] | None = self.list(sort=sort, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditProfileModeratedResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditSubreddit]:
+        """List moderated subreddits
+
+        List moderated subreddits from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.profile("@synthetic_reddit").moderated.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-profile-moderated-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/profiles/{identifier}/moderated", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/profiles/{identifier}/moderated", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditSubreddit]:
+        """Iterate items lazily across pages of reddit.profile.moderated.list, one request per page."""
+        page: Page[models.RedditSubreddit] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditProfilePostsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["new", "hot", "top", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """List profile posts
+
+        List profile posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.profile("@synthetic_reddit").posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-profile-posts-list
+        """
+        params: dict[str, Any] = {"sort": sort, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/profiles/{identifier}/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/profiles/{identifier}/posts", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["new", "hot", "top", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.profile.posts.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(sort=sort, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditProfileTrophiesResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditTrophy]:
+        """List profile trophies
+
+        List profile trophies from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.profile("@synthetic_reddit").trophies.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-profile-trophies-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/profiles/{identifier}/trophies", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/profiles/{identifier}/trophies", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditTrophy]:
+        """Iterate items lazily across pages of reddit.profile.trophies.list, one request per page."""
+        page: Page[models.RedditTrophy] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditProfileResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.comments = RedditProfileCommentsResource(transport, bindings)
+        self.moderated = RedditProfileModeratedResource(transport, bindings)
+        self.posts = RedditProfilePostsResource(transport, bindings)
+        self.trophies = RedditProfileTrophiesResource(transport, bindings)
+
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.RedditProfile]:
+        """Get a profile
+
+        Return one public Reddit profile. Use @username or a t2_ profile ID. An ID resolves only after the profile was read by username once. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.profile("@synthetic_reddit").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-profile-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = self._transport.request("get", "/v1/reddit/profiles/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class RedditSearchPostsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, q: str, sort: Literal["relevance", "hot", "top", "new", "comments"] | None = None, subreddit: str | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """Search posts
+
+        Search posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.search.posts.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-search-posts-list
+        """
+        params: dict[str, Any] = {"q": q, "sort": sort, "subreddit": subreddit, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/search/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/search/posts", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, q: str, sort: Literal["relevance", "hot", "top", "new", "comments"] | None = None, subreddit: str | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.search.posts.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(q=q, sort=sort, subreddit=subreddit, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSearchProfilesResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, q: str, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditProfile]:
+        """Search profiles
+
+        Search profiles from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.search.profiles.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-search-profiles-list
+        """
+        params: dict[str, Any] = {"q": q, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/search/profiles", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/search/profiles", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, q: str, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditProfile]:
+        """Iterate items lazily across pages of reddit.search.profiles.list, one request per page."""
+        page: Page[models.RedditProfile] | None = self.list(q=q, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSearchSubredditsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, q: str, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditSubreddit]:
+        """Search subreddits
+
+        Search subreddits from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.search.subreddits.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-search-subreddits-list
+        """
+        params: dict[str, Any] = {"q": q, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/search/subreddits", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/search/subreddits", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, q: str, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditSubreddit]:
+        """Iterate items lazily across pages of reddit.search.subreddits.list, one request per page."""
+        page: Page[models.RedditSubreddit] | None = self.list(q=q, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSearchResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = RedditSearchPostsResource(transport, bindings)
+        self.profiles = RedditSearchProfilesResource(transport, bindings)
+        self.subreddits = RedditSearchSubredditsResource(transport, bindings)
+
+
+class RedditSubredditPostsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["hot", "new", "top", "rising", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """List subreddit posts
+
+        List subreddit posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddit("synthetic").posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddit-posts-list
+        """
+        params: dict[str, Any] = {"sort": sort, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/subreddits/{identifier}/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/subreddits/{identifier}/posts", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["hot", "new", "top", "rising", "controversial"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.subreddit.posts.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(sort=sort, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSubredditRulesResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditRule]:
+        """List subreddit rules
+
+        List subreddit rules from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddit("synthetic").rules.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddit-rules-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/subreddits/{identifier}/rules", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/subreddits/{identifier}/rules", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditRule]:
+        """Iterate items lazily across pages of reddit.subreddit.rules.list, one request per page."""
+        page: Page[models.RedditRule] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSubredditWikiPageResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.RedditWikiPage]:
+        """Get a wiki page
+
+        Get a wiki page from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddit("synthetic").wiki_page("index").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddit-wiki-page-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = self._transport.request("get", "/v1/reddit/subreddits/{identifier}/wiki-pages/{page}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class RedditSubredditWikiPagesResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditWikiPage]:
+        """List wiki pages
+
+        List wiki pages from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddit("synthetic").wiki_pages.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddit-wiki-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/subreddits/{identifier}/wiki-pages", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/subreddits/{identifier}/wiki-pages", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditWikiPage]:
+        """Iterate items lazily across pages of reddit.subreddit.wikiPages.list, one request per page."""
+        page: Page[models.RedditWikiPage] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSubredditResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = RedditSubredditPostsResource(transport, bindings)
+        self.rules = RedditSubredditRulesResource(transport, bindings)
+        self.wiki_pages = RedditSubredditWikiPagesResource(transport, bindings)
+
+    def wiki_page(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> RedditSubredditWikiPageResource:
+        """Select the wikiPage resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="reddit", resource="wikiPage")
+        return RedditSubredditWikiPageResource(self._transport, {**self._bindings, "page": identifier})
+
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.RedditSubreddit]:
+        """Get a subreddit
+
+        Get a subreddit from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddit("synthetic").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddit-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = self._transport.request("get", "/v1/reddit/subreddits/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class RedditSubredditsNewResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditSubreddit]:
+        """List new subreddits
+
+        List new subreddits from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddits.new.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddits-new-list
+        """
+        params: dict[str, Any] = {"limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/subreddits/new", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/subreddits/new", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditSubreddit]:
+        """Iterate items lazily across pages of reddit.subreddits.new.list, one request per page."""
+        page: Page[models.RedditSubreddit] | None = self.list(limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSubredditsPopularResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditSubreddit]:
+        """List popular subreddits
+
+        List popular subreddits from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.subreddits.popular.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-subreddits-popular-list
+        """
+        params: dict[str, Any] = {"limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/subreddits/popular", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/subreddits/popular", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditSubreddit]:
+        """Iterate items lazily across pages of reddit.subreddits.popular.list, one request per page."""
+        page: Page[models.RedditSubreddit] | None = self.list(limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditSubredditsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.new = RedditSubredditsNewResource(transport, bindings)
+        self.popular = RedditSubredditsPopularResource(transport, bindings)
+
+
+class RedditTrendingPostsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, sort: Literal["hot", "new", "top", "rising", "controversial", "best"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.RedditPost]:
+        """List trending posts
+
+        List trending posts from public Reddit data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.reddit.trending.posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/reddit-trending-posts-list
+        """
+        params: dict[str, Any] = {"sort": sort, "t": t, "limit": limit, "freshness": freshness, "cursor": cursor}
+        result = self._transport.request("get", "/v1/reddit/trending/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/reddit/trending/posts", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, sort: Literal["hot", "new", "top", "rising", "controversial", "best"] | None = None, t: Literal["hour", "day", "week", "month", "year", "all"] | None = None, limit: int | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.RedditPost]:
+        """Iterate items lazily across pages of reddit.trending.posts.list, one request per page."""
+        page: Page[models.RedditPost] | None = self.list(sort=sort, t=t, limit=limit, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
+class RedditTrendingResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = RedditTrendingPostsResource(transport, bindings)
+
+
+class RedditResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.search = RedditSearchResource(transport, bindings)
+        self.subreddits = RedditSubredditsResource(transport, bindings)
+        self.trending = RedditTrendingResource(transport, bindings)
+
+    def domain(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> RedditDomainResource:
+        """Select the domain resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="reddit", resource="domain")
+        return RedditDomainResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def post(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> RedditPostResource:
+        """Select the post resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="reddit", resource="post")
+        return RedditPostResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def profile(self, reference: str | None = None, *, username: str | None = None, id: str | None = None, url: str | None = None) -> RedditProfileResource:
+        """Select the profile resource using a username shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, username=username, id=id, url=url, platform="reddit", resource="profile")
+        return RedditProfileResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def subreddit(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> RedditSubredditResource:
+        """Select the subreddit resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="reddit", resource="subreddit")
+        return RedditSubredditResource(self._transport, {**self._bindings, "identifier": identifier})
+
+
 class TestDataEntryResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -1273,7 +1818,7 @@ class TestDataResource:
         identifier = resolve_selector(reference, id=id, url=url, platform="testData", resource="testDataEntry")
         return TestDataEntryResource(self._transport, {**self._bindings, "id": identifier})
 
-    def list(self, *, platform: Literal["instagram", "tiktok", "twitter"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
+    def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
         """Search the synthetic test-data catalog
 
         Public, unmetered discovery. Filter by platform, resource, operation, traits, expected status, error code, or text.
@@ -1394,7 +1939,7 @@ class TikTokHashtagResource:
         self._bindings = bindings
         self.posts = TikTokHashtagPostsResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Hashtag]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokHashtag]:
         """Get a hashtag
 
         Return one public hashtag by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1442,7 +1987,7 @@ class TikTokLocationResource:
         self._bindings = bindings
         self.posts = TikTokLocationPostsResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Location]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokLocation]:
         """Get a location
 
         Return one public location by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1490,7 +2035,7 @@ class TikTokMusicResource:
         self._bindings = bindings
         self.posts = TikTokMusicPostsResource(transport, bindings)
 
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Music]:
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokMusic]:
         """Get a music
 
         Return one public music by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1816,7 +2361,7 @@ class TikTokSearchHashtagsResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Hashtag]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TikTokHashtag]:
         """Search Tiktok hashtags
 
         Search public Tiktok hashtags with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1830,9 +2375,9 @@ class TikTokSearchHashtagsResource:
         result = self._transport.request("get", "/v1/tiktok/search/hashtags", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/tiktok/search/hashtags", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Hashtag]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TikTokHashtag]:
         """Iterate items lazily across pages of tiktok.search.hashtags.list, one request per page."""
-        page: Page[models.Hashtag] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TikTokHashtag] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1843,7 +2388,7 @@ class TikTokSearchLocationsResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Location]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TikTokLocation]:
         """Search Tiktok locations
 
         Search public Tiktok locations with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1857,9 +2402,9 @@ class TikTokSearchLocationsResource:
         result = self._transport.request("get", "/v1/tiktok/search/locations", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/tiktok/search/locations", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Location]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TikTokLocation]:
         """Iterate items lazily across pages of tiktok.search.locations.list, one request per page."""
-        page: Page[models.Location] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TikTokLocation] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1870,7 +2415,7 @@ class TikTokSearchMusicResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.Music]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TikTokMusic]:
         """Search Tiktok music
 
         Search public Tiktok music with cursor pagination. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1884,9 +2429,9 @@ class TikTokSearchMusicResource:
         result = self._transport.request("get", "/v1/tiktok/search/music", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/tiktok/search/music", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.Music]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TikTokMusic]:
         """Iterate items lazily across pages of tiktok.search.music.list, one request per page."""
-        page: Page[models.Music] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TikTokMusic] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1962,7 +2507,7 @@ class TikTokTrendingCategoriesResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TrendingCategory]:
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TikTokCategory]:
         """List trending categories
 
         Return TikTok trending categories. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -1976,9 +2521,9 @@ class TikTokTrendingCategoriesResource:
         result = self._transport.request("get", "/v1/tiktok/trending/categories", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/tiktok/trending/categories", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TrendingCategory]:
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TikTokCategory]:
         """Iterate items lazily across pages of tiktok.trending.categories.list, one request per page."""
-        page: Page[models.TrendingCategory] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TikTokCategory] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -1989,7 +2534,7 @@ class TikTokTrendingMusicResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.Music]:
+    def list(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TikTokMusic]:
         """List trending music
 
         Return TikTok's public Top 50 music chart for the configured provider region. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -2097,33 +2642,6 @@ class TikTokResource:
         return TikTokProfileResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
-class TwitterListMembersResource:
-    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
-        self._transport = transport
-        self._bindings = bindings
-
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterProfile]:
-        """List Twitter list members
-
-        Return a cursor-paginated collection of Twitter list members. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            openhandle.twitter.list("950000000005").members.list(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/twitter-list-members-list
-        """
-        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
-        result = self._transport.request("get", "/v1/twitter/lists/{identifier}/members", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.page(result, "get", "/v1/twitter/lists/{identifier}/members", self._bindings, params, timeout, max_retries)
-
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterProfile]:
-        """Iterate items lazily across pages of twitter.list.members.list, one request per page."""
-        page: Page[models.TwitterProfile] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
-        while page is not None:
-            yield from page.data
-            page = page.next()
-
-
 class TwitterListPostsResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -2155,22 +2673,7 @@ class TwitterListResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
         self._bindings = bindings
-        self.members = TwitterListMembersResource(transport, bindings)
         self.posts = TwitterListPostsResource(transport, bindings)
-
-    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TwitterList]:
-        """Get a Twitter list
-
-        Return one public Twitter list by its native identifier. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
-
-        Example:
-            openhandle.twitter.list("950000000005").get(freshness="24h")
-
-        See https://openhandle.dev/docs/api-reference/twitter-list-get
-        """
-        params: dict[str, Any] = {"freshness": freshness}
-        result = self._transport.request("get", "/v1/twitter/lists/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
-        return self._transport.response(result)
 
 
 class TwitterPostCommentRepliesResource:
@@ -2178,7 +2681,7 @@ class TwitterPostCommentRepliesResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterComment]:
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterPost]:
         """List comment replies
 
         Return a stable page of replies for one comment. Use find_test_data to discover compatible post and comment IDs. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -2192,9 +2695,9 @@ class TwitterPostCommentRepliesResource:
         result = self._transport.request("get", "/v1/twitter/posts/{identifier}/comments/{comment_id}/replies", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/twitter/posts/{identifier}/comments/{comment_id}/replies", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterComment]:
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterPost]:
         """Iterate items lazily across pages of twitter.post.comment.replies.list, one request per page."""
-        page: Page[models.TwitterComment] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TwitterPost] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -2212,7 +2715,7 @@ class TwitterPostCommentsResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterComment]:
+    def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterPost]:
         """List post comments
 
         List post comments by a canonical platform identifier. URLs must be converted before calling a data endpoint. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -2226,9 +2729,9 @@ class TwitterPostCommentsResource:
         result = self._transport.request("get", "/v1/twitter/posts/{identifier}/comments", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/twitter/posts/{identifier}/comments", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterComment]:
+    def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterPost]:
         """Iterate items lazily across pages of twitter.post.comments.list, one request per page."""
-        page: Page[models.TwitterComment] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TwitterPost] | None = self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -2510,7 +3013,7 @@ class TwitterSearchSuggestionsResource:
         self._transport = transport
         self._bindings = bindings
 
-    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterSuggestion]:
+    def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.TwitterProfile]:
         """Search suggestions
 
         Search suggestions from public Twitter data. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
@@ -2524,9 +3027,9 @@ class TwitterSearchSuggestionsResource:
         result = self._transport.request("get", "/v1/twitter/search/suggestions", self._bindings, params, timeout=timeout, max_retries=max_retries)
         return self._transport.page(result, "get", "/v1/twitter/search/suggestions", self._bindings, params, timeout, max_retries)
 
-    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterSuggestion]:
+    def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.TwitterProfile]:
         """Iterate items lazily across pages of twitter.search.suggestions.list, one request per page."""
-        page: Page[models.TwitterSuggestion] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        page: Page[models.TwitterProfile] | None = self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
         while page is not None:
             yield from page.data
             page = page.next()
@@ -2604,6 +3107,7 @@ class GeneratedClient:
     def __init__(self, transport: SyncTransport) -> None:
         self._transport = transport
         self.instagram = InstagramResource(transport, {})
+        self.reddit = RedditResource(transport, {})
         self.test_data = TestDataResource(transport, {})
         self.tiktok = TikTokResource(transport, {})
         self.twitter = TwitterResource(transport, {})
@@ -2611,7 +3115,7 @@ class GeneratedClient:
     def fetch(self, url: str, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.FetchResource]:
         """Fetch the resource at a social URL
 
-        Parse a supported social URL locally, then return the same typed resource as its canonical Openhandle operation. The underlying data read is metered once and redirects are never followed.
+        Parse a supported social URL locally, then return the same typed resource as its canonical Openhandle operation. TikTok short links such as tiktok.com/t/… and vm.tiktok.com/… are expanded through their redirect first. The underlying data read is metered once.
 
         Example:
             openhandle.fetch("https://www.instagram.com/openai/", freshness="24h")

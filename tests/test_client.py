@@ -203,3 +203,15 @@ def test_sends_authorization_and_client_headers() -> None:
     openhandle.instagram.profile("openai").get()
     assert requests[0].headers["Authorization"] == "Bearer oh_test_sdk"
     assert requests[0].headers["X-OpenHandle-Client"].startswith("openhandle-python/")
+
+
+@pytest.mark.parametrize("limited", [None, False, True])
+def test_preserves_follower_limit_without_inventing_pagination(limited: bool | None) -> None:
+    body = page_response(None).json()
+    if limited is not None:
+        body["meta"]["isLimited"] = limited
+    openhandle = client(lambda request: httpx.Response(200, json=body))
+    page = openhandle.instagram.profile("example").followers.list()
+    assert page.is_limited is limited
+    assert page.next_cursor is None
+    assert page.has_next_page is False

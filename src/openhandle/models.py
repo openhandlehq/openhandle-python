@@ -15,507 +15,2004 @@ class ErrorEnvelopeError(TypedDict):
     retryable: bool
 
 
-class HashtagMetrics(TypedDict):
+class InstagramAudioSpotify(TypedDict):
+    id: str | None
+    url: str | None
+
+
+class InstagramAudioReferenceSpotify(TypedDict):
+    id: str | None
+    url: str | None
+
+
+class InstagramCommentAi(TypedDict):
+    type: str | None
+
+
+class InstagramCommentRanking(TypedDict):
+    index: int | None
+    isRanked: bool | None
+    replyIndex: int | None
+
+
+class InstagramCommentTranslation(TypedDict):
+    text: str | None
+
+
+class InstagramCommentMetadataMetrics(TypedDict):
+    comments: int | None
+
+
+class InstagramCommentReferenceAi(TypedDict):
+    type: str | None
+
+
+class InstagramCommentReferenceRanking(TypedDict):
+    index: int | None
+    isRanked: bool | None
+    replyIndex: int | None
+
+
+class InstagramCommentReferenceTranslation(TypedDict):
+    text: str | None
+
+
+class InstagramHashtagMetrics(TypedDict):
     posts: int | None
     views: int | None
 
 
-class MusicMetrics(TypedDict):
-    posts: int | None
-
-
-class SuccessEnvelopeMeta(TypedDict):
-    cursors: SuccessEnvelopeMetaCursors
-
-
-class SuccessEnvelopeMetaCursors(TypedDict):
-    next: str | None
-
-
-class TrendingCategoryMetrics(TypedDict):
+class InstagramHashtagReferenceMetrics(TypedDict):
     posts: int | None
     views: int | None
 
 
-class TwitterListMetrics(TypedDict):
-    followers: int | None
-    members: int | None
+class InstagramHighlightMetrics(TypedDict):
+    stories: int | None
 
 
-Comment: TypeAlias = "CommentCore"
+class InstagramLocationExternal(TypedDict):
+    id: str | None
+    source: str | None
 
 
-class CommentCore(TypedDict):
-    author: PostAuthor
-    id: str
-    isLikedByPostAuthor: bool | None
-    isPinned: bool | None
-    media: list[PostMedia]
-    metrics: CommentMetrics
-    parentId: str | None
-    pinnedPosition: int | None
-    publishedAt: str
-    replyPreview: NotRequired[list[Comment]]
-    text: str
-    threadRootId: str | None
+class InstagramLocationSearchContext(TypedDict):
+    subtitle: str | None
+    title: str | None
 
 
-class CommentMetrics(TypedDict):
-    bookmarks: int | None
-    likes: int | None
-    quotes: int | None
-    replies: int | None
-    reposts: int | None
-    views: int | None
+class InstagramLocationReferenceExternal(TypedDict):
+    id: str | None
+    source: str | None
 
 
-Entity: TypeAlias = "EntityCore"
+class InstagramLocationReferenceSearchContext(TypedDict):
+    subtitle: str | None
+    title: str | None
 
 
-class EntityCore(TypedDict):
-    attributes: dict[str, Any]
-    description: str | None
-    handle: str | None
-    id: str
-    image: MediaReference | None
-    kind: str
-    metrics: dict[str, Any]
+class InstagramMediaCrops(TypedDict):
+    feedPreview: InstagramCrop
+    fourByThree: InstagramCrop
+    square: InstagramCrop
+
+
+class InstagramMusicSpotify(TypedDict):
+    id: str | None
+    url: str | None
+
+
+class InstagramOEmbedProvider(TypedDict):
     name: str | None
     url: str | None
 
 
-class EntityReference(TypedDict):
-    handle: NotRequired[str]
-    id: str
-    image: NotRequired[MediaReference]
-    name: NotRequired[str]
-    url: NotRequired[str]
+class InstagramPageMetadataMetrics(TypedDict):
+    comments: int | None
+    likes: int | None
+    replies: int | None
+
+
+class InstagramPostAi(TypedDict):
+    detectionMethod: str | None
+    label: InstagramPostAiLabel
+
+
+class InstagramPostAiLabel(TypedDict):
+    detectionMethod: str | None
+    isSelfDisclosed: bool | None
+    subtitle: str | None
+    text: str | None
+
+
+class InstagramPostAttribution(TypedDict):
+    originalPost: InstagramPostReference | None
+
+
+class InstagramPostCarousel(TypedDict):
+    itemCount: int | None
+    pendingItemCount: int | None
+    previousSubmitters: list[InstagramProfileReference] | None
+    submissionState: str | None
+
+
+class InstagramPostCrossposting(TypedDict):
+    isFeedbackAggregated: bool | None
+    isSharedToFacebook: bool | None
+
+
+class InstagramPostPinning(TypedDict):
+    profileUserIds: list[str] | None
+    reelsUserIds: list[str] | None
+
+
+class InstagramPostRemix(TypedDict):
+    allowed: bool | None
+    carouselRemixesAllowed: bool | None
+    crosspostingAllowed: bool | None
+    hasBeenRemixed: bool | None
+    isRequestingRemixes: bool | None
+
+
+class InstagramPostReuse(TypedDict):
+    allowed: bool | None
+    cutoutStickersAllowed: bool | None
+
+
+class InstagramPostInsightFacebook(TypedDict):
+    accountId: str | None
+    actorId: str | None
+
+
+class InstagramPostInsightImage(TypedDict):
+    height: int | None
+    width: int | None
+
+
+class InstagramPostInsightMetrics(TypedDict):
+    comments: int | None
+    likes: int | None
+    saves: int | None
+    shopping: InstagramPostInsightMetricsShopping
+    shoppingOutboundClicks: int | None
+    shoppingProductClicks: int | None
+
+
+class InstagramPostInsightMetricsShopping(TypedDict):
+    productClicks: list[Any] | None
+    productOutboundClicks: list[Any] | None
+
+
+class InstagramPostMetricsFacebook(TypedDict):
+    comments: int | None
+    likes: int | None
+    plays: int | None
+
+
+class InstagramPostMetricsInstagram(TypedDict):
+    plays: int | None
+
+
+class InstagramPostReferenceAi(TypedDict):
+    detectionMethod: str | None
+    label: InstagramPostReferenceAiLabel
+
+
+class InstagramPostReferenceAiLabel(TypedDict):
+    detectionMethod: str | None
+    isSelfDisclosed: bool | None
+    subtitle: str | None
+    text: str | None
+
+
+class InstagramPostReferenceAttribution(TypedDict):
+    originalPost: InstagramPostReference | None
+
+
+class InstagramPostReferenceCarousel(TypedDict):
+    itemCount: int | None
+    pendingItemCount: int | None
+    previousSubmitters: list[InstagramProfileReference] | None
+    submissionState: str | None
+
+
+class InstagramPostReferenceCrossposting(TypedDict):
+    isFeedbackAggregated: bool | None
+    isSharedToFacebook: bool | None
+
+
+class InstagramPostReferencePinning(TypedDict):
+    profileUserIds: list[str] | None
+    reelsUserIds: list[str] | None
+
+
+class InstagramPostReferenceRemix(TypedDict):
+    allowed: bool | None
+    carouselRemixesAllowed: bool | None
+    crosspostingAllowed: bool | None
+    hasBeenRemixed: bool | None
+    isRequestingRemixes: bool | None
+
+
+class InstagramPostReferenceReuse(TypedDict):
+    allowed: bool | None
+    cutoutStickersAllowed: bool | None
+
+
+class InstagramProductCheckout(TypedDict):
+    style: str | None
+
+
+class InstagramProductPricing(TypedDict):
+    current: InstagramPrice
+    formatted: str | None
+    full: InstagramPrice
+    isUkEuCompliant: bool | None
+
+
+class InstagramProfileAboutMetrics(TypedDict):
+    handleChanges: int | None
+
+
+class InstagramProfileBroadcastChannelCreator(TypedDict):
+    handle: str | None
+    id: str | None
+    isVerified: bool | None
+
+
+class InstagramProfileBroadcastChannelMetrics(TypedDict):
+    members: int | None
+
+
+class InstagramProfileFanClubMetrics(TypedDict):
+    subscribers: int | None
+
+
+class InstagramProfileFundraisersMetrics(TypedDict):
+    active: int | None
+
+
+class InstagramStickerPosition(TypedDict):
+    height: float | None
+    rotation: float | None
+    width: float | None
+    x: float | None
+    y: float | None
+    z: float | None
+
+
+class InstagramStoryAi(TypedDict):
+    detectionMethod: str | None
+    label: InstagramStoryAiLabel
+
+
+class InstagramStoryAiLabel(TypedDict):
+    detectionMethod: str | None
+    isSelfDisclosed: bool | None
+    subtitle: str | None
+    text: str | None
+
+
+class InstagramStoryAttribution(TypedDict):
+    originalPost: InstagramPostReference | None
+
+
+class InstagramStoryCarousel(TypedDict):
+    itemCount: int | None
+    pendingItemCount: int | None
+    previousSubmitters: list[InstagramProfileReference] | None
+    submissionState: str | None
+
+
+class InstagramStoryCrossposting(TypedDict):
+    isFeedbackAggregated: bool | None
+    isSharedToFacebook: bool | None
+
+
+class InstagramStoryPinning(TypedDict):
+    profileUserIds: list[str] | None
+    reelsUserIds: list[str] | None
+
+
+class InstagramStoryRemix(TypedDict):
+    allowed: bool | None
+    carouselRemixesAllowed: bool | None
+    crosspostingAllowed: bool | None
+    hasBeenRemixed: bool | None
+    isRequestingRemixes: bool | None
+
+
+class InstagramStoryReuse(TypedDict):
+    allowed: bool | None
+    cutoutStickersAllowed: bool | None
+
+
+class InstagramStoryCollectionAudience(TypedDict):
+    hasCloseFriendsStories: bool | None
+    hasSubscriberStories: bool | None
+
+
+class InstagramStoryCollectionMetrics(TypedDict):
+    stories: int | None
+
+
+class InstagramStoryReferenceAi(TypedDict):
+    detectionMethod: str | None
+    label: InstagramStoryReferenceAiLabel
+
+
+class InstagramStoryReferenceAiLabel(TypedDict):
+    detectionMethod: str | None
+    isSelfDisclosed: bool | None
+    subtitle: str | None
+    text: str | None
+
+
+class InstagramStoryReferenceAttribution(TypedDict):
+    originalPost: InstagramPostReference | None
+
+
+class InstagramStoryReferenceCarousel(TypedDict):
+    itemCount: int | None
+    pendingItemCount: int | None
+    previousSubmitters: list[InstagramProfileReference] | None
+    submissionState: str | None
+
+
+class InstagramStoryReferenceCrossposting(TypedDict):
+    isFeedbackAggregated: bool | None
+    isSharedToFacebook: bool | None
+
+
+class InstagramStoryReferencePinning(TypedDict):
+    profileUserIds: list[str] | None
+    reelsUserIds: list[str] | None
+
+
+class InstagramStoryReferenceRemix(TypedDict):
+    allowed: bool | None
+    carouselRemixesAllowed: bool | None
+    crosspostingAllowed: bool | None
+    hasBeenRemixed: bool | None
+    isRequestingRemixes: bool | None
+
+
+class InstagramStoryReferenceReuse(TypedDict):
+    allowed: bool | None
+    cutoutStickersAllowed: bool | None
+
+
+class InstagramTemplateEffects(TypedDict):
+    segments: list[Any] | None
+
+
+class InstagramTemplateInfoEffects(TypedDict):
+    segments: list[Any] | None
+
+
+class ResponseMetaMetrics(TypedDict):
+    comments: NotRequired[int | None]
+    followers: NotRequired[int | None]
+    following: NotRequired[int | None]
+    likes: NotRequired[int | None]
+    replies: NotRequired[int | None]
+    results: NotRequired[int | None]
+    suggestions: NotRequired[int | None]
+
+
+class TikTokPageMetadataMetrics(TypedDict):
+    comments: int | None
+    followers: int | None
+    following: int | None
+    results: int | None
+
+
+class TikTokProfileCommerce(TypedDict):
+    hasLiveCommerce: bool | None
+    hasNewProducts: bool | None
+    level: int | None
+
+
+class TikTokProfileMusic(TypedDict):
+    metrics: TikTokProfileMusicMetrics
+    newReleaseIds: list[str] | None
+
+
+class TikTokProfileMusicMetrics(TypedDict):
+    likes: int | None
+    tracks: int | None
+    uses: int | None
+
+
+class TikTokProfilePredictions(TypedDict):
+    ageGroup: str | None
+
+
+class TikTokProfilePrivacy(TypedDict):
+    followingVisibility: int | None
+
+
+class TikTokProfileSearchContext(TypedDict):
+    description: str | None
+    name: str | None
+    nameField: str | None
+
+
+class TikTokProfileStories(TypedDict):
+    changedAt: str | None
+    items: list[TikTokStoryReference] | None
+    metrics: TikTokProfileStoriesMetrics
+
+
+class TikTokProfileStoriesMetrics(TypedDict):
+    countsByPostType: list[TikTokStoryCount] | None
+
+
+class TikTokProfileVerification(TypedDict):
+    badgeType: int | None
+    customLabel: str | None
+    label: str | None
+    type: int | None
+
+
+class TikTokProfileReferenceCommerce(TypedDict):
+    hasLiveCommerce: bool | None
+    hasNewProducts: bool | None
+    level: int | None
+
+
+class TikTokProfileReferenceMusic(TypedDict):
+    metrics: TikTokProfileReferenceMusicMetrics
+    newReleaseIds: list[str] | None
+
+
+class TikTokProfileReferenceMusicMetrics(TypedDict):
+    likes: int | None
+    tracks: int | None
+    uses: int | None
+
+
+class TikTokProfileReferencePredictions(TypedDict):
+    ageGroup: str | None
+
+
+class TikTokProfileReferencePrivacy(TypedDict):
+    followingVisibility: int | None
+
+
+class TikTokProfileReferenceSearchContext(TypedDict):
+    description: str | None
+    name: str | None
+    nameField: str | None
+
+
+class TikTokProfileReferenceStories(TypedDict):
+    changedAt: str | None
+    items: list[TikTokStoryReference] | None
+    metrics: TikTokProfileReferenceStoriesMetrics
+
+
+class TikTokProfileReferenceStoriesMetrics(TypedDict):
+    countsByPostType: list[TikTokStoryCount] | None
+
+
+class TikTokProfileReferenceVerification(TypedDict):
+    badgeType: int | None
+    customLabel: str | None
+    label: str | None
+    type: int | None
+
+
+class TwitterPageMetadataMetrics(TypedDict):
+    suggestions: int | None
+
+
+class TwitterPollMetrics(TypedDict):
+    choices: int
+
+
+class TwitterPollChoiceMetrics(TypedDict):
+    votes: int
 
 
 class ErrorEnvelope(TypedDict):
     error: ErrorEnvelopeError
 
 
-class Hashtag(TypedDict):
-    description: str | None
+class InstagramAudio(TypedDict):
+    artist: InstagramProfileReference | None
+    artistId: str | None
+    artistName: str | None
+    artwork: InstagramImage | None
+    clusterId: str | None
+    compositionStartTime: float | None
+    createdAt: str | None
+    duration: float | None
+    fastStartUrl: str | None
+    filters: list[Any] | None
+    hasLyrics: bool | None
+    highlightStartTimes: list[float] | None
     id: str
-    image: MediaReference | None
-    metrics: HashtagMetrics
-    name: str
+    isAutomaticallyAttributed: bool | None
+    isCrosspostedFromFacebook: bool | None
+    isExplicit: bool | None
+    isTrending: bool | None
+    metrics: InstagramAudioMetrics
+    monetizationType: str | None
+    musicId: str | None
+    originalPostId: str | None
+    overlapDuration: float | None
+    parts: list[InstagramAudioPart] | None
+    previewUrl: str | None
+    spotify: InstagramAudioSpotify
+    startTime: float | None
+    streaming: InstagramStreaming | None
+    subtype: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class InstagramAudioMetrics(TypedDict):
+    photos: int | None
+    previousTrendRank: int | None
+    reels: int | None
+    trendRank: int | None
+
+
+class InstagramAudioPart(TypedDict):
+    artist: InstagramProfileReference | None
+    artistName: str | None
+    artwork: InstagramImage | None
+    isExplicit: bool | None
+    musicId: str | None
+    parentStartTime: float | None
+    startTime: float | None
+    title: str | None
+    type: str | None
+
+
+class InstagramAudioReference(TypedDict):
+    artist: InstagramProfileReference | None
+    artistId: str | None
+    artistName: str | None
+    artwork: InstagramImage | None
+    clusterId: str | None
+    compositionStartTime: float | None
+    createdAt: str | None
+    duration: float | None
+    fastStartUrl: str | None
+    filters: list[Any] | None
+    hasLyrics: bool | None
+    highlightStartTimes: list[float] | None
+    id: str | None
+    isAutomaticallyAttributed: bool | None
+    isCrosspostedFromFacebook: bool | None
+    isExplicit: bool | None
+    isTrending: bool | None
+    metrics: InstagramAudioMetrics
+    monetizationType: str | None
+    musicId: str | None
+    originalPostId: str | None
+    overlapDuration: float | None
+    parts: list[InstagramAudioPart] | None
+    previewUrl: str | None
+    spotify: InstagramAudioReferenceSpotify
+    startTime: float | None
+    streaming: InstagramStreaming | None
+    subtype: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class InstagramBioLink(TypedDict):
+    icon: InstagramImage | None
+    id: str | None
+    image: InstagramImage | None
+    isPinned: bool | None
+    isVerified: bool | None
+    title: str | None
+    type: str | None
+    url: str | None
 
 
 class InstagramClipMetadata(TypedDict):
-    author: NotRequired[EntityReference]
-    caption: NotRequired[str]
-    duration: NotRequired[float]
-    height: NotRequired[int]
+    audio: InstagramAudioReference | None
+    partial: InstagramPartialData | None
+    postId: str | None
+
+
+class InstagramComment(TypedDict):
+    ai: InstagramCommentAi
+    author: InstagramProfileReference | None
+    createdAt: str
     id: str
-    media: list[PostMedia]
-    music: NotRequired[PostMusic]
-    playCount: NotRequired[int]
-    publishedAt: NotRequired[str]
-    title: NotRequired[str]
-    viewCount: NotRequired[int]
-    width: NotRequired[int]
-
-
-class InstagramComment(CommentCore, TypedDict):
-    pass
+    isByPostAuthor: bool | None
+    isCovered: bool | None
+    isEdited: bool | None
+    isLikedByPostAuthor: bool | None
+    isPinned: bool | None
+    keywords: list[Any] | None
+    likedByCoauthors: list[InstagramProfileReference] | None
+    media: list[InstagramImage] | None
+    metrics: InstagramCommentMetrics
+    parentId: str | None
+    pinnedPosition: int | None
+    postId: str | None
+    previewUsers: list[InstagramProfileReference] | None
+    ranking: InstagramCommentRanking
+    replies: list[InstagramCommentReference] | None
+    replyToId: str | None
+    sharingEnabled: bool | None
+    status: str | None
+    text: str | None
+    translation: InstagramCommentTranslation
 
 
 class InstagramCommentMetadata(TypedDict):
-    canComment: NotRequired[bool]
-    canViewMore: NotRequired[bool]
-    commentCount: NotRequired[int]
-    commentsDisabled: NotRequired[bool]
-    id: str
-    previewCount: NotRequired[int]
+    comments: InstagramCommentSettings
+    metrics: InstagramCommentMetadataMetrics
+    postId: str | None
+
+
+class InstagramCommentMetrics(TypedDict):
+    likes: int | None
+    replies: int | None
 
 
 class InstagramCommentModeration(TypedDict):
+    isOffensive: bool | None
+
+
+class InstagramCommentReference(TypedDict):
+    ai: InstagramCommentReferenceAi
+    author: InstagramProfileReference | None
+    createdAt: str | None
+    id: str | None
+    isByPostAuthor: bool | None
+    isCovered: bool | None
+    isEdited: bool | None
+    isLikedByPostAuthor: bool | None
+    isPinned: bool | None
+    keywords: list[Any] | None
+    likedByCoauthors: list[InstagramProfileReference] | None
+    media: list[InstagramImage] | None
+    metrics: InstagramCommentMetrics
+    parentId: str | None
+    pinnedPosition: int | None
+    postId: str | None
+    previewUsers: list[InstagramProfileReference] | None
+    ranking: InstagramCommentReferenceRanking
+    replies: list[InstagramCommentReference] | None
+    replyToId: str | None
+    sharingEnabled: bool | None
+    status: str | None
+    text: str | None
+    translation: InstagramCommentReferenceTranslation
+
+
+class InstagramCommentSettings(TypedDict):
+    enabled: bool | None
+    hasMore: bool | None
+    likesEnabled: bool | None
+    maxVisiblePreviewComments: int | None
+    preview: list[InstagramCommentReference] | None
+    threadingEnabled: bool | None
+
+
+class InstagramCoordinates(TypedDict):
+    latitude: float | None
+    longitude: float | None
+
+
+class InstagramCrop(TypedDict):
+    bottom: float | None
+    left: float | None
+    right: float | None
+    top: float | None
+
+
+class InstagramDASH(TypedDict):
+    manifest: str | None
+    qualityCount: int | None
+    variants: list[InstagramStreamVariant] | None
+
+
+class InstagramHashtag(TypedDict):
+    avatar: InstagramImage | None
+    bio: str | None
     id: str
-    isBullying: NotRequired[bool]
-    isOffensive: NotRequired[bool]
-    isSpam: NotRequired[bool]
-    reasons: list[str]
-    score: NotRequired[float]
-    text: NotRequired[str]
+    isTrending: bool | None
+    metrics: InstagramHashtagMetrics
+    name: str | None
+    url: str
 
 
-class InstagramEntity(EntityCore, TypedDict):
-    pass
+class InstagramHashtagReference(TypedDict):
+    avatar: InstagramImage | None
+    bio: str | None
+    id: str | None
+    isTrending: bool | None
+    metrics: InstagramHashtagReferenceMetrics
+    name: str | None
+    url: str | None
 
 
 class InstagramHighlight(TypedDict):
-    cover: NotRequired[MediaReference]
+    author: InstagramProfileReference | None
+    cover: InstagramImage | None
+    createdAt: str | None
     id: str
-    itemCount: NotRequired[int]
-    items: list[InstagramStory]
-    owner: NotRequired[EntityReference]
-    title: NotRequired[str]
-
-
-class InstagramLocationGuide(TypedDict):
-    author: NotRequired[EntityReference]
-    description: NotRequired[str]
-    id: str
-    image: NotRequired[MediaReference]
-    itemCount: NotRequired[int]
-    location: NotRequired[PostLocation]
-    title: NotRequired[str]
-    url: NotRequired[str]
-
-
-class InstagramMusicStream(TypedDict):
-    bitrate: NotRequired[int]
-    duration: NotRequired[float]
-    expiresAt: NotRequired[str]
-    id: str
-    mimeType: NotRequired[str]
-    page: NotRequired[int]
-    url: NotRequired[str]
-
-
-class InstagramOEmbed(TypedDict):
-    authorName: NotRequired[str]
-    authorUrl: NotRequired[str]
-    height: NotRequired[int]
-    html: NotRequired[str]
-    id: str
-    providerName: NotRequired[str]
-    providerUrl: NotRequired[str]
-    thumbnail: NotRequired[MediaReference]
-    title: NotRequired[str]
-    type: NotRequired[str]
-    url: NotRequired[str]
-    width: NotRequired[int]
-
-
-class InstagramPlayCountBreakdown(TypedDict):
-    facebook: int | None
-    instagram: int | None
-
-
-class PostCore(TypedDict):
-    author: PostAuthor
-    caption: str | None
-    commentsDisabled: bool | None
-    format: Literal["post", "reel", "story"]
-    hashtags: list[str]
-    id: str
-    media: list[PostMedia]
-    mentions: list[str]
-    publishedAt: str
+    isArchived: bool | None
+    isConvertedToReel: bool | None
+    isInProfileGrid: bool | None
+    isPinned: bool | None
+    lastStoryAt: str | None
+    metrics: InstagramHighlightMetrics
+    stories: list[InstagramStoryReference] | None
     title: str | None
-    type: Literal["text", "image", "video", "carousel"]
+    updatedAt: str | None
     url: str
 
 
-class InstagramPost(PostCore, TypedDict):
-    collaborators: list[PostAuthor] | None
-    extended: NotRequired[InstagramPostExtended]
-    isAd: bool | None
-    isPaidPartnership: bool | None
-    location: PostLocation | None
-    metrics: InstagramPostMetrics
-    music: PostMusic | None
-    shortcode: str | None
-    sponsors: list[PostAuthor] | None
-    taggedUsers: list[PostAuthor] | None
+class InstagramHighlightReference(TypedDict):
+    id: str | None
+    title: str | None
 
 
-class InstagramPostExtended(TypedDict):
-    accessibilityCaption: str | None
-    likeCountsHidden: bool | None
-    productType: str | None
+class InstagramImage(TypedDict):
+    height: int | None
+    id: str | None
+    isDefault: bool | None
+    isSpatial: bool | None
+    thumbnail: InstagramImage | None
+    type: str | None
+    url: str | None
+    variants: list[InstagramImage] | None
+    width: int | None
 
 
-class InstagramPostInsight(TypedDict):
-    averageWatchTime: NotRequired[float]
-    comments: NotRequired[int]
-    follows: NotRequired[int]
-    id: str
-    impressions: NotRequired[int]
-    interactions: NotRequired[int]
-    likes: NotRequired[int]
-    plays: NotRequired[int]
-    profileVisits: NotRequired[int]
-    reach: NotRequired[int]
-    saves: NotRequired[int]
-    shares: NotRequired[int]
-    views: NotRequired[int]
-    watchTime: NotRequired[float]
-
-
-class PostMetrics(TypedDict):
-    comments: int | None
-    likes: int | None
-    reposts: int | None
-    saves: int | None
-    shares: int | None
-    views: int | None
-
-
-class InstagramPostMetrics(PostMetrics, TypedDict):
-    playCountBreakdown: NotRequired[InstagramPlayCountBreakdown | None]
-
-
-class ProfileCore(TypedDict):
-    accountType: Literal["page", "profile"] | None
-    avatar: MediaReference | None
-    bio: str
+class InstagramLocation(TypedDict):
+    address: InstagramLocationAddress
     category: str | None
-    displayName: str
-    externalUrl: str | None
-    handle: str
+    coordinates: InstagramCoordinates
+    external: InstagramLocationExternal
+    hours: InstagramLocationHours | None
     id: str
-    isBusiness: bool
-    isPrivate: bool
-    isVerified: bool
-    metrics: ProfileMetrics
-
-
-class InstagramProfile(ProfileCore, TypedDict):
-    extended: NotRequired[InstagramProfileExtended]
-
-
-class InstagramProfileAbout(TypedDict):
-    bio: NotRequired[str]
-    category: NotRequired[str]
-    country: NotRequired[str]
-    displayName: NotRequired[str]
-    externalUrl: NotRequired[str]
-    formerUsernameCount: NotRequired[int]
-    handle: NotRequired[str]
-    id: str
-    isBusiness: NotRequired[bool]
-    isPrivate: NotRequired[bool]
-    isVerified: NotRequired[bool]
-    joinedAt: NotRequired[str]
-
-
-class InstagramProfileExtended(TypedDict):
-    accountTypeCode: int | None
-    addressStreet: str | None
-    bioLinks: list[ProfileLink]
-    businessContactMethod: str | None
-    city: str | None
-    latitude: float | None
-    longitude: float | None
-    postalCode: str | None
-    publicEmail: str | None
-    publicPhoneCountryCode: str | None
-    publicPhoneNumber: str | None
-
-
-class InstagramProfileSummary(TypedDict):
-    avatar: NotRequired[MediaReference]
-    bio: NotRequired[str]
-    category: NotRequired[str]
-    displayName: NotRequired[str]
-    followers: NotRequired[int]
-    handle: NotRequired[str]
-    id: str
-    isPrivate: NotRequired[bool]
-    isVerified: NotRequired[bool]
-    url: NotRequired[str]
-
-
-class InstagramSearchResult(TypedDict):
-    author: NotRequired[EntityReference]
-    description: NotRequired[str]
-    handle: NotRequired[str]
-    id: str
-    image: NotRequired[MediaReference]
-    metrics: NotRequired[SearchResultMetrics]
-    title: NotRequired[str]
-    type: NotRequired[str]
-    url: NotRequired[str]
-
-
-class InstagramStory(TypedDict):
-    author: NotRequired[EntityReference]
-    canQuickReply: NotRequired[bool]
-    canReply: NotRequired[bool]
-    canReshare: NotRequired[bool]
-    expiresAt: NotRequired[str]
-    hashtags: list[str]
-    id: str
-    links: list[StoryLink]
-    locations: list[PostLocation]
-    media: list[PostMedia]
-    mentions: list[EntityReference]
-    publishedAt: NotRequired[str]
-    shortcode: NotRequired[str]
-    stickers: list[StorySticker]
-    type: NotRequired[Literal["image", "video"]]
-
-
-class InstagramTemplate(TypedDict):
-    author: NotRequired[EntityReference]
-    description: NotRequired[str]
-    duration: NotRequired[float]
-    id: str
-    media: list[PostMedia]
-    name: NotRequired[str]
-    type: NotRequired[str]
-    url: NotRequired[str]
-
-
-class Location(TypedDict):
-    address: str | None
-    category: str | None
-    city: str | None
-    countryCode: str | None
-    id: str
-    latitude: float | None
-    longitude: float | None
-    name: str
+    name: str | None
     phone: str | None
-    postalCode: str | None
-    region: str | None
+    searchContext: InstagramLocationSearchContext
+    shortName: str | None
+    url: str
     website: str | None
 
 
-class MediaReference(TypedDict):
-    expiresAt: NotRequired[str]
+class InstagramLocationAddress(TypedDict):
+    city: str | None
+    countryCode: str | None
+    postalCode: str | None
+    region: str | None
+    street: str | None
+
+
+class InstagramLocationHours(TypedDict):
+    currentStatus: str | None
+    isOpen: bool | None
+    schedule: list[Any] | None
+    status: str | None
+    today: str | None
+
+
+class InstagramLocationReference(TypedDict):
+    address: InstagramLocationAddress
+    category: str | None
+    coordinates: InstagramCoordinates
+    external: InstagramLocationReferenceExternal
+    hours: InstagramLocationHours | None
+    id: str | None
+    name: str | None
+    phone: str | None
+    searchContext: InstagramLocationReferenceSearchContext
+    shortName: str | None
+    url: str | None
+    website: str | None
+
+
+class InstagramMedia(TypedDict):
+    altText: str | None
+    audio: InstagramAudioReference | None
+    bitrate: int | None
+    commercialityStatus: str | None
+    createdAt: str | None
+    crops: InstagramMediaCrops
+    duration: float | None
+    firstFrame: InstagramImage | None
+    hasAudio: bool | None
+    height: int | None
+    id: str | None
+    originalHeight: int | None
+    originalWidth: int | None
+    parentId: str | None
+    productTags: list[InstagramProductTag] | None
+    scrubber: InstagramScrubber | None
+    streaming: InstagramStreaming | None
+    subtitles: InstagramSubtitles | None
+    taggedUsers: list[InstagramUserTag] | None
+    thumbnail: InstagramImage | None
+    type: str | None
+    url: str | None
+    variants: list[InstagramMediaVariant] | None
+    width: int | None
+
+
+class InstagramMediaPreview(TypedDict):
+    fbid: str | None
+    id: str | None
+    thumbnail: InstagramImage | None
+
+
+class InstagramMediaVariant(TypedDict):
+    bitrate: int | None
+    height: int | None
+    id: str | None
+    isSpatial: bool | None
+    type: str | None
+    url: str | None
+    width: int | None
+
+
+class InstagramMusic(TypedDict):
+    artist: InstagramProfileReference | None
+    artistId: str | None
+    artistName: str | None
+    artwork: InstagramImage | None
+    clusterId: str | None
+    compositionStartTime: float | None
+    createdAt: str | None
+    duration: float | None
+    fastStartUrl: str | None
+    filters: list[Any] | None
+    hasLyrics: bool | None
+    highlightStartTimes: list[float] | None
+    id: str
+    isAutomaticallyAttributed: bool | None
+    isCrosspostedFromFacebook: bool | None
+    isExplicit: bool | None
+    isTrending: bool | None
+    metrics: InstagramAudioMetrics
+    monetizationType: str | None
+    musicId: str | None
+    originalPostId: str | None
+    overlapDuration: float | None
+    parts: list[InstagramAudioPart] | None
+    posts: list[InstagramPostReference] | None
+    previewUrl: str | None
+    spotify: InstagramMusicSpotify
+    startTime: float | None
+    streaming: InstagramStreaming | None
+    subtype: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+    usageLabel: str | None
+
+
+class InstagramMusicStream(TypedDict):
+    id: str
+    media: list[InstagramMedia]
+    metrics: InstagramMusicStreamMetrics
+    type: str | None
+
+
+class InstagramMusicStreamMetrics(TypedDict):
+    plays: int | None
+
+
+class InstagramNote(TypedDict):
+    author: InstagramProfileReference | None
+    createdAt: str | None
+    id: str | None
+    text: str | None
+
+
+class InstagramOEmbed(TypedDict):
+    author: InstagramProfileReference | None
+    height: int | None
+    html: str | None
+    postId: str | None
+    provider: InstagramOEmbedProvider
+    thumbnail: InstagramImage | None
+    title: str | None
+    type: str | None
+    width: int | None
+
+
+class InstagramPageMetadata(TypedDict):
+    collection: InstagramStoryCollection | None
+    hasMore: bool | None
+    hasMoreAfter: bool | None
+    hasMoreBefore: bool | None
+    likesEnabled: bool | None
+    metrics: InstagramPageMetadataMetrics
+    parent: InstagramCommentReference | None
+    threadingEnabled: bool | None
+    track: InstagramAudioReference | None
+
+
+class InstagramPartialData(TypedDict):
+    errors: list[InstagramPartialError] | None
+
+
+class InstagramPartialError(TypedDict):
+    message: str | None
+    path: list[str] | None
+
+
+class InstagramPosition(TypedDict):
+    x: float | None
+    y: float | None
+
+
+class InstagramPost(TypedDict):
+    ai: InstagramPostAi
+    attribution: InstagramPostAttribution
+    author: InstagramProfileReference | None
+    caption: InstagramCommentReference | None
+    carousel: InstagramPostCarousel
+    code: str | None
+    collaborators: list[InstagramProfileReference] | None
+    comments: InstagramCommentSettings
+    createdAt: str
+    crossposting: InstagramPostCrossposting
+    fbid: str | None
+    hasDelayedMetadata: bool | None
+    hasTaggedUsers: bool | None
+    hasVisualReplies: bool | None
+    id: str
+    invitedCollaborators: list[InstagramProfileReference] | None
+    isEarlyAccess: bool | None
+    isFanClubPromo: bool | None
+    isOpenToPublicSubmission: bool | None
+    isPaidPartnership: bool | None
+    isPublicChatWelcomeVideo: bool | None
+    language: str | None
+    likeAndViewCountsHidden: bool | None
+    location: InstagramLocationReference | None
+    media: list[InstagramMedia]
+    metrics: InstagramPostMetrics
+    notes: list[InstagramNote] | None
+    pinning: InstagramPostPinning
+    productTags: list[InstagramProductTag] | None
+    remix: InstagramPostRemix
+    reuse: InstagramPostReuse
+    shareCountHidden: bool | None
+    sharingEnabled: bool | None
+    taggedUsers: list[InstagramUserTag] | None
+    template: InstagramTemplateInfo | None
+    text: str | None
+    title: str | None
+    type: str | None
     url: str
+
+
+class InstagramPostInsight(TypedDict):
+    authorId: str | None
+    createdAt: str | None
+    facebook: InstagramPostInsightFacebook
+    fbid: str | None
+    hasProductTags: bool | None
+    image: InstagramPostInsightImage
+    metrics: InstagramPostInsightMetrics
+    organicPostId: str | None
+    postId: str | None
+    thumbnail: InstagramImage | None
+    type: str | None
+
+
+class InstagramPostMetrics(TypedDict):
+    comments: int | None
+    facebook: InstagramPostMetricsFacebook
+    instagram: InstagramPostMetricsInstagram
+    likes: int | None
+    plays: int | None
+    premiumReactions: int | None
+    reposts: int | None
+    reshares: int | None
+    saves: int | None
+    views: int | None
+
+
+class InstagramPostReference(TypedDict):
+    ai: InstagramPostReferenceAi
+    attribution: InstagramPostReferenceAttribution
+    author: InstagramProfileReference | None
+    caption: InstagramCommentReference | None
+    carousel: InstagramPostReferenceCarousel
+    code: str | None
+    collaborators: list[InstagramProfileReference] | None
+    comments: InstagramCommentSettings
+    createdAt: str | None
+    crossposting: InstagramPostReferenceCrossposting
+    fbid: str | None
+    hasDelayedMetadata: bool | None
+    hasTaggedUsers: bool | None
+    hasVisualReplies: bool | None
+    id: str | None
+    invitedCollaborators: list[InstagramProfileReference] | None
+    isEarlyAccess: bool | None
+    isFanClubPromo: bool | None
+    isOpenToPublicSubmission: bool | None
+    isPaidPartnership: bool | None
+    isPublicChatWelcomeVideo: bool | None
+    language: str | None
+    likeAndViewCountsHidden: bool | None
+    location: InstagramLocationReference | None
+    media: list[InstagramMedia] | None
+    metrics: InstagramPostMetrics
+    notes: list[InstagramNote] | None
+    pinning: InstagramPostReferencePinning
+    productTags: list[InstagramProductTag] | None
+    remix: InstagramPostReferenceRemix
+    reuse: InstagramPostReferenceReuse
+    shareCountHidden: bool | None
+    sharingEnabled: bool | None
+    taggedUsers: list[InstagramUserTag] | None
+    template: InstagramTemplateInfo | None
+    text: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class InstagramPrice(TypedDict):
+    amount: str | None
+    formatted: str | None
+    strippedFormatted: str | None
+
+
+class InstagramProduct(TypedDict):
+    checkout: InstagramProductCheckout
+    compoundId: str | None
+    description: str | None
+    hasVariants: bool | None
+    id: str | None
+    image: InstagramImage | None
+    isAffiliate: bool | None
+    isInStock: bool | None
+    merchant: InstagramProfileReference | None
+    name: str | None
+    pricing: InstagramProductPricing
+    retailerId: str | None
+    reviewStatus: str | None
+    thumbnail: InstagramImage | None
+    url: str | None
+
+
+class InstagramProductTag(TypedDict):
+    position: InstagramPosition
+    product: InstagramProduct
+
+
+class InstagramProfile(TypedDict):
+    accountBadges: list[Any] | None
+    accountType: InstagramProfileAccountType | None
+    avatar: InstagramImage | None
+    bio: str | None
+    bioEntities: list[Any] | None
+    bioLinks: list[InstagramBioLink] | None
+    broadcastChannels: InstagramProfileBroadcastChannels
+    category: str | None
+    categoryId: str | None
+    contact: InstagramProfileContact
+    content: InstagramProfileContent
+    contentSettings: InstagramProfileContentSettings
+    displayName: str | None
+    displaySettings: InstagramProfileDisplaySettings
+    externalUrl: str | None
+    fanClub: InstagramProfileFanClub
+    fbid: str | None
+    fundraisers: InstagramProfileFundraisers
+    handle: str
+    hasDigitalAvatar: bool | None
+    id: str
+    isAccountTransparencyVisible: bool | None
+    isBusiness: bool | None
+    isFacebookOnboardedCharity: bool | None
+    isMemorialized: bool | None
+    isNew: bool | None
+    isOpenToCollaboration: bool | None
+    isPotentialBusiness: bool | None
+    isPrivate: bool | None
+    isUnpublished: bool | None
+    isVerified: bool | None
+    lastStoryAt: str | None
+    location: InstagramProfileLocation
+    mediaPreviews: list[InstagramMediaPreview] | None
+    messagingFbid: str | None
+    metrics: InstagramProfileMetrics
+    pronouns: list[str] | None
+    socialContext: str | None
+    suggestion: InstagramSuggestion | None
+    threads: InstagramProfileThreads
+    upcomingEvents: list[Any] | None
+    url: str
+
+
+class InstagramProfileAbout(TypedDict):
+    country: str | None
+    handle: str | None
+    isVerified: bool | None
+    joinedAt: str | None
+    metrics: InstagramProfileAboutMetrics
+
+
+InstagramProfileAccountType: TypeAlias = Literal["personal", "business", "creator"] | int
+
+
+class InstagramProfileAddress(TypedDict):
+    city: str | None
+    cityId: str | None
+    postalCode: str | None
+    street: str | None
+
+
+class InstagramProfileBroadcastChannel(TypedDict):
+    avatar: InstagramImage | None
+    cover: InstagramImage | None
+    creator: InstagramProfileBroadcastChannelCreator
+    id: str | None
+    metrics: InstagramProfileBroadcastChannelMetrics
+    title: str | None
+    url: str | None
+
+
+class InstagramProfileBroadcastChannels(TypedDict):
+    hasPublicChannels: bool | None
+    isCreator: bool | None
+    pinned: list[InstagramProfileBroadcastChannel] | None
+
+
+class InstagramProfileContact(TypedDict):
+    contactPhone: str | None
+    email: str | None
+    method: str | None
+    phone: str | None
+    phoneCountryCode: str | None
+
+
+class InstagramProfileContent(TypedDict):
+    hasGuides: bool | None
+    hasHighlights: bool | None
+    hasLongformMedia: bool | None
+    hasMusic: bool | None
+    hasVideos: bool | None
+    hasVisibleNotes: bool | None
+
+
+class InstagramProfileContentSettings(TypedDict):
+    highlightResharingEnabled: bool | None
+    postRemixingEnabled: bool | None
+    postResharingEnabled: bool | None
+    reelRemixingEnabled: bool | None
+
+
+class InstagramProfileDisplaySettings(TypedDict):
+    showCategory: bool | None
+    showPublicContacts: bool | None
+
+
+class InstagramProfileFanClub(TypedDict):
+    hasExclusiveFeedContent: bool | None
+    id: str | None
+    largestPublicBroadcastChannelId: str | None
+    metrics: InstagramProfileFanClubMetrics
+    name: str | None
+
+
+class InstagramProfileFundraisers(TypedDict):
+    items: list[Any] | None
+    metrics: InstagramProfileFundraisersMetrics
+
+
+class InstagramProfileLocation(TypedDict):
+    address: InstagramProfileAddress
+    id: str | None
+
+
+class InstagramProfileMetrics(TypedDict):
+    arEffects: int | None
+    followers: int | None
+    following: int | None
+    posts: int | None
+
+
+class InstagramProfileReference(TypedDict):
+    accountBadges: list[Any] | None
+    accountType: InstagramProfileAccountType | None
+    avatar: InstagramImage | None
+    bio: str | None
+    bioEntities: list[Any] | None
+    bioLinks: list[InstagramBioLink] | None
+    broadcastChannels: InstagramProfileBroadcastChannels
+    category: str | None
+    categoryId: str | None
+    contact: InstagramProfileContact
+    content: InstagramProfileContent
+    contentSettings: InstagramProfileContentSettings
+    displayName: str | None
+    displaySettings: InstagramProfileDisplaySettings
+    externalUrl: str | None
+    fanClub: InstagramProfileFanClub
+    fbid: str | None
+    fundraisers: InstagramProfileFundraisers
+    handle: str | None
+    hasDigitalAvatar: bool | None
+    id: str | None
+    isAccountTransparencyVisible: bool | None
+    isBusiness: bool | None
+    isFacebookOnboardedCharity: bool | None
+    isMemorialized: bool | None
+    isNew: bool | None
+    isOpenToCollaboration: bool | None
+    isPotentialBusiness: bool | None
+    isPrivate: bool | None
+    isUnpublished: bool | None
+    isVerified: bool | None
+    lastStoryAt: str | None
+    location: InstagramProfileLocation
+    mediaPreviews: list[InstagramMediaPreview] | None
+    messagingFbid: str | None
+    metrics: InstagramProfileMetrics
+    pronouns: list[str] | None
+    socialContext: str | None
+    suggestion: InstagramSuggestion | None
+    threads: InstagramProfileThreads
+    upcomingEvents: list[Any] | None
+    url: str | None
+
+
+InstagramProfileSummary: TypeAlias = "InstagramProfile"
+
+
+class InstagramProfileThreads(TypedDict):
+    handle: str | None
+    isActive: bool | None
+    joinerLabel: str | None
+    url: str | None
+
+
+class InstagramScrubber(TypedDict):
+    duration: float | None
+    height: int | None
+    maxThumbnailsPerSprite: int | None
+    thumbnailDuration: float | None
+    thumbnailHeight: int | None
+    thumbnailWidth: int | None
+    thumbnailsPerRow: int | None
+    thumbnailsPerSprite: int | None
+    urls: list[str] | None
+    width: int | None
+
+
+InstagramSearchResult: TypeAlias = "InstagramPost"
+
+
+class InstagramSticker(TypedDict):
+    audio: InstagramAudioReference | None
+    endTime: float | None
+    hashtag: InstagramHashtagReference | None
+    id: str | None
+    isHidden: bool | None
+    isPinned: bool | None
+    position: InstagramStickerPosition
+    post: InstagramStickerPost | None
+    startTime: float | None
+    targetMediaId: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+    user: InstagramProfileReference | None
+
+
+class InstagramStickerPost(TypedDict):
+    code: str | None
+    id: str | None
+    mediaType: str | None
+    productType: str | None
+    url: str | None
+
+
+class InstagramStory(TypedDict):
+    ai: InstagramStoryAi
+    attribution: InstagramStoryAttribution
+    author: InstagramProfileReference | None
+    caption: InstagramCommentReference | None
+    carousel: InstagramStoryCarousel
+    code: str | None
+    collaborators: list[InstagramProfileReference] | None
+    comments: InstagramCommentSettings
+    createdAt: str
+    crossposting: InstagramStoryCrossposting
+    expiresAt: str | None
+    fbid: str | None
+    hasDelayedMetadata: bool | None
+    hasTaggedUsers: bool | None
+    hasVisualReplies: bool | None
+    highlights: list[InstagramHighlightReference] | None
+    id: str
+    invitedCollaborators: list[InstagramProfileReference] | None
+    isEarlyAccess: bool | None
+    isEdited: bool | None
+    isFanClubPromo: bool | None
+    isLastVideoSegment: bool | None
+    isOpenToPublicSubmission: bool | None
+    isPaidPartnership: bool | None
+    isPublicChatWelcomeVideo: bool | None
+    language: str | None
+    likeAndViewCountsHidden: bool | None
+    location: InstagramLocationReference | None
+    media: list[InstagramMedia]
+    metrics: InstagramPostMetrics
+    notes: list[InstagramNote] | None
+    pinning: InstagramStoryPinning
+    productTags: list[InstagramProductTag] | None
+    remix: InstagramStoryRemix
+    reuse: InstagramStoryReuse
+    shareCountHidden: bool | None
+    sharingEnabled: bool | None
+    stickers: list[InstagramSticker] | None
+    taggedUsers: list[InstagramUserTag] | None
+    template: InstagramTemplateInfo | None
+    text: str | None
+    title: str | None
+    type: str | None
+    url: str
+
+
+class InstagramStoryCollection(TypedDict):
+    audience: InstagramStoryCollectionAudience
+    expiresAt: str | None
+    id: str | None
+    isArchived: bool | None
+    lastStoryAt: str | None
+    metrics: InstagramStoryCollectionMetrics
+
+
+class InstagramStoryReference(TypedDict):
+    ai: InstagramStoryReferenceAi
+    attribution: InstagramStoryReferenceAttribution
+    author: InstagramProfileReference | None
+    caption: InstagramCommentReference | None
+    carousel: InstagramStoryReferenceCarousel
+    code: str | None
+    collaborators: list[InstagramProfileReference] | None
+    comments: InstagramCommentSettings
+    createdAt: str | None
+    crossposting: InstagramStoryReferenceCrossposting
+    expiresAt: str | None
+    fbid: str | None
+    hasDelayedMetadata: bool | None
+    hasTaggedUsers: bool | None
+    hasVisualReplies: bool | None
+    highlights: list[InstagramHighlightReference] | None
+    id: str | None
+    invitedCollaborators: list[InstagramProfileReference] | None
+    isEarlyAccess: bool | None
+    isEdited: bool | None
+    isFanClubPromo: bool | None
+    isLastVideoSegment: bool | None
+    isOpenToPublicSubmission: bool | None
+    isPaidPartnership: bool | None
+    isPublicChatWelcomeVideo: bool | None
+    language: str | None
+    likeAndViewCountsHidden: bool | None
+    location: InstagramLocationReference | None
+    media: list[InstagramMedia] | None
+    metrics: InstagramPostMetrics
+    notes: list[InstagramNote] | None
+    pinning: InstagramStoryReferencePinning
+    productTags: list[InstagramProductTag] | None
+    remix: InstagramStoryReferenceRemix
+    reuse: InstagramStoryReferenceReuse
+    shareCountHidden: bool | None
+    sharingEnabled: bool | None
+    stickers: list[InstagramSticker] | None
+    taggedUsers: list[InstagramUserTag] | None
+    template: InstagramTemplateInfo | None
+    text: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class InstagramStreamVariant(TypedDict):
+    bitrate: int | None
+    codec: str | None
+    frameRate: float | None
+    height: int | None
+    id: str | None
+    mimeType: str | None
+    qualityLabel: str | None
+    sampleRate: int | None
+    sizeBytes: int | None
+    url: str | None
+    width: int | None
+
+
+class InstagramStreaming(TypedDict):
+    dash: InstagramDASH | None
+
+
+class InstagramSubtitles(TypedDict):
+    confidence: float | None
+    enabled: bool | None
+    generated: bool | None
+    locale: str | None
+    status: str | None
+    url: str | None
+
+
+class InstagramSuggestion(TypedDict):
+    caption: str | None
+    hasStoryRing: bool | None
+    icon: str | None
+    isNew: bool | None
+    largeImages: list[InstagramImage] | None
+    posts: list[InstagramPostReference] | None
+    socialContext: str | None
+    thumbnails: list[InstagramImage] | None
+
+
+class InstagramTemplate(TypedDict):
+    audioTitle: str | None
+    author: InstagramProfileReference | None
+    effectId: str | None
+    effects: InstagramTemplateEffects
+    minimumSegments: int | None
+    postId: str | None
+    posts: list[InstagramPostReference] | None
+    segments: list[InstagramTemplateSegment] | None
+    title: str | None
+    usageLabel: str | None
+
+
+class InstagramTemplateInfo(TypedDict):
+    author: InstagramProfileReference | None
+    effectId: str | None
+    effects: InstagramTemplateInfoEffects
+    minimumSegments: int | None
+    postId: str | None
+    segments: list[InstagramTemplateSegment] | None
+
+
+class InstagramTemplateSegment(TypedDict):
+    assetEndTime: float | None
+    assetStartTime: float | None
+    duration: float | None
+
+
+class InstagramUserTag(TypedDict):
+    position: InstagramPosition
+    user: InstagramProfileReference
 
 
 class MessageEnvelope(TypedDict):
     message: str
 
 
-class Music(TypedDict):
-    album: str | None
-    artist: PostMusicArtist | None
-    artwork: MediaReference | None
-    audio: MediaReference | None
-    duration: float | None
+class RedditAuthor(TypedDict):
+    flair: RedditFlair | None
+    handle: str | None
+    id: str | None
+    isPremium: bool | None
+    placeholder: str | None
+
+
+class RedditComment(TypedDict):
+    author: RedditAuthor | None
+    community: RedditCommunity | None
+    createdAt: str
+    depth: int | None
+    display: RedditCommentDisplay
+    distinguishedBy: str | None
+    editedAt: str | None
     id: str
-    isCommercial: bool | None
-    isExplicit: bool | None
-    isOriginal: bool | None
-    metrics: MusicMetrics
-    title: str
+    isArchived: bool | None
+    isByPostAuthor: bool | None
+    isControversial: bool | None
+    isEdited: bool | None
+    isLocked: bool | None
+    isStickied: bool | None
+    metrics: RedditCommentMetrics
+    parentId: str | None
+    postId: str | None
+    replies: list[RedditCommentReference] | None
+    text: str | None
+    textHtml: str | None
+    type: str | None
+    url: str
+    visibility: RedditCommentVisibility
 
 
-class PostAuthor(TypedDict):
-    avatar: MediaReference | None
+class RedditCommentDisplay(TypedDict):
+    collapsedReason: str | None
+    isCollapsed: bool | None
+
+
+class RedditCommentMetrics(TypedDict):
+    awards: int | None
+    gilded: int | None
+    score: int | None
+
+
+class RedditCommentReference(TypedDict):
+    author: RedditAuthor | None
+    community: RedditCommunity | None
+    createdAt: str | None
+    depth: int | None
+    display: RedditCommentDisplay
+    distinguishedBy: str | None
+    editedAt: str | None
+    id: str | None
+    isArchived: bool | None
+    isByPostAuthor: bool | None
+    isControversial: bool | None
+    isEdited: bool | None
+    isLocked: bool | None
+    isStickied: bool | None
+    metrics: RedditCommentMetrics
+    parentId: str | None
+    postId: str | None
+    replies: list[RedditCommentReference] | None
+    text: str | None
+    textHtml: str | None
+    type: str | None
+    url: str | None
+    visibility: RedditCommentVisibility
+
+
+class RedditCommentSettings(TypedDict):
+    restrictCommenting: bool | None
+    scoreHideDuration: int | None
+    suggestedSort: str | None
+
+
+class RedditCommentVisibility(TypedDict):
+    isScoreHidden: bool | None
+
+
+class RedditCommentsSetting(TypedDict):
+    allowLiveComments: bool | None
+    discussionType: str | None
+    isContestMode: bool | None
+    suggestedSort: str | None
+
+
+class RedditCommunity(TypedDict):
+    displayHandle: str | None
+    handle: str | None
+    id: str | None
+    isQuarantined: bool | None
+    metrics: RedditSubredditMetrics
+    type: str | None
+
+
+class RedditCommunityHandle(TypedDict):
+    handle: str | None
+
+
+class RedditDisplaySettings(TypedDict):
+    showMedia: bool | None
+
+
+class RedditEmbed(TypedDict):
+    author: RedditEmbedAuthor | None
+    domain: str | None
+    height: int | None
+    html: str | None
+    mediaDomainUrl: str | None
+    provider: RedditEmbedSource | None
+    scrolling: bool | None
+    thumbnail: RedditThumbnail | None
+    title: str | None
+    type: str | None
+    version: str | None
+    width: int | None
+
+
+class RedditEmbedAuthor(TypedDict):
+    displayName: str | None
+    url: str | None
+
+
+class RedditEmbedSource(TypedDict):
+    name: str | None
+    url: str | None
+
+
+class RedditFlair(TypedDict):
+    backgroundColor: str | None
+    cssClass: str | None
+    hasPatreonFlair: bool | None
+    templateId: str | None
+    text: str | None
+    textColor: str | None
+    type: str | None
+
+
+class RedditImage(TypedDict):
+    height: int | None
+    label: str | None
+    type: str | None
+    url: str | None
+    variants: list[RedditImage] | None
+    width: int | None
+
+
+class RedditKarma(TypedDict):
+    awardee: int | None
+    awarder: int | None
+    comments: int | None
+    posts: int | None
+    total: int | None
+
+
+class RedditListingContext(TypedDict):
+    originalPost: RedditPostReference | None
+    post: RedditPostReference | None
+
+
+class RedditMedia(TypedDict):
+    bitrateKbps: int | None
+    caption: str | None
+    duration: float | None
+    hasAudio: bool | None
+    height: int | None
+    id: str | None
+    isAnimated: bool | None
+    mimeType: str | None
+    scrubber: RedditMediaVariant | None
+    transcodingStatus: str | None
+    type: str | None
+    url: str | None
+    variants: list[RedditMediaVariant] | None
+    width: int | None
+
+
+class RedditMediaVariant(TypedDict):
+    format: str | None
+    type: str | None
+    url: str | None
+
+
+class RedditPageMetadata(TypedDict):
+    community: RedditCommunityHandle | None
+    context: RedditListingContext | None
+    count: int | None
+    domain: str | None
+    handle: str | None
+    hasMore: bool | None
+    limit: int | None
+    previousCursor: str | None
+    query: str | None
+    siteRules: list[str] | None
+    sort: str | None
+
+
+class RedditPost(TypedDict):
+    author: RedditAuthor | None
+    comments: RedditCommentsSetting
+    community: RedditCommunity | None
+    createdAt: str
+    distinguishedBy: str | None
+    domain: str | None
+    editedAt: str | None
+    embed: RedditEmbed | None
+    flair: RedditFlair | None
+    id: str
+    isArchived: bool | None
+    isCrosspostable: bool | None
+    isEdited: bool | None
+    isGallery: bool | None
+    isLocked: bool | None
+    isMediaOnly: bool | None
+    isMeta: bool | None
+    isOriginalContent: bool | None
+    isPinned: bool | None
+    isRedditMediaDomain: bool | None
+    isSelf: bool | None
+    isSensitive: bool | None
+    isSpoiler: bool | None
+    isStickied: bool | None
+    isVideo: bool | None
+    linkUrl: str | None
+    media: list[RedditMedia]
+    metrics: RedditPostMetrics
+    removedByCategory: str | None
+    text: str | None
+    textHtml: str | None
+    thumbnail: RedditThumbnail | None
+    title: str | None
+    topAwardedType: str | None
+    url: str
+    visibility: RedditPostVisibility
+
+
+class RedditPostFlairSettings(TypedDict):
+    enabled: bool | None
+    position: str | None
+
+
+class RedditPostMetrics(TypedDict):
+    awards: int | None
+    comments: int | None
+    crossposts: int | None
+    gilded: int | None
+    score: int | None
+    upvoteRatio: float | None
+    views: int | None
+
+
+class RedditPostReference(TypedDict):
+    author: RedditAuthor | None
+    comments: RedditCommentsSetting
+    community: RedditCommunity | None
+    createdAt: str | None
+    distinguishedBy: str | None
+    domain: str | None
+    editedAt: str | None
+    embed: RedditEmbed | None
+    flair: RedditFlair | None
+    id: str | None
+    isArchived: bool | None
+    isCrosspostable: bool | None
+    isEdited: bool | None
+    isGallery: bool | None
+    isLocked: bool | None
+    isMediaOnly: bool | None
+    isMeta: bool | None
+    isOriginalContent: bool | None
+    isPinned: bool | None
+    isRedditMediaDomain: bool | None
+    isSelf: bool | None
+    isSensitive: bool | None
+    isSpoiler: bool | None
+    isStickied: bool | None
+    isVideo: bool | None
+    linkUrl: str | None
+    media: list[RedditMedia] | None
+    metrics: RedditPostMetrics
+    removedByCategory: str | None
+    text: str | None
+    textHtml: str | None
+    thumbnail: RedditThumbnail | None
+    title: str | None
+    topAwardedType: str | None
+    url: str | None
+    visibility: RedditPostVisibility
+
+
+class RedditPostVisibility(TypedDict):
+    isRobotIndexable: bool | None
+    isScoreHidden: bool | None
+
+
+class RedditPostingLabels(TypedDict):
+    link: str | None
+    text: str | None
+
+
+class RedditPostingSettings(TypedDict):
+    allOriginalContent: bool | None
+    allowGalleries: bool | None
+    allowImages: bool | None
+    allowPolls: bool | None
+    allowVideos: bool | None
+    instructions: RedditText | None
+    labels: RedditPostingLabels | None
+    originalContentTagEnabled: bool | None
+    restrictPosting: bool | None
+    spoilersEnabled: bool | None
+    type: str | None
+
+
+class RedditProfile(TypedDict):
+    acceptsFollowers: bool | None
+    avatar: RedditImage | None
+    banner: RedditImage | None
+    bio: str | None
+    createdAt: str | None
+    displayHandle: str | None
     displayName: str | None
     handle: str
     id: str
-    isVerified: bool | None
-
-
-class PostLocation(TypedDict):
-    address: str | None
-    category: str | None
-    city: str | None
-    countryCode: str | None
-    id: str | None
-    latitude: float | None
-    longitude: float | None
-    name: str | None
-    phone: str | None
-    postalCode: str | None
-    region: str | None
-    website: str | None
-
-
-class PostMedia(TypedDict):
-    altText: NotRequired[str]
-    duration: NotRequired[float]
-    expiresAt: NotRequired[str]
-    height: NotRequired[int]
-    id: NotRequired[str]
-    thumbnail: NotRequired[MediaReference]
-    type: Literal["image", "video"]
+    isEmployee: bool | None
+    isModerator: bool | None
+    isPremium: bool | None
+    isSensitive: bool | None
+    metrics: RedditProfileMetrics
+    profileCommunity: RedditProfileCommunity | None
+    snoovatar: RedditImage | None
     url: str
-    variants: NotRequired[list[PostMediaVariant]]
-    width: NotRequired[int]
+    verification: RedditVerification
+    visibility: RedditProfileVisibility
 
 
-class PostMediaVariant(TypedDict):
-    bitrate: NotRequired[int]
-    expiresAt: NotRequired[str]
-    height: NotRequired[int]
-    mimeType: NotRequired[str]
-    role: NotRequired[str]
-    url: str
-    watermarked: NotRequired[bool]
-    width: NotRequired[int]
+class RedditProfileCommunity(TypedDict):
+    communityIcon: RedditImage | None
+    displayHandle: str | None
+    handle: str | None
+    icon: RedditImage | None
+    primaryColor: str | None
+    type: str | None
 
 
-class PostMusic(TypedDict):
-    album: str | None
-    artist: PostMusicArtist | None
-    artwork: MediaReference | None
-    audio: MediaReference | None
-    duration: float | None
+class RedditProfileMetrics(TypedDict):
+    followers: int | None
+    karma: RedditKarma
+
+
+class RedditProfileVisibility(TypedDict):
+    hideFromRobots: bool | None
+
+
+class RedditReportSettings(TypedDict):
+    allowCustomReasons: bool | None
+
+
+class RedditRule(TypedDict):
+    createdAt: str | None
+    description: RedditText | None
+    kind: str | None
+    name: str
+    priority: int | None
+    violationReason: str | None
+
+
+class RedditSubreddit(TypedDict):
+    acceptsFollowers: bool | None
+    avatar: RedditImage | None
+    banner: RedditImage | None
+    branding: RedditSubredditBranding
+    createdAt: str | None
+    description: RedditText | None
+    displayHandle: str | None
+    displayName: str | None
+    handle: str
     id: str
-    isCommercial: bool | None
-    isExplicit: bool | None
-    isOriginal: bool | None
-    title: str | None
+    isQuarantined: bool | None
+    isSensitive: bool | None
+    language: str | None
+    metrics: RedditSubredditMetrics
+    settings: RedditSubredditSettings
+    summary: RedditText | None
+    type: str | None
+    url: str
 
 
-class PostMusicArtist(TypedDict):
+class RedditSubredditBranding(TypedDict):
+    banner: RedditImage | None
+    colors: RedditSubredditColors
+    header: RedditImage | None
+    headerTitle: str | None
+    icon: RedditImage | None
+
+
+class RedditSubredditColors(TypedDict):
+    bannerBackground: str | None
+    key: str | None
+    primary: str | None
+
+
+class RedditSubredditMetrics(TypedDict):
+    subscribers: int | None
+
+
+class RedditSubredditSettings(TypedDict):
+    comments: RedditCommentSettings
+    display: RedditDisplaySettings
+    postFlair: RedditPostFlairSettings
+    posting: RedditPostingSettings
+    reports: RedditReportSettings
+
+
+class RedditText(TypedDict):
+    html: str | None
+    text: str | None
+
+
+class RedditThumbnail(TypedDict):
+    height: int | None
+    state: str | None
+    type: str | None
+    url: str | None
+    width: int | None
+
+
+class RedditTrophy(TypedDict):
+    awardId: str | None
+    description: str | None
+    grantedAt: str | None
+    icon: RedditImage | None
     id: str | None
     name: str
+    url: str | None
 
 
-Profile: TypeAlias = "ProfileCore"
+class RedditVerification(TypedDict):
+    hasVerifiedEmail: bool | None
+    reportedVerified: bool | None
 
 
-class ProfileLink(TypedDict):
-    title: str | None
+class RedditWikiAuthor(TypedDict):
+    handle: str | None
+
+
+class RedditWikiContent(TypedDict):
+    html: str | None
+    markdown: str | None
+
+
+class RedditWikiPage(TypedDict):
+    content: RedditWikiContent | None
+    revision: RedditWikiRevision | None
+    title: str
     url: str
 
 
-class ProfileMetrics(TypedDict):
-    followers: int | None
-    following: int | None
-    posts: int | None
+class RedditWikiRevision(TypedDict):
+    author: RedditWikiAuthor | None
+    createdAt: str | None
+    id: str | None
+    reason: str | None
 
 
-class SearchResultMetrics(TypedDict):
-    comments: NotRequired[int]
-    followers: NotRequired[int]
-    likes: NotRequired[int]
-    posts: NotRequired[int]
-    shares: NotRequired[int]
-    views: NotRequired[int]
+class ResponseCursors(TypedDict):
+    next: str | None
 
 
-class StoryLink(TypedDict):
-    displayUrl: NotRequired[str]
-    height: NotRequired[float]
-    rotation: NotRequired[float]
-    title: NotRequired[str]
-    url: str
-    width: NotRequired[float]
-    x: NotRequired[float]
-    y: NotRequired[float]
-
-
-class StorySticker(TypedDict):
-    height: NotRequired[float]
-    id: NotRequired[str]
-    link: NotRequired[StoryLink]
-    rotation: NotRequired[float]
-    type: NotRequired[str]
-    width: NotRequired[float]
-    x: NotRequired[float]
-    y: NotRequired[float]
+class ResponseMeta(TypedDict):
+    cashtags: NotRequired[list[Any] | None]
+    chart: NotRequired[TikTokChartMetadata | None]
+    collection: NotRequired[InstagramStoryCollection | None]
+    community: NotRequired[RedditCommunityHandle | None]
+    context: NotRequired[RedditListingContext | None]
+    continuation: NotRequired[TikTokPageContinuation | None]
+    count: NotRequired[int | None]
+    cursors: ResponseCursors
+    domain: NotRequired[str | None]
+    events: NotRequired[list[Any] | None]
+    handle: NotRequired[str | None]
+    hasFilteredComments: NotRequired[bool | None]
+    hasMore: NotRequired[bool | None]
+    hasMoreAfter: NotRequired[bool | None]
+    hasMoreBefore: NotRequired[bool | None]
+    hashtags: NotRequired[list[Any] | None]
+    isLimited: NotRequired[bool]
+    likesEnabled: NotRequired[bool | None]
+    limit: NotRequired[int | None]
+    lists: NotRequired[list[Any] | None]
+    metrics: NotRequired[ResponseMetaMetrics]
+    nextCursorLabel: NotRequired[str | None]
+    nextCursorType: NotRequired[str | None]
+    parent: NotRequired[InstagramCommentReference | None]
+    previousCursor: NotRequired[str | None]
+    promoted: NotRequired[list[TwitterPostReference] | None]
+    queries: NotRequired[list[TwitterSuggestedQuery] | None]
+    query: NotRequired[str | None]
+    siteRules: NotRequired[list[str] | None]
+    sort: NotRequired[str | None]
+    threadingEnabled: NotRequired[bool | None]
+    track: NotRequired[InstagramAudioReference | None]
 
 
 class SuccessEnvelope(TypedDict):
     capturedAt: str
     data: Any
-    meta: NotRequired[SuccessEnvelopeMeta]
-    platform: Literal["instagram", "tiktok", "twitter"]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity"]
+    meta: NotRequired[ResponseMeta]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"]
     source: Literal["live", "cache"]
 
 
@@ -541,9 +2038,9 @@ class TestDataEntry(TypedDict):
     inputs: dict[str, Any]
     label: str
     operationIds: list[str]
-    platform: Literal["instagram", "tiktok", "twitter"]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
     relationships: list[TestDataRelationship]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"]
     synthetic: Literal[True]
     traits: list[str]
 
@@ -565,9 +2062,9 @@ class TestDataOperation(TypedDict):
     method: Literal["GET"]
     paginated: bool
     path: str
-    platform: Literal["instagram", "tiktok", "twitter"]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
     publicSchema: str
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"]
     summary: str
     toolName: str
 
@@ -577,144 +2074,1535 @@ class TestDataRelationship(TypedDict):
     type: str
 
 
-class TikTokComment(CommentCore, TypedDict):
-    pass
+class TikTokAsset(TypedDict):
+    bitrate: int | None
+    codecCode: int | None
+    covers: list[TikTokAsset] | None
+    duration: float | None
+    expiresAt: str | None
+    format: str | None
+    frameRate: float | None
+    hasWatermark: bool | None
+    hash: str | None
+    height: int | None
+    id: str | None
+    isAutoGenerated: bool | None
+    isBytevc1: bool | None
+    isOriginal: bool | None
+    label: str | None
+    language: str | None
+    locale: str | None
+    previewThumbnails: list[TikTokPreviewThumbnails] | None
+    qualityCode: int | None
+    qualityLabel: str | None
+    renditions: list[TikTokAsset] | None
+    role: str | None
+    size: int | None
+    subtitles: list[TikTokAsset] | None
+    type: str | None
+    url: str | None
+    variants: list[TikTokAsset] | None
+    version: str | None
+    volumeInfo: TikTokVolumeInfo
+    width: int | None
+
+
+class TikTokBeatData(TypedDict):
+    bitrate: int | None
+    codecCode: int | None
+    covers: list[TikTokAsset] | None
+    duration: float | None
+    expiresAt: str | None
+    format: str | None
+    frameRate: float | None
+    hasWatermark: bool | None
+    hash: str | None
+    height: int | None
+    id: str | None
+    isAutoGenerated: bool | None
+    isBytevc1: bool | None
+    isOriginal: bool | None
+    label: str | None
+    language: str | None
+    locale: str | None
+    previewThumbnails: list[TikTokPreviewThumbnails] | None
+    qualityCode: int | None
+    qualityLabel: str | None
+    renditions: list[TikTokAsset] | None
+    resources: list[TikTokAsset] | None
+    role: str | None
+    size: int | None
+    subtitles: list[TikTokAsset] | None
+    type: str | None
+    url: str | None
+    variants: list[TikTokAsset] | None
+    version: str | None
+    volumeInfo: TikTokVolumeInfo
+    width: int | None
+
+
+class TikTokCategory(TypedDict):
+    avatar: TikTokAsset | None
+    categoryContext: TikTokCategoryContext
+    classification: TikTokHashtagClassification
+    cover: TikTokAsset | None
+    description: str | None
+    id: str
+    isCommerce: bool | None
+    isStrongMusic: bool | None
+    metrics: TikTokHashtagMetrics
+    music: list[TikTokMusicReference] | None
+    name: str | None
+    previewPosts: list[TikTokPostReference] | None
+    searchContext: TikTokHashtagSearchContext
+    url: str
+
+
+class TikTokCategoryContext(TypedDict):
+    label: str | None
+    typeCode: int | None
+
+
+class TikTokChartMetadata(TypedDict):
+    cover: TikTokAsset | None
+    id: str | None
+    updatedAt: str | None
+
+
+class TikTokCollaborator(TypedDict):
+    profile: TikTokProfileReference
+    status: int | None
+
+
+class TikTokComment(TypedDict):
+    author: TikTokProfileReference | None
+    createdAt: str
+    entities: list[TikTokTextEntity] | None
+    id: str
+    isLikedByCreator: bool | None
+    isPinned: bool | None
+    labels: list[TikTokCommentLabel] | None
+    language: str | None
+    media: list[TikTokAsset] | None
+    metrics: TikTokCommentMetrics
+    parentId: str | None
+    postId: str | None
+    predictions: TikTokCommentPredictions
+    previewReplies: list[TikTokCommentReference] | None
+    replyTo: TikTokProfileReference | None
+    rootCommentId: str | None
+    sticker: TikTokCommentSticker | None
+    text: str | None
+
+
+class TikTokCommentLabel(TypedDict):
+    text: str | None
+    typeCode: int | None
+
+
+class TikTokCommentMetrics(TypedDict):
+    likes: int | None
+    replies: int | None
+
+
+class TikTokCommentPredictions(TypedDict):
+    highPurchaseIntent: bool | None
+
+
+class TikTokCommentReference(TypedDict):
+    author: TikTokProfileReference | None
+    createdAt: str | None
+    entities: list[TikTokTextEntity] | None
+    id: str | None
+    isLikedByCreator: bool | None
+    isPinned: bool | None
+    labels: list[TikTokCommentLabel] | None
+    language: str | None
+    media: list[TikTokAsset] | None
+    metrics: TikTokCommentMetrics
+    parentId: str | None
+    postId: str | None
+    predictions: TikTokCommentPredictions
+    previewReplies: list[TikTokCommentReference] | None
+    replyTo: TikTokProfileReference | None
+    rootCommentId: str | None
+    sticker: TikTokCommentSticker | None
+    text: str | None
+
+
+class TikTokCommentSticker(TypedDict):
+    createdAt: str | None
+    creatorId: str | None
+    id: str | None
+    name: str | None
+    renditions: list[TikTokAsset] | None
+    setId: str | None
+    typeCode: int | None
+
+
+class TikTokCommerceMetrics(TypedDict):
+    products: int | None
+
+
+class TikTokCoordinates(TypedDict):
+    geohash: str | None
+    latitude: float | None
+    longitude: float | None
+
+
+class TikTokDistrict(TypedDict):
+    id: str | None
+    name: str | None
+    parentName: str | None
 
 
 class TikTokEffect(TypedDict):
-    createdAt: NotRequired[str]
-    description: NotRequired[str]
+    attributions: list[TikTokUnspecified] | None
+    children: list[TikTokUnspecified] | None
+    classification: TikTokEffectClassification
+    creation: TikTokEffectCreation
+    description: str | None
+    effectId: str | None
+    icon: TikTokAsset | None
     id: str
-    image: NotRequired[MediaReference]
-    isCommercial: NotRequired[bool]
-    name: NotRequired[str]
-    postCount: NotRequired[int]
-    type: NotRequired[str]
-    url: NotRequired[str]
-    viewCount: NotRequired[int]
+    isTopEffect: bool | None
+    linkedAnchors: list[TikTokUnspecified] | None
+    metrics: TikTokEffectMetrics
+    name: str | None
+    owner: TikTokEffectOwner | None
+    publishedAt: str | None
+    resourceId: str | None
+    tags: list[str] | None
+    triggers: list[TikTokEffectTrigger] | None
+    url: str
 
 
-class TikTokEntity(EntityCore, TypedDict):
-    pass
+class TikTokEffectClassification(TypedDict):
+    creatorTypeCode: int | None
+    sourceCode: int | None
+
+
+class TikTokEffectCreation(TypedDict):
+    isEffectHouse: bool | None
+    isExternalProducer: bool | None
+
+
+class TikTokEffectMetrics(TypedDict):
+    uses: int | None
+    views: int | None
+
+
+class TikTokEffectOwner(TypedDict):
+    avatar: TikTokAsset | None
+    displayName: str | None
+    id: str | None
+    isTopEffectDesigner: bool | None
+    secUid: str | None
+    verification: TikTokEffectOwnerVerification
+
+
+class TikTokEffectOwnerVerification(TypedDict):
+    typeCode: int | None
+
+
+class TikTokEffectReference(TypedDict):
+    attributions: list[TikTokUnspecified] | None
+    children: list[TikTokUnspecified] | None
+    classification: TikTokEffectClassification
+    creation: TikTokEffectCreation
+    description: str | None
+    effectId: str | None
+    icon: TikTokAsset | None
+    id: str | None
+    isTopEffect: bool | None
+    linkedAnchors: list[TikTokUnspecified] | None
+    metrics: TikTokEffectMetrics
+    name: str | None
+    owner: TikTokEffectOwner | None
+    publishedAt: str | None
+    resourceId: str | None
+    tags: list[str] | None
+    triggers: list[TikTokEffectTrigger] | None
+    url: str | None
+
+
+class TikTokEffectTrigger(TypedDict):
+    actionCodes: list[int] | None
+    type: str | None
+
+
+class TikTokHashtag(TypedDict):
+    avatar: TikTokAsset | None
+    classification: TikTokHashtagClassification
+    cover: TikTokAsset | None
+    description: str | None
+    id: str
+    isCommerce: bool | None
+    isStrongMusic: bool | None
+    metrics: TikTokHashtagMetrics
+    music: list[TikTokMusicReference] | None
+    name: str | None
+    searchContext: TikTokHashtagSearchContext
+    url: str
+
+
+class TikTokHashtagClassification(TypedDict):
+    challengeCode: int | None
+    subtypeCode: int | None
+    typeCode: int | None
+
+
+class TikTokHashtagMetrics(TypedDict):
+    users: int | None
+    uses: int | None
+    views: int | None
+
+
+class TikTokHashtagReference(TypedDict):
+    id: str | None
+    name: str | None
+    url: str | None
+
+
+class TikTokHashtagSearchContext(TypedDict):
+    name: str | None
+
+
+class TikTokInteractionSticker(TypedDict):
+    hashtag: TikTokHashtagReference | None
+    index: int | None
+    isTextHashtag: bool | None
+    materialIndex: int | None
+    positions: list[TikTokStickerPosition] | None
+    text: str | None
+    typeCode: int | None
+
+
+class TikTokLocation(TypedDict):
+    address: TikTokLocationAddress
+    category: str | None
+    classification: TikTokLocationClassification
+    commerce: TikTokLocationCommerce
+    coordinates: TikTokCoordinates
+    externalUrl: str | None
+    id: str
+    metrics: TikTokLocationMetrics
+    name: str | None
+    openingHours: TikTokOpeningHours
+    parent: TikTokLocationParent | None
+    priceLevel: str | None
+    rating: TikTokLocationRating
+    source: str | None
+    url: str | None
+
+
+class TikTokLocationAddress(TypedDict):
+    city: str | None
+    cityCode: str | None
+    countryCode: str | None
+    district: TikTokDistrict | None
+    fallback: str | None
+    formatted: str | None
+    regionCode: str | None
+
+
+class TikTokLocationClassification(TypedDict):
+    backendType: str | None
+    className: str | None
+    code: str | None
+    detailType: str | None
+    hierarchy: list[str] | None
+    levelCode: str | None
+    serviceCategory: TikTokServiceCategory
+    sourceCode: int | None
+
+
+class TikTokLocationCommerce(TypedDict):
+    hasProductShelf: bool | None
+    isClaimed: bool | None
+
+
+class TikTokLocationMetrics(TypedDict):
+    favorites: int | None
+    reviews: int | None
+    videos: int | None
+
+
+class TikTokLocationParent(TypedDict):
+    id: str | None
+    name: str | None
+
+
+class TikTokLocationRating(TypedDict):
+    hasRating: bool | None
+    maxScore: float | None
+    score: float | None
+    source: TikTokRatingSource
+
+
+class TikTokLocationReference(TypedDict):
+    address: TikTokLocationAddress
+    category: str | None
+    classification: TikTokLocationClassification
+    commerce: TikTokLocationCommerce
+    coordinates: TikTokCoordinates
+    externalUrl: str | None
+    id: str | None
+    metrics: TikTokLocationMetrics
+    name: str | None
+    openingHours: TikTokOpeningHours
+    parent: TikTokLocationParent | None
+    priceLevel: str | None
+    rating: TikTokLocationRating
+    source: str | None
+    url: str | None
+
+
+class TikTokLyricAsset(TypedDict):
+    id: str | None
+    typeCode: int | None
+    url: str | None
+
+
+class TikTokMatchedTrack(TypedDict):
+    artistName: str | None
+    artists: list[TikTokProfileReference] | None
+    chorus: TikTokMusicPreview
+    cover: TikTokAsset | None
+    duration: float | None
+    id: str | None
+    mixedArtistName: str | None
+    mixedTitle: str | None
+    release: TikTokMusicRelease
+    title: str | None
+    url: str | None
+
+
+class TikTokMusic(TypedDict):
+    album: str | None
+    appleMusicSongId: str | None
+    artistName: str | None
+    artists: list[TikTokProfileReference] | None
+    audio: TikTokAsset | None
+    beatData: TikTokBeatData | None
+    chartContext: TikTokMusicChartContext
+    classification: TikTokMusicClassification
+    covers: list[TikTokAsset] | None
+    createdAt: str | None
+    duration: float | None
+    durations: TikTokMusicDurations
+    externalSongs: list[TikTokUnspecified] | None
+    grouping: TikTokMusicGrouping
+    hasBehindTheSong: bool | None
+    hasHumanVoice: bool | None
+    hasMatchedMetadata: bool | None
+    id: str
+    isAuthorArtist: bool | None
+    isAuthorDeleted: bool | None
+    isOriginal: bool | None
+    isOriginalSound: bool | None
+    isPgc: bool | None
+    isPlayMusic: bool | None
+    lyricAssets: list[TikTokLyricAsset] | None
+    matchedCatalogTrack: TikTokMusicReference | None
+    matchedSong: TikTokMatchedTrack | None
+    matchedSound: TikTokMatchedTrack | None
+    metrics: TikTokMusicMetrics
+    mid: str | None
+    owner: TikTokProfileReference | None
+    preview: TikTokMusicPreview
+    recommendationStatusCode: int | None
+    release: TikTokMusicRelease
+    searchContext: TikTokMusicSearchContext
+    similarTracks: list[TikTokMusicReference] | None
+    source: TikTokMusicSource
+    streamingLinks: list[TikTokStreamingLink] | None
+    title: str | None
+    url: str | None
+
+
+class TikTokMusicChartContext(TypedDict):
+    id: str | None
+    position: int | None
+    trendCode: int | None
+
+
+class TikTokMusicClassification(TypedDict):
+    languageLabel: str | None
+    styleCodes: list[int] | None
+    themeCodes: list[int] | None
+    themes: list[str] | None
+
+
+class TikTokMusicContext(TypedDict):
+    label: str | None
+
+
+class TikTokMusicDurations(TypedDict):
+    shoot: float | None
+    video: float | None
+
+
+class TikTokMusicGrouping(TypedDict):
+    groupIds: list[str] | None
+    sameGroupId: str | None
+    similarGroupId: str | None
+    ugid: str | None
+
+
+class TikTokMusicMetrics(TypedDict):
+    groupUses: int | None
+    posts: int | None
+    ugidUses: int | None
+
+
+class TikTokMusicPreview(TypedDict):
+    duration: float | None
+    endTime: float | None
+    startTime: float | None
+
+
+class TikTokMusicReference(TypedDict):
+    album: str | None
+    appleMusicSongId: str | None
+    artistName: str | None
+    artists: list[TikTokProfileReference] | None
+    audio: TikTokAsset | None
+    beatData: TikTokBeatData | None
+    chartContext: TikTokMusicChartContext
+    classification: TikTokMusicClassification
+    covers: list[TikTokAsset] | None
+    createdAt: str | None
+    duration: float | None
+    durations: TikTokMusicDurations
+    externalSongs: list[TikTokUnspecified] | None
+    grouping: TikTokMusicGrouping
+    hasBehindTheSong: bool | None
+    hasHumanVoice: bool | None
+    hasMatchedMetadata: bool | None
+    id: str | None
+    isAuthorArtist: bool | None
+    isAuthorDeleted: bool | None
+    isOriginal: bool | None
+    isOriginalSound: bool | None
+    isPgc: bool | None
+    isPlayMusic: bool | None
+    lyricAssets: list[TikTokLyricAsset] | None
+    matchedCatalogTrack: TikTokMusicReference | None
+    matchedSong: TikTokMatchedTrack | None
+    matchedSound: TikTokMatchedTrack | None
+    metrics: TikTokMusicMetrics
+    mid: str | None
+    owner: TikTokProfileReference | None
+    preview: TikTokMusicPreview
+    recommendationStatusCode: int | None
+    release: TikTokMusicRelease
+    searchContext: TikTokMusicSearchContext
+    similarTracks: list[TikTokMusicReference] | None
+    source: TikTokMusicSource
+    streamingLinks: list[TikTokStreamingLink] | None
+    title: str | None
+    url: str | None
+
+
+class TikTokMusicRelease(TypedDict):
+    date: str | None
+    isNewRelease: bool | None
+
+
+class TikTokMusicSearchContext(TypedDict):
+    description: str | None
+    name: str | None
+    relatedQuery: str | None
+
+
+class TikTokMusicSource(TypedDict):
+    audioAssetId: str | None
+    sourcePostId: str | None
+
+
+class TikTokOpeningHours(TypedDict):
+    endTime: str | None
+    entries: list[TikTokOpeningHoursEntry] | None
+    startTime: str | None
+    status: bool | None
+    text: str | None
+
+
+class TikTokOpeningHoursEntry(TypedDict):
+    dayCode: int | None
+    text: str | None
+
+
+class TikTokPageContinuation(TypedDict):
+    maxTime: int | None
+    minTime: int | None
+    offset: int | None
+    pageToken: str | None
+
+
+class TikTokPageMetadata(TypedDict):
+    chart: TikTokChartMetadata | None
+    continuation: TikTokPageContinuation | None
+    hasFilteredComments: bool | None
+    hasMore: bool | None
+    metrics: TikTokPageMetadataMetrics
+    query: str | None
 
 
 class TikTokPlaylist(TypedDict):
-    cover: NotRequired[MediaReference]
-    createdAt: NotRequired[str]
-    description: NotRequired[str]
+    author: TikTokProfileReference | None
+    creatorName: str | None
     id: str
-    name: NotRequired[str]
-    owner: NotRequired[EntityReference]
-    playCount: NotRequired[int]
-    postCount: NotRequired[int]
-    updatedAt: NotRequired[str]
-    url: NotRequired[str]
+    index: int | None
+    lastPostAddedAt: str | None
+    metrics: TikTokPlaylistMetrics
+    name: str | None
+    typeCode: int | None
+    url: str | None
 
 
-class TikTokPost(PostCore, TypedDict):
-    collaborators: list[PostAuthor] | None
-    extended: NotRequired[TikTokPostExtended]
-    isAd: bool | None
-    isPaidPartnership: bool | None
-    location: PostLocation | None
-    metrics: TikTokPostMetrics
-    music: PostMusic | None
-    sponsors: list[PostAuthor] | None
-    taggedUsers: list[PostAuthor] | None
+class TikTokPlaylistMetrics(TypedDict):
+    plays: int | None
+    posts: int | None
 
 
-class TikTokPostExtended(TypedDict):
-    aiLabelType: NotRequired[int | None]
-    allowsDuet: NotRequired[bool | None]
-    allowsStitch: NotRequired[bool | None]
-    isAiGenerated: NotRequired[bool | None]
-    isDownloadable: NotRequired[bool | None]
-    usesPromotionalMusic: NotRequired[bool | None]
+class TikTokPlaylistReference(TypedDict):
+    author: TikTokProfileReference | None
+    creatorName: str | None
+    id: str | None
+    index: int | None
+    lastPostAddedAt: str | None
+    metrics: TikTokPlaylistMetrics
+    name: str | None
+    typeCode: int | None
+    url: str | None
 
 
-class TikTokPostMetrics(PostMetrics, TypedDict):
-    downloads: int | None
-
-
-class TikTokProfile(ProfileCore, TypedDict):
-    extended: NotRequired[TikTokProfileExtended]
-
-
-class TikTokProfileExtended(TypedDict):
-    hasCommerce: bool | None
-    isProAccount: bool | None
-    verificationLabel: str | None
-    verificationType: int | None
-
-
-class TrendingCategory(TypedDict):
+class TikTokPost(TypedDict):
+    ai: TikTokPostAI
+    audio: TikTokPostAudio
+    author: TikTokProfileReference | None
+    authorId: str | None
+    caption: TikTokPostCaption
+    collaborators: list[TikTokCollaborator] | None
+    commerce: TikTokPostCommerce
+    cover: TikTokAsset | None
+    createdAt: str
     description: str | None
+    effects: list[TikTokEffectReference] | None
+    entities: list[TikTokTextEntity] | None
+    hasDanmaku: bool | None
+    hasPromotionalMusic: bool | None
+    hashtags: list[TikTokHashtagReference]
     id: str
-    metrics: TrendingCategoryMetrics
-    name: str
+    isAd: bool | None
+    isMeme: bool | None
+    isPaidContent: bool | None
+    isPinned: bool | None
+    isVr: bool | None
+    language: str | None
+    locations: list[TikTokLocationReference] | None
+    media: list[TikTokAsset]
+    metrics: TikTokPostMetrics
+    musicContext: TikTokMusicContext
+    onScreenText: list[TikTokUnspecified] | None
+    paidCollectionId: str | None
+    playlist: TikTokPlaylistReference | None
+    region: str | None
+    searchContext: TikTokPostSearchContext
+    status: TikTokPostStatus
+    stickers: list[TikTokInteractionSticker] | None
+    template: TikTokPostTemplate | None
+    text: str | None
+    title: str | None
+    type: str | None
+    url: str
 
 
-class TwitterComment(CommentCore, TypedDict):
+class TikTokPostAI(TypedDict):
+    isCreatedByAi: bool | None
+    labelType: int | None
+
+
+class TikTokPostAudio(TypedDict):
+    addedTrack: TikTokMusicReference | None
+    addedVolume: float | None
+    endTime: float | None
+    originalVolume: float | None
+    startTime: float | None
+    track: TikTokMusicReference | None
+    usesFullSong: bool | None
+
+
+class TikTokPostCaption(TypedDict):
+    entities: list[TikTokTextEntity] | None
+    markup: str | None
+
+
+class TikTokPostCommerce(TypedDict):
+    brandedContentType: int | None
+    disclosureLabel: str | None
+    isDiversionAd: bool | None
+    isEcommerce: bool | None
+    metrics: TikTokCommerceMetrics
+    products: list[TikTokProduct] | None
+    sellerIds: list[str] | None
+
+
+class TikTokPostMetrics(TypedDict):
+    comments: int | None
+    downloads: int | None
+    likes: int | None
+    reposts: int | None
+    saves: int | None
+    shares: int | None
+    views: int | None
+    whatsapp: TikTokWhatsAppMetrics
+
+
+class TikTokPostReference(TypedDict):
+    ai: TikTokPostAI
+    audio: TikTokPostAudio
+    author: TikTokProfileReference | None
+    authorId: str | None
+    caption: TikTokPostCaption
+    collaborators: list[TikTokCollaborator] | None
+    commerce: TikTokPostCommerce
+    cover: TikTokAsset | None
+    createdAt: str | None
+    description: str | None
+    effects: list[TikTokEffectReference] | None
+    entities: list[TikTokTextEntity] | None
+    hasDanmaku: bool | None
+    hasPromotionalMusic: bool | None
+    hashtags: list[TikTokHashtagReference] | None
+    id: str | None
+    isAd: bool | None
+    isMeme: bool | None
+    isPaidContent: bool | None
+    isPinned: bool | None
+    isVr: bool | None
+    language: str | None
+    locations: list[TikTokLocationReference] | None
+    media: list[TikTokAsset] | None
+    metrics: TikTokPostMetrics
+    musicContext: TikTokMusicContext
+    onScreenText: list[TikTokUnspecified] | None
+    paidCollectionId: str | None
+    playlist: TikTokPlaylistReference | None
+    region: str | None
+    searchContext: TikTokPostSearchContext
+    status: TikTokPostStatus
+    stickers: list[TikTokInteractionSticker] | None
+    template: TikTokPostTemplate | None
+    text: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class TikTokPostSearchContext(TypedDict):
+    description: str | None
+    highlights: list[TikTokSearchHighlight] | None
+
+
+class TikTokPostStatus(TypedDict):
+    isDeleted: bool | None
+    isProhibited: bool | None
+    isUnderReview: bool | None
+    privacyCode: int | None
+    reviewedCode: int | None
+
+
+class TikTokPostTemplate(TypedDict):
+    authorName: str | None
+    description: str | None
+    duration: float | None
+    id: str | None
+    metrics: TikTokTemplateMetrics
+    musicId: str | None
+
+
+class TikTokPreviewThumbnails(TypedDict):
+    columns: int | None
+    duration: float | None
+    format: str | None
+    imageCount: int | None
+    imageIds: list[str] | None
+    images: list[TikTokAsset] | None
+    interval: float | None
+    rows: int | None
+    tileHeight: int | None
+    tileWidth: int | None
+
+
+class TikTokProduct(TypedDict):
+    categories: list[TikTokProductCategory] | None
+    cover: TikTokAsset | None
+    disclosureLabel: str | None
+    id: str | None
+    images: list[TikTokAsset] | None
+    inShop: bool | None
+    isPlatformProduct: bool | None
+    label: str | None
+    name: str | None
+    platformCode: int | None
+    pricing: TikTokProductPricing
+    sellerId: str | None
+    shortName: str | None
+    skus: list[TikTokProductSKU] | None
+    source: str | None
+    statusCode: int | None
+
+
+class TikTokProductCategory(TypedDict):
+    id: str | None
+    isLeaf: bool | None
+    level: int | None
+    name: str | None
+    parentId: str | None
+
+
+class TikTokProductPricing(TypedDict):
+    currency: str | None
+    marketPrice: int | None
+    price: int | None
+
+
+class TikTokProductSKU(TypedDict):
+    externalId: str | None
+    externalProductId: str | None
+    id: str | None
+
+
+class TikTokProfile(TypedDict):
+    accountType: int | None
+    avatar: TikTokAsset | None
+    bio: str | None
+    category: str | None
+    commerce: TikTokProfileCommerce
+    createdAt: str | None
+    displayName: str | None
+    handle: str
+    id: str
+    isAdVirtual: bool | None
+    isCanceled: bool | None
+    isDisciplineMember: bool | None
+    isEffectArtist: bool | None
+    isPrivate: bool | None
+    isStar: bool | None
+    isVerified: bool | None
+    language: str | None
+    metrics: TikTokProfileMetrics
+    music: TikTokProfileMusic
+    predictions: TikTokProfilePredictions
+    privacy: TikTokProfilePrivacy
+    regionCode: str | None
+    searchContext: TikTokProfileSearchContext
+    secUid: str | None
+    socialLinks: list[TikTokSocialLink] | None
+    stories: TikTokProfileStories
+    storyStatus: int | None
+    url: str
+    verification: TikTokProfileVerification
+
+
+class TikTokProfileMetrics(TypedDict):
+    followers: int | None
+    following: int | None
+    likedPosts: int | None
+    likes: int | None
+    posts: int | None
+    visiblePosts: int | None
+
+
+class TikTokProfileReference(TypedDict):
+    accountType: int | None
+    avatar: TikTokAsset | None
+    bio: str | None
+    category: str | None
+    commerce: TikTokProfileReferenceCommerce
+    createdAt: str | None
+    displayName: str | None
+    handle: str | None
+    id: str | None
+    isAdVirtual: bool | None
+    isCanceled: bool | None
+    isDisciplineMember: bool | None
+    isEffectArtist: bool | None
+    isPrivate: bool | None
+    isStar: bool | None
+    isVerified: bool | None
+    language: str | None
+    metrics: TikTokProfileMetrics
+    music: TikTokProfileReferenceMusic
+    predictions: TikTokProfileReferencePredictions
+    privacy: TikTokProfileReferencePrivacy
+    regionCode: str | None
+    searchContext: TikTokProfileReferenceSearchContext
+    secUid: str | None
+    socialLinks: list[TikTokSocialLink] | None
+    stories: TikTokProfileReferenceStories
+    storyStatus: int | None
+    url: str | None
+    verification: TikTokProfileReferenceVerification
+
+
+class TikTokRatingSource(TypedDict):
+    code: int | None
+    name: str | None
+
+
+class TikTokSearchHighlight(TypedDict):
+    field: str | None
+    ranges: list[TikTokTextRange] | None
+
+
+class TikTokServiceCategory(TypedDict):
+    code: int | None
+    name: str | None
+
+
+class TikTokSocialLink(TypedDict):
+    displayName: str | None
+    handle: str | None
+    id: str | None
+    platform: str | None
+    url: str | None
+
+
+class TikTokStickerPosition(TypedDict):
+    endTime: float | None
+    height: float | None
+    isRelative: bool | None
+    rotation: float | None
+    scale: float | None
+    startTime: float | None
+    width: float | None
+    x: float | None
+    y: float | None
+
+
+class TikTokStoryCount(TypedDict):
+    count: int | None
+    postTypeCode: int | None
+
+
+class TikTokStoryReference(TypedDict):
+    expiresAt: str | None
+    id: str | None
+    mediaTypeCode: int | None
+    postTypeCode: int | None
+
+
+class TikTokStreamingLink(TypedDict):
+    platformCode: int | None
+    songId: str | None
+
+
+class TikTokTemplateMetrics(TypedDict):
+    clips: int | None
+
+
+class TikTokTextEntity(TypedDict):
+    end: int | None
+    hashtag: TikTokHashtagReference | None
+    start: int | None
+    tagId: str | None
+    type: str | None
+    typeCode: int | None
+    user: TikTokProfileReference | None
+
+
+class TikTokTextRange(TypedDict):
+    end: int | None
+    start: int | None
+
+
+class TikTokUnspecified(TypedDict):
     pass
 
 
-class TwitterEntity(EntityCore, TypedDict):
-    pass
+class TikTokVolumeInfo(TypedDict):
+    loudness: float | None
+    loudnessRange: float | None
+    loudnessRangeEnd: float | None
+    loudnessRangeStart: float | None
+    maxVolume: float | None
+    maximumMomentaryLoudness: float | None
+    maximumShortTermLoudness: float | None
+    meanVolume: float | None
+    peak: float | None
+    version: float | None
+
+
+class TikTokWhatsAppMetrics(TypedDict):
+    shares: int | None
+
+
+class TwitterAppMetrics(TypedDict):
+    rating: float | None
+    ratings: int | None
+
+
+class TwitterArticle(TypedDict):
+    cover: TwitterMedia | None
+    id: str | None
+    previewText: str | None
+    title: str | None
+
+
+class TwitterAspectRatio(TypedDict):
+    height: int
+    width: int
+
+
+class TwitterBroadcast(TypedDict):
+    broadcaster: TwitterBroadcaster | None
+    height: int | None
+    id: str | None
+    isHighLatency: bool | None
+    media: TwitterBroadcastMedia | None
+    orientationCode: int | None
+    replayEditedStartTime: str | None
+    scheduledStartAt: str | None
+    source: str | None
+    state: str | None
+    title: str | None
+    url: str | None
+    width: int | None
+
+
+class TwitterBroadcastMedia(TypedDict):
+    id: str | None
+    key: str | None
+
+
+class TwitterBroadcaster(TypedDict):
+    displayName: str | None
+    handle: str | None
+    id: str | None
+
+
+class TwitterCard(TypedDict):
+    apps: list[TwitterCardApp] | None
+    broadcast: TwitterBroadcast | None
+    components: list[TwitterCardComponent] | None
+    description: str | None
+    destinations: list[TwitterCardDestination] | None
+    displayUrl: str | None
+    domain: str | None
+    event: TwitterEvent | None
+    imageAltText: list[TwitterImageAltText] | None
+    images: list[TwitterImage] | None
+    layoutType: str | None
+    media: list[TwitterMedia] | None
+    mediaType: str | None
+    poll: TwitterPoll | None
+    profiles: list[TwitterProfileReference] | None
+    publisherId: str | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class TwitterCardApp(TypedDict):
+    category: TwitterCardText | None
+    countryCode: str | None
+    description: TwitterCardText | None
+    groupId: str | None
+    hasInAppPurchases: bool | None
+    iconKey: str | None
+    id: str | None
+    isEditorsChoice: bool | None
+    isFree: bool | None
+    metrics: TwitterAppMetrics | None
+    resolvedUrl: str | None
+    sizeBytes: int | None
+    title: TwitterCardText | None
+    type: str | None
+    url: str | None
+
+
+class TwitterCardButton(TypedDict):
+    action: str | None
+    destinationId: str | None
+    style: str | None
+    type: str | None
+
+
+class TwitterCardComponent(TypedDict):
+    appGroupId: str | None
+    buttons: list[TwitterCardButton] | None
+    destinationId: str | None
+    id: str | None
+    media: list[TwitterCardMediaRef] | None
+    mediaKey: str | None
+    subtitle: TwitterCardText | None
+    title: TwitterCardText | None
+    type: str | None
+
+
+class TwitterCardDestination(TypedDict):
+    appGroupId: str | None
+    displayUrl: str | None
+    id: str | None
+    mediaKey: str | None
+    type: str | None
+    url: str | None
+
+
+class TwitterCardMediaRef(TypedDict):
+    destinationId: str | None
+    key: str | None
+
+
+class TwitterCardText(TypedDict):
+    isRightToLeft: bool | None
+    text: str | None
+
+
+class TwitterColor(TypedDict):
+    percentage: float
+    rgb: TwitterRGB
+
+
+class TwitterCommunityNote(TypedDict):
+    id: str | None
+    presentation: TwitterNotePresentation | None
+    preview: TwitterRichText | None
+    shortTitle: str | None
+    summary: TwitterRichText | None
+    title: str | None
+    url: str | None
+
+
+class TwitterConversationContext(TypedDict):
+    ancestors: list[TwitterPostReference] | None
+    otherPosts: list[TwitterPostReference] | None
+    requestedPost: TwitterPostReference | None
+
+
+class TwitterEdit(TypedDict):
+    editableUntil: str | None
+    historyIds: list[str] | None
+    initialPostId: str | None
+    remaining: int | None
+
+
+class TwitterEntity(TypedDict):
+    displayName: str | None
+    displayUrl: str | None
+    handle: str | None
+    id: str | None
+    mediaId: str | None
+    range: TwitterRange | None
+    shortUrl: str | None
+    text: str | None
+    type: str | None
+    url: str | None
+
+
+class TwitterEvent(TypedDict):
+    category: str | None
+    id: str | None
+    subtitle: str | None
+    timelineId: str | None
+    title: str | None
+
+
+class TwitterFormatting(TypedDict):
+    range: TwitterRange
+    types: list[str] | None
+
+
+class TwitterImage(TypedDict):
+    altText: str | None
+    height: int | None
+    isNft: bool | None
+    role: str | None
+    shape: str | None
+    type: str | None
+    url: str | None
+    width: int | None
+
+
+class TwitterImageAltText(TypedDict):
+    role: str | None
+    text: str | None
+
+
+class TwitterLabel(TypedDict):
+    description: TwitterRichText | None
+    icon: TwitterImage | None
+    text: str | None
+    type: str | None
+    url: str | None
 
 
 class TwitterList(TypedDict):
-    createdAt: str | None
+    banner: TwitterImage | None
     description: str | None
     id: str
-    isPrivate: bool | None
     metrics: TwitterListMetrics
-    name: str
-    owner: PostAuthor | None
+    name: str | None
+    owner: TwitterProfileReference | None
 
 
-class TwitterPost(PostCore, TypedDict):
-    extended: NotRequired[TwitterPostExtended]
+class TwitterListMetrics(TypedDict):
+    members: int | None
+    subscribers: int | None
+
+
+class TwitterLongText(TypedDict):
+    formatting: list[TwitterFormatting] | None
+    id: str | None
+    inlineMedia: list[Any] | None
+    isExpandable: bool | None
+    timestamps: list[Any] | None
+
+
+class TwitterMedia(TypedDict):
+    altText: str | None
+    aspectRatio: TwitterAspectRatio | None
+    availability: TwitterMediaAvailability | None
+    duration: float | None
+    features: list[TwitterMediaFeature] | None
+    focusRegions: list[TwitterRectangle] | None
+    height: int | None
+    id: str | None
+    isAnimated: bool | None
+    isMonetizable: bool | None
+    key: str | None
+    palette: list[TwitterColor] | None
+    restrictions: TwitterMediaRestrictions | None
+    sizes: list[TwitterMediaSize] | None
+    source: TwitterMediaSource | None
+    thumbnail: TwitterImage | None
+    type: str | None
+    url: str | None
+    variants: list[TwitterMediaVariant] | None
+    width: int | None
+
+
+class TwitterMediaAvailability(TypedDict):
+    status: str | None
+
+
+class TwitterMediaFeature(TypedDict):
+    faceRegions: list[TwitterRectangle] | None
+    size: str | None
+    taggedProfiles: list[TwitterProfileReference] | None
+
+
+class TwitterMediaRestrictions(TypedDict):
+    isDmca: bool | None
+
+
+class TwitterMediaSize(TypedDict):
+    height: int | None
+    name: str | None
+    resizeMode: str | None
+    width: int | None
+
+
+class TwitterMediaSource(TypedDict):
+    authorId: str | None
+    postId: str | None
+
+
+class TwitterMediaVariant(TypedDict):
+    bitrate: int | None
+    contentType: str | None
+    url: str | None
+
+
+class TwitterNotePresentation(TypedDict):
+    iconType: str | None
+    style: str | None
+
+
+class TwitterPageMetadata(TypedDict):
+    cashtags: list[Any] | None
+    context: TwitterConversationContext | None
+    events: list[Any] | None
+    hashtags: list[Any] | None
+    lists: list[Any] | None
+    metrics: TwitterPageMetadataMetrics
+    nextCursorLabel: str | None
+    nextCursorType: str | None
+    promoted: list[TwitterPostReference] | None
+    queries: list[TwitterSuggestedQuery] | None
+    query: str | None
+
+
+class TwitterPlace(TypedDict):
+    country: str | None
+    countryCode: str | None
+    fullName: str | None
+    id: str | None
+    name: str | None
+    type: str | None
+
+
+class TwitterPoll(TypedDict):
+    choices: list[TwitterPollChoice] | None
+    countsAreFinal: bool | None
+    duration: int | None
+    endsAt: str | None
+    metrics: TwitterPollMetrics
+    updatedAt: str | None
+
+
+class TwitterPollChoice(TypedDict):
+    images: list[TwitterImage] | None
+    label: str | None
+    metrics: TwitterPollChoiceMetrics | None
+    position: int
+
+
+class TwitterPost(TypedDict):
+    article: TwitterArticle | None
+    author: TwitterProfileReference | None
+    authorId: str | None
+    card: TwitterCard | None
+    communityNote: TwitterCommunityNote | None
+    conversationId: str | None
+    createdAt: str
+    displayTextRange: TwitterRange | None
+    edit: TwitterEdit | None
+    entities: list[TwitterEntity]
+    hasGrokAnalysisButton: bool | None
+    id: str
+    inReplyToHandle: str | None
+    inReplyToPostId: str | None
+    inReplyToUserId: str | None
+    isPromoted: bool | None
+    isQuote: bool | None
+    isRepost: bool | None
+    isSensitive: bool | None
+    language: str | None
+    longText: TwitterLongText | None
+    media: list[TwitterMedia]
     metrics: TwitterPostMetrics
-    quotedPost: NotRequired[TwitterPost | None]
-    repostedPost: NotRequired[TwitterPost | None]
+    preview: TwitterPreview | None
+    previousMetrics: TwitterPreviousMetrics | None
+    promotion: TwitterPromotion | None
+    quotedPost: TwitterPostReference | None
+    quotedPostId: str | None
+    repostedPost: TwitterPostReference | None
+    restrictions: list[TwitterRestriction] | None
+    text: str | None
+    timeline: TwitterTimelinePlacement | None
+    url: str
 
 
-class TwitterPostExtended(TypedDict):
-    conversationId: NotRequired[str | None]
-    inReplyToPostId: NotRequired[str | None]
-    inReplyToUserId: NotRequired[str | None]
-    language: NotRequired[str | None]
-    quotedPostId: NotRequired[str | None]
-    repostedPostId: NotRequired[str | None]
+class TwitterPostMetrics(TypedDict):
+    comments: int | None
+    likes: int | None
+    quotes: int | None
+    reposts: int | None
+    saves: int | None
+    views: int | None
+    viewsState: str | None
 
 
-class TwitterPostMetrics(PostMetrics, TypedDict):
-    bookmarks: int | None
+class TwitterPostReference(TypedDict):
+    article: TwitterArticle | None
+    author: TwitterProfileReference | None
+    authorId: str | None
+    card: TwitterCard | None
+    communityNote: TwitterCommunityNote | None
+    conversationId: str | None
+    createdAt: str | None
+    displayTextRange: TwitterRange | None
+    edit: TwitterEdit | None
+    entities: list[TwitterEntity] | None
+    hasGrokAnalysisButton: bool | None
+    id: str | None
+    inReplyToHandle: str | None
+    inReplyToPostId: str | None
+    inReplyToUserId: str | None
+    isPromoted: bool | None
+    isQuote: bool | None
+    isRepost: bool | None
+    isSensitive: bool | None
+    language: str | None
+    longText: TwitterLongText | None
+    media: list[TwitterMedia] | None
+    metrics: TwitterPostMetrics
+    preview: TwitterPreview | None
+    previousMetrics: TwitterPreviousMetrics | None
+    promotion: TwitterPromotion | None
+    quotedPost: TwitterPostReference | None
+    quotedPostId: str | None
+    repostedPost: TwitterPostReference | None
+    restrictions: list[TwitterRestriction] | None
+    text: str | None
+    timeline: TwitterTimelinePlacement | None
+    url: str | None
+
+
+class TwitterPreview(TypedDict):
+    displayTextRange: TwitterRange | None
+    entities: list[TwitterEntity] | None
+    text: str | None
+
+
+class TwitterPreviousMetrics(TypedDict):
+    comments: int | None
+    likes: int | None
     quotes: int | None
 
 
-class TwitterProfile(ProfileCore, TypedDict):
-    extended: NotRequired[TwitterProfileExtended]
+class TwitterProfessional(TypedDict):
+    categories: list[TwitterProfessionalCategory] | None
+    type: str | None
 
 
-class TwitterProfileExtended(TypedDict):
-    banner: MediaReference | None
+class TwitterProfessionalCategory(TypedDict):
+    id: str | None
+    name: str | None
+
+
+class TwitterProfile(TypedDict):
+    avatar: TwitterImage | None
+    banner: TwitterImage | None
+    bio: str | None
     createdAt: str | None
-    likes: int | None
-    location: str | None
-    media: int | None
-    pinnedPostIds: list[str]
-    withheldCountries: list[str]
-
-
-class TwitterSuggestion(TypedDict):
-    highlighted: NotRequired[str]
+    displayName: str | None
+    entities: TwitterProfileEntities
+    externalUrl: str | None
+    handle: str
+    hasCustomTimelines: bool | None
     id: str
-    score: NotRequired[float]
-    text: str
-    type: NotRequired[str]
-    user: NotRequired[EntityReference]
+    isLifelineInstitution: bool | None
+    isPrivate: bool | None
+    isSuspended: bool | None
+    isVerified: bool | None
+    labels: list[TwitterLabel] | None
+    location: TwitterProfileLocation | None
+    metrics: TwitterProfileMetrics
+    pinnedPostIds: list[str] | None
+    professional: TwitterProfessional | None
+    subscriptions: TwitterSubscriptions
+    url: str
+    verification: TwitterVerification
+    visibility: TwitterVisibility
+    withheld: TwitterWithheld
+
+
+class TwitterProfileEntities(TypedDict):
+    bio: list[TwitterEntity] | None
+    externalUrl: list[TwitterEntity] | None
+
+
+class TwitterProfileLocation(TypedDict):
+    place: TwitterPlace | None
+    text: str | None
+
+
+class TwitterProfileMetrics(TypedDict):
+    affiliates: int | None
+    creatorSubscriptions: int | None
+    followers: int | None
+    following: int | None
+    likedPosts: int | None
+    mediaPosts: int | None
+    posts: int | None
+
+
+class TwitterProfileReference(TypedDict):
+    avatar: TwitterImage | None
+    banner: TwitterImage | None
+    bio: str | None
+    createdAt: str | None
+    displayName: str | None
+    entities: TwitterProfileEntities
+    externalUrl: str | None
+    handle: str | None
+    hasCustomTimelines: bool | None
+    id: str | None
+    isLifelineInstitution: bool | None
+    isPrivate: bool | None
+    isSuspended: bool | None
+    isVerified: bool | None
+    labels: list[TwitterLabel] | None
+    location: TwitterProfileLocation | None
+    metrics: TwitterProfileMetrics
+    pinnedPostIds: list[str] | None
+    professional: TwitterProfessional | None
+    subscriptions: TwitterSubscriptions
+    url: str | None
+    verification: TwitterVerification
+    visibility: TwitterVisibility
+    withheld: TwitterWithheld
+
+
+class TwitterPromotion(TypedDict):
+    advertiser: TwitterProfileReference | None
+
+
+class TwitterRGB(TypedDict):
+    blue: int
+    green: int
+    red: int
+
+
+class TwitterRange(TypedDict):
+    end: int
+    start: int
+
+
+class TwitterRectangle(TypedDict):
+    height: int | None
+    width: int | None
+    x: int | None
+    y: int | None
+
+
+class TwitterRestriction(TypedDict):
+    action: str | None
+    message: str | None
+
+
+class TwitterRichText(TypedDict):
+    entities: list[TwitterEntity] | None
+    text: str | None
+
+
+class TwitterSubscriptions(TypedDict):
+    isEligible: bool | None
+
+
+class TwitterSuggestedQuery(TypedDict):
+    text: str | None
+
+
+class TwitterTimelinePlacement(TypedDict):
+    conversationSection: str | None
+    displayType: str | None
+    moduleDisplayType: str | None
+    position: int | None
+
+
+class TwitterVerification(TypedDict):
+    isBlueVerified: bool | None
+    legacyVerified: bool | None
+    type: str | None
+
+
+class TwitterVisibility(TypedDict):
+    hasHiddenLikesOnProfile: bool | None
+    hasHiddenSubscriptionsOnProfile: bool | None
+
+
+class TwitterWithheld(TypedDict):
+    copyright: bool | None
+    description: str | None
+    scope: str | None
 
 
 # One of the concrete resources returned by a URL fetch.
-FetchResource: TypeAlias = "InstagramProfile | InstagramPost | InstagramStory | InstagramHighlight | TikTokProfile | TikTokPost | TwitterProfile | TwitterPost"
+FetchResource: TypeAlias = "InstagramProfile | InstagramPost | InstagramStory | InstagramHighlight | TikTokProfile | TikTokPost | TwitterProfile | TwitterPost | RedditProfile | RedditPost | RedditSubreddit"
