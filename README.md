@@ -69,7 +69,9 @@ username `12356`; `profile(id="12356")` selects platform ID `12356`. Numeric
 reference values are rejected because platform IDs are opaque strings.
 
 Call `openhandle.fetch(url)` when you do not know which resource a supported
-social URL represents.
+social URL represents. TikTok short links such as `tiktok.com/t/…` and
+`vm.tiktok.com/…` are rejected by selectors and only work through `fetch`,
+which expands them server-side.
 
 ## Pagination
 

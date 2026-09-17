@@ -11,10 +11,19 @@ TIKTOK_NAME = re.compile(r"^[A-Za-z0-9._]{2,24}$")
 TWITTER_NAME = re.compile(r"^[A-Za-z0-9_]{1,15}$")
 SHORTCODE = re.compile(r"^[A-Za-z0-9_-]+$")
 
+REDDIT_NAME = re.compile(r"^[A-Za-z0-9_-]{1,100}$")
+
 SUPPORTED_HOSTS = (
+    "reddit.com",
+    "old.reddit.com",
+    "new.reddit.com",
+    "m.reddit.com",
+    "redd.it",
     "instagram.com",
     "tiktok.com",
     "m.tiktok.com",
+    "vm.tiktok.com",
+    "vt.tiktok.com",
     "x.com",
     "twitter.com",
     "mobile.twitter.com",
@@ -103,7 +112,9 @@ def looks_like_supported_social_url(reference: str) -> bool:
 
 def username_reference(reference: str, platform: str) -> str:
     username = reference.removeprefix("@")
-    if platform == "instagram":
+    if platform == "reddit":
+        pattern = REDDIT_NAME
+    elif platform == "instagram":
         pattern = INSTAGRAM_NAME
     elif platform == "tiktok":
         pattern = TIKTOK_NAME
@@ -125,8 +136,12 @@ def resolve_social_url(reference: str) -> tuple[str, str, str]:
 
     host = (parsed.hostname or "").lower().removeprefix("www.")
     parts = [part for part in parsed.path.split("/") if part]
+    if host in ("reddit.com", "old.reddit.com", "new.reddit.com", "m.reddit.com", "redd.it"):
+        return resolve_reddit_url(host, parts)
     if host == "instagram.com":
         return resolve_instagram_url(parts)
+    if is_tiktok_short_link(host, parts):
+        raise OpenHandleReferenceError("TikTok short links are not resolved locally. Use fetch(url) instead.")
     if host in ("tiktok.com", "m.tiktok.com"):
         return resolve_tiktok_url(parts)
     if host in ("x.com", "twitter.com", "mobile.twitter.com"):
@@ -144,6 +159,17 @@ def resolve_instagram_url(parts: list[str]) -> tuple[str, str, str]:
     if len(parts) == 1 and INSTAGRAM_NAME.match(parts[0]) and parts[0].lower() not in INSTAGRAM_RESERVED:
         return ("instagram", "profile", f"@{parts[0]}")
     raise OpenHandleReferenceError("Unsupported Instagram URL.")
+
+
+def is_tiktok_short_link(host: str, parts: list[str]) -> bool:
+    if host in ("vm.tiktok.com", "vt.tiktok.com"):
+        return len(parts) == 1 and SHORTCODE.match(parts[0]) is not None
+    return (
+        host in ("tiktok.com", "m.tiktok.com")
+        and len(parts) == 2
+        and parts[0] == "t"
+        and SHORTCODE.match(parts[1]) is not None
+    )
 
 
 def resolve_tiktok_url(parts: list[str]) -> tuple[str, str, str]:
@@ -172,3 +198,17 @@ def resolve_twitter_url(parts: list[str]) -> tuple[str, str, str]:
     if len(parts) == 1 and TWITTER_NAME.match(parts[0]) and parts[0].lower() not in TWITTER_RESERVED:
         return ("twitter", "profile", f"@{parts[0]}")
     raise OpenHandleReferenceError("Unsupported Twitter URL.")
+
+
+def resolve_reddit_url(host: str, parts: list[str]) -> tuple[str, str, str]:
+    if host == "redd.it" and len(parts) == 1 and re.fullmatch(r"[a-z0-9]+", parts[0]):
+        return "reddit", "post", parts[0]
+    if len(parts) == 2 and parts[0] in ("u", "user") and REDDIT_NAME.fullmatch(parts[1]):
+        return "reddit", "profile", f"@{parts[1]}"
+    if len(parts) == 2 and parts[0] == "r" and REDDIT_NAME.fullmatch(parts[1]):
+        return "reddit", "subreddit", parts[1]
+    if len(parts) >= 4 and parts[0] == "r" and parts[2] == "comments" and re.fullmatch(r"[a-z0-9]+", parts[3]):
+        return "reddit", "post", parts[3]
+    if len(parts) >= 2 and parts[0] == "comments" and re.fullmatch(r"[a-z0-9]+", parts[1]):
+        return "reddit", "post", parts[1]
+    raise OpenHandleReferenceError("Unsupported Reddit URL.")
