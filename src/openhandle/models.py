@@ -627,6 +627,7 @@ class InstagramComment(TypedDict):
     ai: InstagramCommentAi
     author: InstagramProfileReference | None
     createdAt: str
+    extracted: InstagramExtracted
     id: str
     isByPostAuthor: bool | None
     isCovered: bool | None
@@ -669,6 +670,7 @@ class InstagramCommentReference(TypedDict):
     ai: InstagramCommentReferenceAi
     author: InstagramProfileReference | None
     createdAt: str | None
+    extracted: InstagramExtracted
     id: str | None
     isByPostAuthor: bool | None
     isCovered: bool | None
@@ -717,6 +719,18 @@ class InstagramDASH(TypedDict):
     manifest: str | None
     qualityCount: int | None
     variants: list[InstagramStreamVariant] | None
+
+
+class InstagramExtracted(TypedDict):
+    emails: list[str] | None
+    handles: list[InstagramExtractedHandle] | None
+    links: list[str] | None
+    phones: list[str] | None
+
+
+class InstagramExtractedHandle(TypedDict):
+    handle: str | None
+    platform: str | None
 
 
 class InstagramHashtag(TypedDict):
@@ -965,6 +979,7 @@ class InstagramPost(TypedDict):
     comments: InstagramCommentSettings
     createdAt: str
     crossposting: InstagramPostCrossposting
+    extracted: InstagramExtracted
     fbid: str | None
     hasDelayedMetadata: bool | None
     hasTaggedUsers: bool | None
@@ -1034,6 +1049,7 @@ class InstagramPostReference(TypedDict):
     comments: InstagramCommentSettings
     createdAt: str | None
     crossposting: InstagramPostReferenceCrossposting
+    extracted: InstagramExtracted
     fbid: str | None
     hasDelayedMetadata: bool | None
     hasTaggedUsers: bool | None
@@ -1110,6 +1126,7 @@ class InstagramProfile(TypedDict):
     displayName: str | None
     displaySettings: InstagramProfileDisplaySettings
     externalUrl: str | None
+    extracted: InstagramExtracted
     fanClub: InstagramProfileFanClub
     fbid: str | None
     fundraisers: InstagramProfileFundraisers
@@ -1243,6 +1260,7 @@ class InstagramProfileReference(TypedDict):
     displayName: str | None
     displaySettings: InstagramProfileDisplaySettings
     externalUrl: str | None
+    extracted: InstagramExtracted
     fanClub: InstagramProfileFanClub
     fbid: str | None
     fundraisers: InstagramProfileFundraisers
@@ -1335,6 +1353,7 @@ class InstagramStory(TypedDict):
     createdAt: str
     crossposting: InstagramStoryCrossposting
     expiresAt: str | None
+    extracted: InstagramExtracted
     fbid: str | None
     hasDelayedMetadata: bool | None
     hasTaggedUsers: bool | None
@@ -1391,6 +1410,7 @@ class InstagramStoryReference(TypedDict):
     createdAt: str | None
     crossposting: InstagramStoryReferenceCrossposting
     expiresAt: str | None
+    extracted: InstagramExtracted
     fbid: str | None
     hasDelayedMetadata: bool | None
     hasTaggedUsers: bool | None
@@ -1517,6 +1537,7 @@ class RedditComment(TypedDict):
     display: RedditCommentDisplay
     distinguishedBy: str | None
     editedAt: str | None
+    extracted: RedditExtracted
     id: str
     isArchived: bool | None
     isByPostAuthor: bool | None
@@ -1554,6 +1575,7 @@ class RedditCommentReference(TypedDict):
     display: RedditCommentDisplay
     distinguishedBy: str | None
     editedAt: str | None
+    extracted: RedditExtracted
     id: str | None
     isArchived: bool | None
     isByPostAuthor: bool | None
@@ -1629,6 +1651,18 @@ class RedditEmbedAuthor(TypedDict):
 class RedditEmbedSource(TypedDict):
     name: str | None
     url: str | None
+
+
+class RedditExtracted(TypedDict):
+    emails: list[str] | None
+    handles: list[RedditExtractedHandle] | None
+    links: list[str] | None
+    phones: list[str] | None
+
+
+class RedditExtractedHandle(TypedDict):
+    handle: str | None
+    platform: str | None
 
 
 class RedditFlair(TypedDict):
@@ -1709,6 +1743,7 @@ class RedditPost(TypedDict):
     domain: str | None
     editedAt: str | None
     embed: RedditEmbed | None
+    extracted: RedditExtracted
     flair: RedditFlair | None
     id: str
     isArchived: bool | None
@@ -1763,6 +1798,7 @@ class RedditPostReference(TypedDict):
     domain: str | None
     editedAt: str | None
     embed: RedditEmbed | None
+    extracted: RedditExtracted
     flair: RedditFlair | None
     id: str | None
     isArchived: bool | None
@@ -1825,6 +1861,7 @@ class RedditProfile(TypedDict):
     createdAt: str | None
     displayHandle: str | None
     displayName: str | None
+    extracted: RedditExtracted
     handle: str
     id: str
     isEmployee: bool | None
@@ -2178,6 +2215,7 @@ class TikTokComment(TypedDict):
     author: TikTokProfileReference | None
     createdAt: str
     entities: list[TikTokTextEntity] | None
+    extracted: TikTokExtracted
     id: str
     isLikedByCreator: bool | None
     isPinned: bool | None
@@ -2213,6 +2251,7 @@ class TikTokCommentReference(TypedDict):
     author: TikTokProfileReference | None
     createdAt: str | None
     entities: list[TikTokTextEntity] | None
+    extracted: TikTokExtracted
     id: str | None
     isLikedByCreator: bool | None
     isPinned: bool | None
@@ -2329,6 +2368,18 @@ class TikTokEffectReference(TypedDict):
 class TikTokEffectTrigger(TypedDict):
     actionCodes: list[int] | None
     type: str | None
+
+
+class TikTokExtracted(TypedDict):
+    emails: list[str] | None
+    handles: list[TikTokExtractedHandle] | None
+    links: list[str] | None
+    phones: list[str] | None
+
+
+class TikTokExtractedHandle(TypedDict):
+    handle: str | None
+    platform: str | None
 
 
 class TikTokHashtag(TypedDict):
@@ -2692,6 +2743,7 @@ class TikTokPost(TypedDict):
     description: str | None
     effects: list[TikTokEffectReference] | None
     entities: list[TikTokTextEntity] | None
+    extracted: TikTokExtracted
     hasDanmaku: bool | None
     hasPromotionalMusic: bool | None
     hashtags: list[TikTokHashtagReference]
@@ -2774,6 +2826,7 @@ class TikTokPostReference(TypedDict):
     description: str | None
     effects: list[TikTokEffectReference] | None
     entities: list[TikTokTextEntity] | None
+    extracted: TikTokExtracted
     hasDanmaku: bool | None
     hasPromotionalMusic: bool | None
     hashtags: list[TikTokHashtagReference] | None
@@ -2884,6 +2937,7 @@ class TikTokProfile(TypedDict):
     commerce: TikTokProfileCommerce
     createdAt: str | None
     displayName: str | None
+    extracted: TikTokExtracted
     handle: str
     id: str
     isAdVirtual: bool | None
@@ -2925,6 +2979,7 @@ class TikTokProfileReference(TypedDict):
     commerce: TikTokProfileReferenceCommerce
     createdAt: str | None
     displayName: str | None
+    extracted: TikTokExtracted
     handle: str | None
     id: str | None
     isAdVirtual: bool | None
@@ -3212,6 +3267,18 @@ class TwitterEvent(TypedDict):
     title: str | None
 
 
+class TwitterExtracted(TypedDict):
+    emails: list[str] | None
+    handles: list[TwitterExtractedHandle] | None
+    links: list[str] | None
+    phones: list[str] | None
+
+
+class TwitterExtractedHandle(TypedDict):
+    handle: str | None
+    platform: str | None
+
+
 class TwitterFormatting(TypedDict):
     range: TwitterRange
     types: list[str] | None
@@ -3373,6 +3440,7 @@ class TwitterPost(TypedDict):
     displayTextRange: TwitterRange | None
     edit: TwitterEdit | None
     entities: list[TwitterEntity]
+    extracted: TwitterExtracted
     hasGrokAnalysisButton: bool | None
     id: str
     inReplyToHandle: str | None
@@ -3419,6 +3487,7 @@ class TwitterPostReference(TypedDict):
     displayTextRange: TwitterRange | None
     edit: TwitterEdit | None
     entities: list[TwitterEntity] | None
+    extracted: TwitterExtracted
     hasGrokAnalysisButton: bool | None
     id: str | None
     inReplyToHandle: str | None
@@ -3474,6 +3543,7 @@ class TwitterProfile(TypedDict):
     displayName: str | None
     entities: TwitterProfileEntities
     externalUrl: str | None
+    extracted: TwitterExtracted
     handle: str
     hasCustomTimelines: bool | None
     id: str
@@ -3521,6 +3591,7 @@ class TwitterProfileReference(TypedDict):
     displayName: str | None
     entities: TwitterProfileEntities
     externalUrl: str | None
+    extracted: TwitterExtracted
     handle: str | None
     hasCustomTimelines: bool | None
     id: str | None
