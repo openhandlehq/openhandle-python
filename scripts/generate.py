@@ -364,7 +364,7 @@ class Generator:
         parameters = query_parameters(operation)
         signature = "".join(parameter_signature(parameter) for parameter in parameters)
         params_literal = ", ".join(f'"{parameter["name"]}": {parameter["python"]}' for parameter in parameters)
-        data_type = f"models.{self.data_type(operation)}"
+        data_type = self.data_type(operation)
         page_type = "Page" if sync else "AsyncPage"
         method_name = operation["operation"]
         if operation["paginated"]:
@@ -388,7 +388,7 @@ class Generator:
         signature = "".join(parameter_signature(parameter) for parameter in parameters)
         arguments = ", ".join(f"{parameter['python']}={parameter['python']}" for parameter in parameters)
         arguments = f"{arguments}, " if arguments else ""
-        data_type = f"models.{self.data_type(operation)}"
+        data_type = self.data_type(operation)
         method_name = operation["operation"]
         items_name = "items" if method_name == "list" else f"{method_name}_items"
         if sync:
@@ -419,9 +419,12 @@ class Generator:
             data = data.get("items")
             if data is None:
                 raise SystemExit(f"generator: paginated operation {operation['path']} data is not an array.")
+        elif data.get("type") == "array" and "$ref" in (data.get("items") or {}):
+            # A collection the API answers in one response, without a cursor.
+            return f"list[models.{reference_name(data['items']['$ref'])}]"
         if "$ref" not in data:
             raise SystemExit(f"generator: operation {operation['path']} data is not a component reference.")
-        return reference_name(data["$ref"])
+        return f"models.{reference_name(data['$ref'])}"
 
     def docstring(self, operation: dict[str, Any], *, sync: bool) -> str:
         definition = operation["definition"]
