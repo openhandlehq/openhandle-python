@@ -25,6 +25,14 @@ class InstagramAudioReferenceSpotify(TypedDict):
     url: str | None
 
 
+class InstagramCaptionReferenceRanking(TypedDict):
+    isRanked: bool | None
+
+
+class InstagramCaptionReferenceTranslation(TypedDict):
+    text: str | None
+
+
 class InstagramCommentAi(TypedDict):
     type: str | None
 
@@ -617,6 +625,17 @@ class InstagramBioLink(TypedDict):
     url: str | None
 
 
+class InstagramCaptionReference(TypedDict):
+    createdAt: str | None
+    id: str | None
+    isCovered: bool | None
+    isEdited: bool | None
+    ranking: InstagramCaptionReferenceRanking
+    sharingEnabled: bool | None
+    status: str | None
+    translation: InstagramCaptionReferenceTranslation
+
+
 class InstagramClipMetadata(TypedDict):
     audio: InstagramAudioReference | None
     partial: InstagramPartialData | None
@@ -972,7 +991,7 @@ class InstagramPost(TypedDict):
     ai: InstagramPostAi
     attribution: InstagramPostAttribution
     author: InstagramProfileReference | None
-    caption: InstagramCommentReference | None
+    caption: InstagramCaptionReference | None
     carousel: InstagramPostCarousel
     code: str | None
     collaborators: list[InstagramProfileReference] | None
@@ -1042,7 +1061,7 @@ class InstagramPostReference(TypedDict):
     ai: InstagramPostReferenceAi
     attribution: InstagramPostReferenceAttribution
     author: InstagramProfileReference | None
-    caption: InstagramCommentReference | None
+    caption: InstagramCaptionReference | None
     carousel: InstagramPostReferenceCarousel
     code: str | None
     collaborators: list[InstagramProfileReference] | None
@@ -1345,7 +1364,7 @@ class InstagramStory(TypedDict):
     ai: InstagramStoryAi
     attribution: InstagramStoryAttribution
     author: InstagramProfileReference | None
-    caption: InstagramCommentReference | None
+    caption: InstagramCaptionReference | None
     carousel: InstagramStoryCarousel
     code: str | None
     collaborators: list[InstagramProfileReference] | None
@@ -1402,7 +1421,7 @@ class InstagramStoryReference(TypedDict):
     ai: InstagramStoryReferenceAi
     attribution: InstagramStoryReferenceAttribution
     author: InstagramProfileReference | None
-    caption: InstagramCommentReference | None
+    caption: InstagramCaptionReference | None
     carousel: InstagramStoryReferenceCarousel
     code: str | None
     collaborators: list[InstagramProfileReference] | None
