@@ -215,3 +215,38 @@ def test_preserves_follower_limit_without_inventing_pagination(limited: bool | N
     assert page.is_limited is limited
     assert page.next_cursor is None
     assert page.has_next_page is False
+
+
+def test_youtube_selectors_resolve_urls_and_bind_nested_comment() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return page_response(None, [{"id": "dQw4w9WgXcQ"}])
+
+    openhandle = client(handler)
+    videos = openhandle.youtube.profile("https://www.youtube.com/@MrBeast/videos").videos.list()
+    openhandle.youtube.post("https://youtu.be/dQw4w9WgXcQ").comment("UgzComment.123").replies.list(
+        token="replies-token"
+    )
+    assert videos.data[0]["id"] == "dQw4w9WgXcQ"
+    assert [request.url.path for request in requests] == [
+        "/v1/youtube/profiles/@MrBeast/videos",
+        "/v1/youtube/posts/dQw4w9WgXcQ/comments/UgzComment.123/replies",
+    ]
+    assert requests[1].url.params["token"] == "replies-token"
+
+
+def test_youtube_profile_selector_rejects_video_url_before_request() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return profile_response()
+
+    openhandle = client(handler)
+    with pytest.raises(ReferenceMismatchError) as raised:
+        openhandle.youtube.profile(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    assert raised.value.actual_platform == "youtube"
+    assert raised.value.actual_resource == "post"
+    assert requests == []
