@@ -704,7 +704,7 @@ class AsyncInstagramProfilePinnedPostsResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.InstagramPost]:
         """List profile pinned posts
 
-        Return a cursor-paginated Instagram profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Instagram profile's pinned posts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.instagram.profile("@northstar_forge_test").pinned_posts.list(freshness="24h")
@@ -760,7 +760,7 @@ class AsyncInstagramProfileReelsResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.InstagramPost]:
         """List profile reels
 
-        Return a cursor-paginated Instagram profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Instagram profile's reels. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.instagram.profile("@northstar_forge_test").reels.list(freshness="24h")
@@ -788,7 +788,7 @@ class AsyncInstagramProfileRepostsResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.InstagramPost]:
         """List profile reposts
 
-        Return a cursor-paginated Instagram profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Instagram profile's reposts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.instagram.profile("@northstar_forge_test").reposts.list(freshness="24h")
@@ -872,7 +872,7 @@ class AsyncInstagramProfileTaggedPostsResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.InstagramPost]:
         """List profile tagged posts
 
-        Return a cursor-paginated Instagram profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Instagram profile's tagged posts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.instagram.profile("@northstar_forge_test").tagged_posts.list(freshness="24h")
@@ -900,7 +900,7 @@ class AsyncInstagramProfileVideosResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.InstagramPost]:
         """List profile videos
 
-        Return a cursor-paginated Instagram profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Instagram profile's videos. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.instagram.profile("@northstar_forge_test").videos.list(freshness="24h")
@@ -1830,7 +1830,7 @@ class AsyncTestDataResource:
         identifier = resolve_selector(reference, id=id, url=url, platform="testData", resource="testDataEntry")
         return AsyncTestDataEntryResource(self._transport, {**self._bindings, "id": identifier})
 
-    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
+    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
         """Search the synthetic test-data catalog
 
         Public, unmetered discovery. Filter by platform, resource, operation, traits, expected status, error code, or text.
@@ -2223,7 +2223,7 @@ class AsyncTikTokProfileLikedPostsResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TikTokPost]:
         """List profile liked posts
 
-        Return a cursor-paginated Tiktok profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Tiktok profile's liked posts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.tiktok.profile("@pixel_orchard_tt_test").liked_posts.list(freshness="24h")
@@ -2902,7 +2902,7 @@ class AsyncTwitterProfileMediaResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TwitterPost]:
         """List profile media
 
-        Return a cursor-paginated Twitter profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Twitter profile's media. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.twitter.profile("@copperfield_lab_x_test").media.list(freshness="24h")
@@ -2958,7 +2958,7 @@ class AsyncTwitterProfileRepliesResource:
     async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.TwitterPost]:
         """List profile replies
 
-        Return a cursor-paginated Twitter profile collection. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+        Return a cursor-paginated collection of a public Twitter profile's replies. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
 
         Example:
             await openhandle.twitter.profile("@copperfield_lab_x_test").replies.list(freshness="24h")
@@ -3156,6 +3156,778 @@ class AsyncTwitterResource:
         return AsyncTwitterProfileResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
+class AsyncYouTubeChartsArtistsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, country: str | None = None, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[list[models.YouTubeChartEntry]]:
+        """List top artists
+
+        Return the weekly top artists chart of one country. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.charts.artists.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-charts-artists-list
+        """
+        params: dict[str, Any] = {"country": country, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/charts/artists", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeChartsTracksResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, country: str | None = None, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[list[models.YouTubeChartEntry]]:
+        """List top songs
+
+        Return the weekly top songs chart of one country. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.charts.tracks.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-charts-tracks-list
+        """
+        params: dict[str, Any] = {"country": country, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/charts/tracks", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeChartsVideosResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, country: str | None = None, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[list[models.YouTubeChartEntry]]:
+        """List top music videos
+
+        Return the weekly top music videos chart of one country. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.charts.videos.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-charts-videos-list
+        """
+        params: dict[str, Any] = {"country": country, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/charts/videos", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeChartsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.artists = AsyncYouTubeChartsArtistsResource(transport, bindings)
+        self.tracks = AsyncYouTubeChartsTracksResource(transport, bindings)
+        self.videos = AsyncYouTubeChartsVideosResource(transport, bindings)
+
+
+class AsyncYouTubeCommunityPostCommentsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, sort: Literal["top", "newest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeComment]:
+        """List community post comments
+
+        Return the comments of a public YouTube community post. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.community_post("Ugsynthpost001").comments.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-community-post-comments-list
+        """
+        params: dict[str, Any] = {"sort": sort, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/community-posts/{identifier}/comments", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/community-posts/{identifier}/comments", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, sort: Literal["top", "newest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeComment]:
+        """Iterate items lazily across pages of youtube.communityPost.comments.list, one request per page."""
+        page: AsyncPage[models.YouTubeComment] | None = await self.list(sort=sort, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeCommunityPostResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.comments = AsyncYouTubeCommunityPostCommentsResource(transport, bindings)
+
+    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeCommunityPost]:
+        """Get a community post
+
+        Return one public YouTube community post. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.community_post("Ugsynthpost001").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-community-post-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/community-posts/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeHashtagPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List hashtag posts
+
+        Return the public YouTube videos and Shorts of one hashtag. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.hashtag("synthetic").posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-hashtag-posts-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/hashtags/{identifier}/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/hashtags/{identifier}/posts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.hashtag.posts.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeHashtagResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = AsyncYouTubeHashtagPostsResource(transport, bindings)
+
+
+class AsyncYouTubePlaylistPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List playlist posts
+
+        Return the videos of a public YouTube playlist. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.playlist("PLsynthetic001").posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-playlist-posts-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/playlists/{identifier}/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/playlists/{identifier}/posts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.playlist.posts.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubePlaylistResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = AsyncYouTubePlaylistPostsResource(transport, bindings)
+
+
+class AsyncYouTubePostCommentRepliesResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, token: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeComment]:
+        """List comment replies
+
+        Return the replies of one YouTube comment. Pass the repliesToken that comment carried. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").comment("Ugsynthcomment001").replies.list(token="synthetic-replies-Ugsynthcomment001", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-comment-replies-list
+        """
+        params: dict[str, Any] = {"token": token, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/comments/{comment_id}/replies", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/posts/{identifier}/comments/{comment_id}/replies", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, token: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeComment]:
+        """Iterate items lazily across pages of youtube.post.comment.replies.list, one request per page."""
+        page: AsyncPage[models.YouTubeComment] | None = await self.list(token=token, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubePostCommentResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.replies = AsyncYouTubePostCommentRepliesResource(transport, bindings)
+
+
+class AsyncYouTubePostCommentsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, sort: Literal["top", "newest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeComment]:
+        """List post comments
+
+        Return the top-level comments of a public YouTube video or Short. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").comments.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-comments-list
+        """
+        params: dict[str, Any] = {"sort": sort, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/comments", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/posts/{identifier}/comments", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, sort: Literal["top", "newest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeComment]:
+        """Iterate items lazily across pages of youtube.post.comments.list, one request per page."""
+        page: AsyncPage[models.YouTubeComment] | None = await self.list(sort=sort, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubePostRelatedResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List related posts
+
+        Return the videos YouTube suggests next to a public video. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").related.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-related-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/related", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/posts/{identifier}/related", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.post.related.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubePostSoundPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List posts using the same sound
+
+        Return the Shorts that use the sound of a public Short. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").sound_posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-sound-posts-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/sound-posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/posts/{identifier}/sound-posts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.post.soundPosts.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubePostTranscriptResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def get(self, *, language: str | None = None, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeTranscript]:
+        """Get a transcript
+
+        Return the timed caption text of a public YouTube video in one of its caption languages. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").transcript.get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-transcript-get
+        """
+        params: dict[str, Any] = {"language": language, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/transcript", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubePostResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.comments = AsyncYouTubePostCommentsResource(transport, bindings)
+        self.related = AsyncYouTubePostRelatedResource(transport, bindings)
+        self.sound_posts = AsyncYouTubePostSoundPostsResource(transport, bindings)
+        self.transcript = AsyncYouTubePostTranscriptResource(transport, bindings)
+
+    def comment(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubePostCommentResource:
+        """Select the comment resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="youtube", resource="comment")
+        return AsyncYouTubePostCommentResource(self._transport, {**self._bindings, "comment_id": identifier})
+
+    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubePost]:
+        """Get a post
+
+        Return one public YouTube video, Short, or livestream with its exact counts and publication time. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeProfileCommunityPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeCommunityPost]:
+        """List profile community posts
+
+        Return the text, image, and poll posts of a public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").community_posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-community-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/community-posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/community-posts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeCommunityPost]:
+        """Iterate items lazily across pages of youtube.profile.communityPosts.list, one request per page."""
+        page: AsyncPage[models.YouTubeCommunityPost] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileLivestreamsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List profile livestreams
+
+        Return the current, upcoming, and past livestreams of a public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").livestreams.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-livestreams-list
+        """
+        params: dict[str, Any] = {"sort": sort, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/livestreams", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/livestreams", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.profile.livestreams.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(sort=sort, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfilePlaylistsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePlaylist]:
+        """List profile playlists
+
+        Return the public playlists of a YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").playlists.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-playlists-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/playlists", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/playlists", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePlaylist]:
+        """Iterate items lazily across pages of youtube.profile.playlists.list, one request per page."""
+        page: AsyncPage[models.YouTubePlaylist] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileProductsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeProduct]:
+        """List profile products
+
+        Return the products on the store shelf of a public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").products.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-products-list
+        """
+        params: dict[str, Any] = {"freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/products", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/products", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeProduct]:
+        """Iterate items lazily across pages of youtube.profile.products.list, one request per page."""
+        page: AsyncPage[models.YouTubeProduct] | None = await self.list(freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileSearchResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """Search profile videos
+
+        Search the videos of one public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").search.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-search-list
+        """
+        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/search", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/search", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.profile.search.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileShortsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List profile Shorts
+
+        Return the Shorts of a public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").shorts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-shorts-list
+        """
+        params: dict[str, Any] = {"sort": sort, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/shorts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/shorts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.profile.shorts.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(sort=sort, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileVideosResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, since: str | datetime | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """List profile videos
+
+        Return the videos of a public YouTube channel. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").videos.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-videos-list
+        """
+        params: dict[str, Any] = {"sort": sort, "since": since, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}/videos", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/profiles/{identifier}/videos", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, sort: Literal["newest", "popular", "oldest"] | None = None, since: str | datetime | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.profile.videos.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(sort=sort, since=since, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeProfileResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.community_posts = AsyncYouTubeProfileCommunityPostsResource(transport, bindings)
+        self.livestreams = AsyncYouTubeProfileLivestreamsResource(transport, bindings)
+        self.playlists = AsyncYouTubeProfilePlaylistsResource(transport, bindings)
+        self.products = AsyncYouTubeProfileProductsResource(transport, bindings)
+        self.search = AsyncYouTubeProfileSearchResource(transport, bindings)
+        self.shorts = AsyncYouTubeProfileShortsResource(transport, bindings)
+        self.videos = AsyncYouTubeProfileVideosResource(transport, bindings)
+
+    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeProfile]:
+        """Get a profile
+
+        Return one public YouTube channel. Use @handle or the UC channel ID. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.profile("@synthetic_youtube").get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-profile-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/profiles/{identifier}", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeSearchPlaylistsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePlaylist]:
+        """Search playlists
+
+        Search public YouTube playlists and podcasts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.search.playlists.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-search-playlists-list
+        """
+        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/search/playlists", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/search/playlists", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePlaylist]:
+        """Iterate items lazily across pages of youtube.search.playlists.list, one request per page."""
+        page: AsyncPage[models.YouTubePlaylist] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeSearchPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, q: str, sort: Literal["relevance", "rating", "date", "views"] | None = None, type: Literal["video", "short"] | None = None, duration: Literal["short", "medium", "long"] | None = None, uploaded: Literal["hour", "today", "week", "month", "year"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubePost]:
+        """Search posts
+
+        Search public YouTube videos or Shorts. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.search.posts.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-search-posts-list
+        """
+        params: dict[str, Any] = {"q": q, "sort": sort, "type": type, "duration": duration, "uploaded": uploaded, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/search/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/search/posts", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, q: str, sort: Literal["relevance", "rating", "date", "views"] | None = None, type: Literal["video", "short"] | None = None, duration: Literal["short", "medium", "long"] | None = None, uploaded: Literal["hour", "today", "week", "month", "year"] | None = None, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubePost]:
+        """Iterate items lazily across pages of youtube.search.posts.list, one request per page."""
+        page: AsyncPage[models.YouTubePost] | None = await self.list(q=q, sort=sort, type=type, duration=duration, uploaded=uploaded, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeSearchProfilesResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.YouTubeProfile]:
+        """Search profiles
+
+        Search public YouTube channels. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.search.profiles.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-search-profiles-list
+        """
+        params: dict[str, Any] = {"q": q, "freshness": freshness, "cursor": cursor}
+        result = await self._transport.request("get", "/v1/youtube/search/profiles", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/youtube/search/profiles", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, q: str, freshness: Freshness | None = None, cursor: str | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.YouTubeProfile]:
+        """Iterate items lazily across pages of youtube.search.profiles.list, one request per page."""
+        page: AsyncPage[models.YouTubeProfile] | None = await self.list(q=q, freshness=freshness, cursor=cursor, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
+class AsyncYouTubeSearchSuggestionsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, q: str, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[list[models.YouTubeSuggestion]]:
+        """Search suggestions
+
+        Return the autocomplete queries YouTube offers for a partial search. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.search.suggestions.list(q="synthetic", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-search-suggestions-list
+        """
+        params: dict[str, Any] = {"q": q, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/search/suggestions", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeSearchResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.playlists = AsyncYouTubeSearchPlaylistsResource(transport, bindings)
+        self.posts = AsyncYouTubeSearchPostsResource(transport, bindings)
+        self.profiles = AsyncYouTubeSearchProfilesResource(transport, bindings)
+        self.suggestions = AsyncYouTubeSearchSuggestionsResource(transport, bindings)
+
+
+class AsyncYouTubeTrendingPostsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, country: str | None = None, category: Literal["now", "music", "games", "movies"] | None = None, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[list[models.YouTubePost]]:
+        """List trending posts
+
+        Return the trending YouTube videos of one country. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.trending.posts.list(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-trending-posts-list
+        """
+        params: dict[str, Any] = {"country": country, "category": category, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/trending/posts", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
+class AsyncYouTubeTrendingResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.posts = AsyncYouTubeTrendingPostsResource(transport, bindings)
+
+
+class AsyncYouTubeResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+        self.charts = AsyncYouTubeChartsResource(transport, bindings)
+        self.search = AsyncYouTubeSearchResource(transport, bindings)
+        self.trending = AsyncYouTubeTrendingResource(transport, bindings)
+
+    def community_post(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubeCommunityPostResource:
+        """Select the communityPost resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="youtube", resource="communityPost")
+        return AsyncYouTubeCommunityPostResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def hashtag(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubeHashtagResource:
+        """Select the hashtag resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="youtube", resource="hashtag")
+        return AsyncYouTubeHashtagResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def playlist(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubePlaylistResource:
+        """Select the playlist resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="youtube", resource="playlist")
+        return AsyncYouTubePlaylistResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def post(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubePostResource:
+        """Select the post resource using a supported string shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, id=id, url=url, platform="youtube", resource="post")
+        return AsyncYouTubePostResource(self._transport, {**self._bindings, "identifier": identifier})
+
+    def profile(self, reference: str | None = None, *, username: str | None = None, id: str | None = None, url: str | None = None) -> AsyncYouTubeProfileResource:
+        """Select the profile resource using a username shorthand or an explicit ID or URL reference.
+
+        Resource selection is synchronous and does not perform a request.
+        """
+        identifier = resolve_selector(reference, username=username, id=id, url=url, platform="youtube", resource="profile")
+        return AsyncYouTubeProfileResource(self._transport, {**self._bindings, "identifier": identifier})
+
+
 class AsyncGeneratedClient:
     def __init__(self, transport: AsyncTransport) -> None:
         self._transport = transport
@@ -3164,6 +3936,7 @@ class AsyncGeneratedClient:
         self.test_data = AsyncTestDataResource(transport, {})
         self.tiktok = AsyncTikTokResource(transport, {})
         self.twitter = AsyncTwitterResource(transport, {})
+        self.youtube = AsyncYouTubeResource(transport, {})
 
     async def fetch(self, url: str, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.FetchResource]:
         """Fetch the resource at a social URL

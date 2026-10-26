@@ -2030,20 +2030,26 @@ class ResponseCursors(TypedDict):
 
 class ResponseMeta(TypedDict):
     cashtags: NotRequired[list[Any] | None]
+    category: NotRequired[str | None]
     chart: NotRequired[TikTokChartMetadata | None]
+    chartWeek: NotRequired[YouTubeChartWeek | None]
     collection: NotRequired[InstagramStoryCollection | None]
+    comments: NotRequired[int | None]
     community: NotRequired[RedditCommunityHandle | None]
     context: NotRequired[RedditListingContext | None]
     continuation: NotRequired[TikTokPageContinuation | None]
     count: NotRequired[int | None]
+    country: NotRequired[str | None]
     cursors: ResponseCursors
     domain: NotRequired[str | None]
+    estimatedResults: NotRequired[int | None]
     events: NotRequired[list[Any] | None]
     handle: NotRequired[str | None]
     hasFilteredComments: NotRequired[bool | None]
     hasMore: NotRequired[bool | None]
     hasMoreAfter: NotRequired[bool | None]
     hasMoreBefore: NotRequired[bool | None]
+    hashtag: NotRequired[YouTubeHashtag | None]
     hashtags: NotRequired[list[Any] | None]
     isLimited: NotRequired[bool]
     likesEnabled: NotRequired[bool | None]
@@ -2053,6 +2059,7 @@ class ResponseMeta(TypedDict):
     nextCursorLabel: NotRequired[str | None]
     nextCursorType: NotRequired[str | None]
     parent: NotRequired[InstagramCommentReference | None]
+    playlist: NotRequired[YouTubePlaylistReference | None]
     previousCursor: NotRequired[str | None]
     promoted: NotRequired[list[TwitterPostReference] | None]
     queries: NotRequired[list[TwitterSuggestedQuery] | None]
@@ -2067,8 +2074,8 @@ class SuccessEnvelope(TypedDict):
     capturedAt: str
     data: Any
     meta: NotRequired[ResponseMeta]
-    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy"]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
     source: Literal["live", "cache"]
 
 
@@ -2094,9 +2101,9 @@ class TestDataEntry(TypedDict):
     inputs: dict[str, Any]
     label: str
     operationIds: list[str]
-    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     relationships: list[TestDataRelationship]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
     synthetic: Literal[True]
     traits: list[str]
 
@@ -2118,9 +2125,9 @@ class TestDataOperation(TypedDict):
     method: Literal["GET"]
     paginated: bool
     path: str
-    platform: Literal["instagram", "tiktok", "twitter", "reddit"]
+    platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     publicSchema: str
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
     summary: str
     toolName: str
 
@@ -3715,5 +3722,285 @@ class TwitterWithheld(TypedDict):
     scope: str | None
 
 
+class YouTubeAudioTrack(TypedDict):
+    language: str | None
+    name: str | None
+
+
+class YouTubeAuthor(TypedDict):
+    avatar: YouTubeImage | None
+    displayName: str | None
+    handle: str | None
+    id: str | None
+    isArtist: bool | None
+    isVerified: bool | None
+
+
+class YouTubeChartArtist(TypedDict):
+    id: str | None
+    name: str | None
+
+
+class YouTubeChartEntry(TypedDict):
+    artists: list[YouTubeChartArtist] | None
+    channel: YouTubeAuthor | None
+    duration: int | None
+    id: str
+    label: str | None
+    metrics: YouTubeChartMetrics
+    postId: str | None
+    rank: YouTubeChartRank
+    releaseDate: str | None
+    thumbnail: YouTubeImage | None
+    title: str | None
+    type: str | None
+    url: str | None
+
+
+class YouTubeChartMetrics(TypedDict):
+    views: int | None
+
+
+class YouTubeChartRank(TypedDict):
+    position: int | None
+    previousPosition: int | None
+    viewsChange: float | None
+    weeksOnChart: int | None
+
+
+class YouTubeChartWeek(TypedDict):
+    country: str | None
+    endDate: str | None
+    startDate: str | None
+
+
+class YouTubeComment(TypedDict):
+    approximateCreatedAt: str | None
+    author: YouTubeAuthor | None
+    createdAt: str | None
+    createdAtLabel: str | None
+    extracted: YouTubeExtracted
+    id: str
+    isByPostAuthor: bool | None
+    isEdited: bool | None
+    metrics: YouTubeCommentMetrics
+    parentId: str | None
+    postId: str | None
+    repliesToken: str | None
+    text: str | None
+    url: str
+
+
+class YouTubeCommentMetrics(TypedDict):
+    isApproximate: bool | None
+    likes: int | None
+    replies: int | None
+
+
+class YouTubeCommunityPost(TypedDict):
+    approximateCreatedAt: str | None
+    author: YouTubeAuthor | None
+    createdAt: str | None
+    createdAtLabel: str | None
+    extracted: YouTubeExtracted
+    id: str
+    images: list[YouTubeImage]
+    metrics: YouTubeCommunityPostMetrics
+    poll: YouTubePoll | None
+    text: str | None
+    url: str
+
+
+class YouTubeCommunityPostMetrics(TypedDict):
+    comments: int | None
+    isApproximate: bool | None
+    likes: int | None
+
+
+class YouTubeExtracted(TypedDict):
+    emails: list[str] | None
+    handles: list[YouTubeExtractedHandle] | None
+    links: list[str] | None
+    phones: list[str] | None
+
+
+class YouTubeExtractedHandle(TypedDict):
+    handle: str | None
+    platform: str | None
+
+
+class YouTubeHashtag(TypedDict):
+    label: str | None
+    name: str | None
+
+
+class YouTubeImage(TypedDict):
+    height: int | None
+    renditions: list[YouTubeImage] | None
+    url: str | None
+    width: int | None
+
+
+class YouTubeLink(TypedDict):
+    title: str | None
+    url: str | None
+
+
+class YouTubeMusicCredit(TypedDict):
+    album: str | None
+    artists: list[str] | None
+    title: str | None
+
+
+class YouTubePageMetadata(TypedDict):
+    category: str | None
+    chartWeek: YouTubeChartWeek | None
+    comments: int | None
+    country: str | None
+    estimatedResults: int | None
+    hashtag: YouTubeHashtag | None
+    playlist: YouTubePlaylistReference | None
+    query: str | None
+
+
+class YouTubePlaylist(TypedDict):
+    approximateUpdatedAt: str | None
+    author: YouTubeAuthor | None
+    firstPostId: str | None
+    id: str
+    metrics: YouTubePlaylistMetrics
+    text: str | None
+    thumbnail: YouTubeImage | None
+    title: str | None
+    type: str | None
+    updatedAtLabel: str | None
+    url: str
+
+
+class YouTubePlaylistMetrics(TypedDict):
+    isApproximate: bool | None
+    videos: int | None
+    views: int | None
+
+
+class YouTubePlaylistReference(TypedDict):
+    approximateUpdatedAt: str | None
+    author: YouTubeAuthor | None
+    firstPostId: str | None
+    id: str | None
+    metrics: YouTubePlaylistMetrics
+    text: str | None
+    thumbnail: YouTubeImage | None
+    title: str | None
+    type: str | None
+    updatedAtLabel: str | None
+    url: str | None
+
+
+class YouTubePoll(TypedDict):
+    choices: list[str] | None
+    votes: int | None
+
+
+class YouTubePost(TypedDict):
+    approximateCreatedAt: str | None
+    audioTracks: list[YouTubeAudioTrack] | None
+    author: YouTubeAuthor | None
+    category: str | None
+    createdAt: str | None
+    createdAtLabel: str | None
+    duration: int | None
+    extracted: YouTubeExtracted
+    hasCaptions: bool | None
+    hashtags: list[str] | None
+    id: str
+    isEmbeddable: bool | None
+    isFamilySafe: bool | None
+    isLiveNow: bool | None
+    isLiveStream: bool | None
+    isUnlisted: bool | None
+    keywords: list[str] | None
+    language: str | None
+    liveStartedAt: str | None
+    metrics: YouTubePostMetrics
+    music: list[YouTubeMusicCredit] | None
+    preview: YouTubeImage | None
+    subtitles: list[YouTubeSubtitle] | None
+    text: str | None
+    thumbnail: YouTubeImage | None
+    title: str | None
+    type: str | None
+    url: str
+
+
+class YouTubePostMetrics(TypedDict):
+    comments: int | None
+    isApproximate: bool | None
+    likes: int | None
+    views: int | None
+    watching: int | None
+
+
+class YouTubeProduct(TypedDict):
+    image: YouTubeImage | None
+    merchant: str | None
+    price: str | None
+    priceLabel: str | None
+    shelf: str | None
+    title: str | None
+    url: str
+
+
+class YouTubeProfile(TypedDict):
+    avatar: YouTubeImage | None
+    banner: YouTubeImage | None
+    bio: str | None
+    country: str | None
+    displayName: str | None
+    extracted: YouTubeExtracted
+    handle: str
+    hasBusinessEmail: bool | None
+    id: str
+    isFamilySafe: bool | None
+    joinedAt: str | None
+    keywords: list[str] | None
+    links: list[YouTubeLink] | None
+    metrics: YouTubeProfileMetrics
+    url: str
+
+
+class YouTubeProfileMetrics(TypedDict):
+    isApproximate: bool | None
+    subscribers: int | None
+    videos: int | None
+    views: int | None
+
+
+class YouTubeSegment(TypedDict):
+    end: int
+    start: int
+    text: str | None
+
+
+class YouTubeSubtitle(TypedDict):
+    isAutoGenerated: bool | None
+    isTranslatable: bool | None
+    language: str | None
+    name: str | None
+
+
+class YouTubeSuggestion(TypedDict):
+    text: str
+
+
+class YouTubeTranscript(TypedDict):
+    isAutoGenerated: bool | None
+    language: str | None
+    languageName: str | None
+    languages: list[YouTubeSubtitle]
+    postId: str
+    segments: list[YouTubeSegment]
+
+
 # One of the concrete resources returned by a URL fetch.
-FetchResource: TypeAlias = "InstagramProfile | InstagramPost | InstagramStory | InstagramHighlight | TikTokProfile | TikTokPost | TwitterProfile | TwitterPost | RedditProfile | RedditPost | RedditSubreddit"
+FetchResource: TypeAlias = "InstagramProfile | InstagramPost | InstagramStory | InstagramHighlight | TikTokProfile | TikTokPost | TwitterProfile | TwitterPost | RedditProfile | RedditPost | RedditSubreddit | YouTubeProfile | YouTubePost"

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from openhandle._errors import OpenHandleReferenceError, ReferenceMismatchError
 
@@ -13,7 +13,15 @@ SHORTCODE = re.compile(r"^[A-Za-z0-9_-]+$")
 
 REDDIT_NAME = re.compile(r"^[A-Za-z0-9_-]{1,100}$")
 
+YOUTUBE_HANDLE = re.compile(r"^[\w.-]{1,100}$")
+YOUTUBE_POST_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
+YOUTUBE_PROFILE_ID = re.compile(r"^UC[A-Za-z0-9_-]{22}$")
+
 SUPPORTED_HOSTS = (
+    "youtube.com",
+    "m.youtube.com",
+    "music.youtube.com",
+    "youtu.be",
     "reddit.com",
     "old.reddit.com",
     "new.reddit.com",
@@ -112,7 +120,9 @@ def looks_like_supported_social_url(reference: str) -> bool:
 
 def username_reference(reference: str, platform: str) -> str:
     username = reference.removeprefix("@")
-    if platform == "reddit":
+    if platform == "youtube":
+        pattern = YOUTUBE_HANDLE
+    elif platform == "reddit":
         pattern = REDDIT_NAME
     elif platform == "instagram":
         pattern = INSTAGRAM_NAME
@@ -136,6 +146,8 @@ def resolve_social_url(reference: str) -> tuple[str, str, str]:
 
     host = (parsed.hostname or "").lower().removeprefix("www.")
     parts = [part for part in parsed.path.split("/") if part]
+    if host in ("youtube.com", "m.youtube.com", "music.youtube.com", "youtu.be"):
+        return resolve_youtube_url(host, parsed.query, parts)
     if host in ("reddit.com", "old.reddit.com", "new.reddit.com", "m.reddit.com", "redd.it"):
         return resolve_reddit_url(host, parts)
     if host == "instagram.com":
@@ -212,3 +224,19 @@ def resolve_reddit_url(host: str, parts: list[str]) -> tuple[str, str, str]:
     if len(parts) >= 2 and parts[0] == "comments" and re.fullmatch(r"[a-z0-9]+", parts[1]):
         return "reddit", "post", parts[1]
     raise OpenHandleReferenceError("Unsupported Reddit URL.")
+
+
+def resolve_youtube_url(host: str, query: str, parts: list[str]) -> tuple[str, str, str]:
+    if host == "youtu.be" and len(parts) == 1 and YOUTUBE_POST_ID.fullmatch(parts[0]):
+        return "youtube", "post", parts[0]
+    video = parse_qs(query).get("v", [""])[0]
+    if len(parts) == 1 and parts[0] == "watch" and YOUTUBE_POST_ID.fullmatch(video):
+        return "youtube", "post", video
+    if len(parts) == 2 and parts[0] in ("shorts", "live", "embed") and YOUTUBE_POST_ID.fullmatch(parts[1]):
+        return "youtube", "post", parts[1]
+    handle = unquote(parts[0]) if parts else ""
+    if handle.startswith("@") and YOUTUBE_HANDLE.fullmatch(handle[1:]):
+        return "youtube", "profile", handle
+    if len(parts) >= 2 and parts[0] == "channel" and YOUTUBE_PROFILE_ID.fullmatch(parts[1]):
+        return "youtube", "profile", parts[1]
+    raise OpenHandleReferenceError("Unsupported YouTube URL.")
