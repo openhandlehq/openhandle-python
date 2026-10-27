@@ -1830,7 +1830,7 @@ class AsyncTestDataResource:
         identifier = resolve_selector(reference, id=id, url=url, platform="testData", resource="testDataEntry")
         return AsyncTestDataEntryResource(self._transport, {**self._bindings, "id": identifier})
 
-    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
+    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
         """Search the synthetic test-data catalog
 
         Public, unmetered discovery. Filter by platform, resource, operation, traits, expected status, error code, or text.
@@ -3407,6 +3407,26 @@ class AsyncYouTubePostCommentsResource:
             page = await page.next()
 
 
+class AsyncYouTubePostFilesResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeFiles]:
+        """Get post files
+
+        Return the video and audio streams of a public YouTube video as download links. Openhandle refreshes the links, so they keep working. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").files.get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-files-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/files", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
 class AsyncYouTubePostRelatedResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3488,6 +3508,7 @@ class AsyncYouTubePostResource:
         self._transport = transport
         self._bindings = bindings
         self.comments = AsyncYouTubePostCommentsResource(transport, bindings)
+        self.files = AsyncYouTubePostFilesResource(transport, bindings)
         self.related = AsyncYouTubePostRelatedResource(transport, bindings)
         self.sound_posts = AsyncYouTubePostSoundPostsResource(transport, bindings)
         self.transcript = AsyncYouTubePostTranscriptResource(transport, bindings)

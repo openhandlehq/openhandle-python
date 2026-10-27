@@ -237,6 +237,43 @@ def test_youtube_selectors_resolve_urls_and_bind_nested_comment() -> None:
     assert requests[1].url.params["token"] == "replies-token"
 
 
+def test_youtube_post_files_reads_every_stream() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(
+            200,
+            json={
+                "platform": "youtube",
+                "resource": "files",
+                "capturedAt": "2026-10-27T08:00:00Z",
+                "source": "live",
+                "data": {
+                    "postId": "dQw4w9WgXcQ",
+                    "author": None,
+                    "duration": 213,
+                    "renditions": [
+                        {
+                            "itag": 140,
+                            "quality": "audio",
+                            "mimeType": "audio/mp4",
+                            "hasVideo": False,
+                            "hasAudio": True,
+                            "size": 3449447,
+                            "url": "https://media.openhandle.dev/b",
+                        },
+                    ],
+                },
+            },
+        )
+
+    files = client(handler).youtube.post("https://www.youtube.com/shorts/dQw4w9WgXcQ").files.get()
+    assert [request.url.path for request in requests] == ["/v1/youtube/posts/dQw4w9WgXcQ/files"]
+    assert files.data["renditions"][0]["itag"] == 140
+    assert files.data["renditions"][0]["hasAudio"] is True
+
+
 def test_youtube_profile_selector_rejects_video_url_before_request() -> None:
     requests: list[httpx.Request] = []
 

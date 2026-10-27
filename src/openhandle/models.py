@@ -2075,7 +2075,7 @@ class SuccessEnvelope(TypedDict):
     data: Any
     meta: NotRequired[ResponseMeta]
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
     source: Literal["live", "cache"]
 
 
@@ -2103,7 +2103,7 @@ class TestDataEntry(TypedDict):
     operationIds: list[str]
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     relationships: list[TestDataRelationship]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
     synthetic: Literal[True]
     traits: list[str]
 
@@ -2127,7 +2127,7 @@ class TestDataOperation(TypedDict):
     path: str
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     publicSchema: str
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
     summary: str
     toolName: str
 
@@ -3827,6 +3827,30 @@ class YouTubeExtracted(TypedDict):
 class YouTubeExtractedHandle(TypedDict):
     handle: str | None
     platform: str | None
+
+
+class YouTubeFileRendition(TypedDict):
+    audioLanguage: str | None
+    audioQuality: str | None
+    bitrate: int | None
+    codecs: str | None
+    fps: int | None
+    hasAudio: bool
+    hasVideo: bool
+    height: int | None
+    itag: int
+    mimeType: str | None
+    quality: str | None
+    size: int | None
+    url: str | None
+    width: int | None
+
+
+class YouTubeFiles(TypedDict):
+    author: YouTubeAuthor | None
+    duration: int | None
+    postId: str
+    renditions: list[YouTubeFileRendition]
 
 
 class YouTubeHashtag(TypedDict):
