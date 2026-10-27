@@ -1790,7 +1790,7 @@ class TestDataResource:
         identifier = resolve_selector(reference, id=id, url=url, platform="testData", resource="testDataEntry")
         return TestDataEntryResource(self._transport, {**self._bindings, "id": identifier})
 
-    def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
+    def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files", "storyboard", "frame"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
         """Search the synthetic test-data catalog
 
         Public, unmetered discovery. Filter by platform, resource, operation, traits, expected status, error code, or text.
@@ -3348,6 +3348,26 @@ class YouTubePostFilesResource:
         return self._transport.response(result)
 
 
+class YouTubePostFrameResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def get(self, *, at: int, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeFrame]:
+        """Get post frame
+
+        Return one still frame of a public video at a time in seconds, in every resolution the video has. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.youtube.post("synthvid001").frame.get(at="43", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-frame-get
+        """
+        params: dict[str, Any] = {"at": at, "freshness": freshness}
+        result = self._transport.request("get", "/v1/youtube/posts/{identifier}/frame", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
 class YouTubePostRelatedResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3402,6 +3422,26 @@ class YouTubePostSoundPostsResource:
             page = page.next()
 
 
+class YouTubePostStoryboardResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeStoryboard]:
+        """Get post storyboard
+
+        Return YouTube's preview frames of a public video: one small frame every few seconds, packed into image sheets, with the position of every frame. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            openhandle.youtube.post("synthvid001").storyboard.get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-storyboard-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = self._transport.request("get", "/v1/youtube/posts/{identifier}/storyboard", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
 class YouTubePostTranscriptResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3428,8 +3468,10 @@ class YouTubePostResource:
         self._bindings = bindings
         self.comments = YouTubePostCommentsResource(transport, bindings)
         self.files = YouTubePostFilesResource(transport, bindings)
+        self.frame = YouTubePostFrameResource(transport, bindings)
         self.related = YouTubePostRelatedResource(transport, bindings)
         self.sound_posts = YouTubePostSoundPostsResource(transport, bindings)
+        self.storyboard = YouTubePostStoryboardResource(transport, bindings)
         self.transcript = YouTubePostTranscriptResource(transport, bindings)
 
     def comment(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> YouTubePostCommentResource:

@@ -1830,7 +1830,7 @@ class AsyncTestDataResource:
         identifier = resolve_selector(reference, id=id, url=url, platform="testData", resource="testDataEntry")
         return AsyncTestDataEntryResource(self._transport, {**self._bindings, "id": identifier})
 
-    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
+    async def list(self, *, platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"] | None = None, resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files", "storyboard", "frame"] | None = None, operation: str | None = None, traits: str | None = None, status: int | None = None, error_code: str | None = None, search: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.TestDataCatalog]:
         """Search the synthetic test-data catalog
 
         Public, unmetered discovery. Filter by platform, resource, operation, traits, expected status, error code, or text.
@@ -3427,6 +3427,26 @@ class AsyncYouTubePostFilesResource:
         return self._transport.response(result)
 
 
+class AsyncYouTubePostFrameResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def get(self, *, at: int, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeFrame]:
+        """Get post frame
+
+        Return one still frame of a public video at a time in seconds, in every resolution the video has. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").frame.get(at="43", freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-frame-get
+        """
+        params: dict[str, Any] = {"at": at, "freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/frame", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
 class AsyncYouTubePostRelatedResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3483,6 +3503,26 @@ class AsyncYouTubePostSoundPostsResource:
             page = await page.next()
 
 
+class AsyncYouTubePostStoryboardResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def get(self, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.YouTubeStoryboard]:
+        """Get post storyboard
+
+        Return YouTube's preview frames of a public video: one small frame every few seconds, packed into image sheets, with the position of every frame. Test and Live use the same route, parameters, response schema, pagination, and errors. In Test, null means unavailable, not zero.
+
+        Example:
+            await openhandle.youtube.post("synthvid001").storyboard.get(freshness="24h")
+
+        See https://openhandle.dev/docs/api-reference/youtube-post-storyboard-get
+        """
+        params: dict[str, Any] = {"freshness": freshness}
+        result = await self._transport.request("get", "/v1/youtube/posts/{identifier}/storyboard", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.response(result)
+
+
 class AsyncYouTubePostTranscriptResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3509,8 +3549,10 @@ class AsyncYouTubePostResource:
         self._bindings = bindings
         self.comments = AsyncYouTubePostCommentsResource(transport, bindings)
         self.files = AsyncYouTubePostFilesResource(transport, bindings)
+        self.frame = AsyncYouTubePostFrameResource(transport, bindings)
         self.related = AsyncYouTubePostRelatedResource(transport, bindings)
         self.sound_posts = AsyncYouTubePostSoundPostsResource(transport, bindings)
+        self.storyboard = AsyncYouTubePostStoryboardResource(transport, bindings)
         self.transcript = AsyncYouTubePostTranscriptResource(transport, bindings)
 
     def comment(self, reference: str | None = None, *, id: str | None = None, url: str | None = None) -> AsyncYouTubePostCommentResource:

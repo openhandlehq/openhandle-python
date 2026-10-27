@@ -2075,7 +2075,7 @@ class SuccessEnvelope(TypedDict):
     data: Any
     meta: NotRequired[ResponseMeta]
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "story", "highlight", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files", "storyboard", "frame"]
     source: Literal["live", "cache"]
 
 
@@ -2103,7 +2103,7 @@ class TestDataEntry(TypedDict):
     operationIds: list[str]
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     relationships: list[TestDataRelationship]
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files", "storyboard", "frame"]
     synthetic: Literal[True]
     traits: list[str]
 
@@ -2127,7 +2127,7 @@ class TestDataOperation(TypedDict):
     path: str
     platform: Literal["instagram", "tiktok", "twitter", "reddit", "youtube"]
     publicSchema: str
-    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files"]
+    resource: Literal["profile", "post", "comment", "hashtag", "location", "music", "category", "list", "entity", "subreddit", "rule", "wiki", "trophy", "playlist", "transcript", "product", "chart", "files", "storyboard", "frame"]
     summary: str
     toolName: str
 
@@ -3853,6 +3853,18 @@ class YouTubeFiles(TypedDict):
     renditions: list[YouTubeFileRendition]
 
 
+class YouTubeFrame(TypedDict):
+    at: int
+    postId: str
+    renditions: list[YouTubeFrameRendition]
+
+
+class YouTubeFrameRendition(TypedDict):
+    height: int | None
+    quality: str | None
+    url: str | None
+
+
 class YouTubeHashtag(TypedDict):
     label: str | None
     name: str | None
@@ -4004,6 +4016,35 @@ class YouTubeSegment(TypedDict):
     end: int
     start: int
     text: str | None
+
+
+class YouTubeStoryboard(TypedDict):
+    author: YouTubeAuthor | None
+    columns: int
+    frameCount: int
+    frameHeight: int
+    frameWidth: int
+    frames: list[YouTubeStoryboardFrame]
+    intervalMs: int
+    postId: str
+    rows: int
+    sheets: list[YouTubeStoryboardSheet]
+
+
+class YouTubeStoryboardFrame(TypedDict):
+    sheet: int
+    timeMs: int
+    x: int
+    y: int
+
+
+class YouTubeStoryboardSheet(TypedDict):
+    frameCount: int
+    height: int
+    index: int
+    startMs: int
+    url: str | None
+    width: int
 
 
 class YouTubeSubtitle(TypedDict):
