@@ -958,6 +958,14 @@ OPERATIONS: tuple[dict[str, Any], ...] = (
         "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'files'}),
     },
     {
+        "api_path": '/v1/youtube/posts/{identifier}/frame',
+        "method": 'get',
+        "operation": 'get',
+        "paginated": False,
+        "path": 'youtube.post.frame.get',
+        "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'frame'}),
+    },
+    {
         "api_path": '/v1/youtube/posts/{identifier}',
         "method": 'get',
         "operation": 'get',
@@ -980,6 +988,14 @@ OPERATIONS: tuple[dict[str, Any], ...] = (
         "paginated": True,
         "path": 'youtube.post.soundPosts.list',
         "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'soundPosts'}),
+    },
+    {
+        "api_path": '/v1/youtube/posts/{identifier}/storyboard',
+        "method": 'get',
+        "operation": 'get',
+        "paginated": False,
+        "path": 'youtube.post.storyboard.get',
+        "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'storyboard'}),
     },
     {
         "api_path": '/v1/youtube/posts/{identifier}/transcript',

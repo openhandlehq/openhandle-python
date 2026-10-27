@@ -274,6 +274,75 @@ def test_youtube_post_files_reads_every_stream() -> None:
     assert files.data["renditions"][0]["hasAudio"] is True
 
 
+def test_youtube_post_storyboard_reads_sheets_and_frame_positions() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(
+            200,
+            json={
+                "platform": "youtube",
+                "resource": "storyboard",
+                "capturedAt": "2026-10-27T08:00:00Z",
+                "source": "live",
+                "data": {
+                    "postId": "dQw4w9WgXcQ",
+                    "intervalMs": 2000,
+                    "frameWidth": 160,
+                    "frameHeight": 90,
+                    "columns": 5,
+                    "rows": 5,
+                    "frameCount": 2,
+                    "sheets": [
+                        {
+                            "index": 0,
+                            "url": "https://media.openhandle.dev/s",
+                            "width": 800,
+                            "height": 90,
+                            "startMs": 0,
+                            "frameCount": 2,
+                        }
+                    ],
+                    "frames": [
+                        {"timeMs": 0, "sheet": 0, "x": 0, "y": 0},
+                        {"timeMs": 2000, "sheet": 0, "x": 160, "y": 0},
+                    ],
+                },
+            },
+        )
+
+    storyboard = client(handler).youtube.post("dQw4w9WgXcQ").storyboard.get()
+    assert [request.url.path for request in requests] == ["/v1/youtube/posts/dQw4w9WgXcQ/storyboard"]
+    assert storyboard.data["frames"][1]["x"] == 160
+
+
+def test_youtube_post_frame_sends_the_moment_in_seconds() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(
+            200,
+            json={
+                "platform": "youtube",
+                "resource": "frame",
+                "capturedAt": "2026-10-27T08:00:00Z",
+                "source": "live",
+                "data": {
+                    "postId": "dQw4w9WgXcQ",
+                    "at": 43,
+                    "renditions": [{"quality": "1080p", "height": 1080, "url": "https://media.openhandle.dev/f"}],
+                },
+            },
+        )
+
+    frame = client(handler).youtube.post("dQw4w9WgXcQ").frame.get(at=43)
+    assert requests[0].url.path == "/v1/youtube/posts/dQw4w9WgXcQ/frame"
+    assert requests[0].url.params["at"] == "43"
+    assert frame.data["renditions"][0]["quality"] == "1080p"
+
+
 def test_youtube_profile_selector_rejects_video_url_before_request() -> None:
     requests: list[httpx.Request] = []
 
