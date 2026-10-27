@@ -950,6 +950,14 @@ OPERATIONS: tuple[dict[str, Any], ...] = (
         "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'comments'}),
     },
     {
+        "api_path": '/v1/youtube/posts/{identifier}/files',
+        "method": 'get',
+        "operation": 'get',
+        "paginated": False,
+        "path": 'youtube.post.files.get',
+        "scope": ({'name': 'youtube'}, {'name': 'post', 'parameter': 'identifier', 'reference': 'post'}, {'name': 'files'}),
+    },
+    {
         "api_path": '/v1/youtube/posts/{identifier}',
         "method": 'get',
         "operation": 'get',
