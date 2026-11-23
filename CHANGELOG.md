@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.11](https://github.com/openhandlehq/openhandle-python/compare/v1.2.10...v1.2.11) (2026-11-23)
+
+
+### Features
+
+* sync API contract ([7bc66fb](https://github.com/openhandlehq/openhandle-python/commit/7bc66fb9d1feed4df5d76047c12ebd87f07d0ca0))
+* sync SDK source ([f84818f](https://github.com/openhandlehq/openhandle-python/commit/f84818f0c186f88a096a19c3d600b826a531b855))
+
 ## [1.2.10](https://github.com/openhandlehq/openhandle-python/compare/v1.2.9...v1.2.10) (2026-11-17)
 
 
