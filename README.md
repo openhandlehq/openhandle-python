@@ -160,6 +160,40 @@ Locally invalid references raise `OpenHandleReferenceError` before any request
 is made. `ReferenceMismatchError` reports a social URL that belongs to a
 different platform or resource than the selector.
 
+## Verify webhooks
+
+`verify_webhook` checks a pushed webhook against the endpoint's signing secret
+and returns the typed event. It needs no API key and makes no request. Pass the
+raw request body exactly as received; never parse and re-serialize it first:
+
+```python
+import os
+
+from openhandle import WebhookVerificationError, verify_webhook
+
+
+def handle_webhook(raw_body: bytes, headers: dict[str, str]) -> int:
+    try:
+        event = verify_webhook(raw_body, headers, os.environ["OPENHANDLE_WEBHOOK_SECRET"])
+    except WebhookVerificationError as error:
+        print(error.code)
+        return 400
+
+    if event["environment"] == "test":
+        return 200
+
+    if event["type"] == "profile.blocked":
+        print(event["data"]["platform"], event["data"]["handle"])
+    return 200
+```
+
+Test keys send events with `environment` set to `"test"`; skip them in
+production. Header names match case-insensitively. Timestamps more than 300 seconds from
+the current time are rejected; set `tolerance_seconds` to change that.
+`WebhookVerificationError.code` is one of `missing_signature`,
+`missing_timestamp`, `invalid_timestamp`, `timestamp_out_of_tolerance`,
+`invalid_signature`, or `invalid_payload`.
+
 ## License
 
 [MIT](./LICENSE)

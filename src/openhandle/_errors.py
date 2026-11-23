@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 
 class OpenHandleError(Exception):
@@ -57,3 +57,28 @@ class ReferenceMismatchError(OpenHandleReferenceError):
         self.expected_resource = expected_resource
         self.actual_platform = actual_platform
         self.actual_resource = actual_resource
+
+
+WebhookVerificationErrorCode = Literal[
+    "missing_signature",
+    "missing_timestamp",
+    "invalid_timestamp",
+    "timestamp_out_of_tolerance",
+    "invalid_signature",
+    "invalid_payload",
+]
+
+
+class WebhookVerificationError(ValueError):
+    """A pushed webhook that failed local verification.
+
+    Branch on ``code``, never on the message.
+    """
+
+    def __init__(self, code: WebhookVerificationErrorCode, message: str) -> None:
+        super().__init__(message)
+        self.code: WebhookVerificationErrorCode = code
+        self.message = message
+
+    def __str__(self) -> str:
+        return f"{self.code}: {self.message}"

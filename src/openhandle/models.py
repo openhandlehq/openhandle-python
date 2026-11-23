@@ -3722,6 +3722,21 @@ class TwitterWithheld(TypedDict):
     scope: str | None
 
 
+class WebhookEvent(TypedDict):
+    createdAt: str
+    data: WebhookProfileBlockedData
+    environment: Literal["live", "test"]
+    id: str
+    type: Literal["profile.blocked"]
+
+
+class WebhookProfileBlockedData(TypedDict):
+    blockedAt: str
+    handle: str | None
+    platform: str
+    platformId: str | None
+
+
 class YouTubeAudioTrack(TypedDict):
     language: str | None
     name: str | None
