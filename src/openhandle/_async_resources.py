@@ -3156,6 +3156,32 @@ class AsyncTwitterResource:
         return AsyncTwitterProfileResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
+class AsyncWebhookEventsResource:
+    def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    async def list(self, *, since: str | datetime | None = None, type: Literal["profile.blocked"] | None = None, cursor: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncPage[models.WebhookEvent]:
+        """List the webhook events of this workspace
+
+        Every event of this workspace, oldest first: the same events a webhook pushes. A live key reads live events and a test key reads test events. Not billed.
+
+        Example:
+            await openhandle.webhook_events.list()
+        """
+        params: dict[str, Any] = {"since": since, "type": type, "cursor": cursor, "limit": limit}
+        result = await self._transport.request("get", "/v1/webhook-events", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/webhook-events", self._bindings, params, timeout, max_retries)
+
+    async def items(self, *, since: str | datetime | None = None, type: Literal["profile.blocked"] | None = None, cursor: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> AsyncIterator[models.WebhookEvent]:
+        """Iterate items lazily across pages of webhookEvents.list, one request per page."""
+        page: AsyncPage[models.WebhookEvent] | None = await self.list(since=since, type=type, cursor=cursor, limit=limit, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            for item in page.data:
+                yield item
+            page = await page.next()
+
+
 class AsyncYouTubeChartsArtistsResource:
     def __init__(self, transport: AsyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3999,6 +4025,7 @@ class AsyncGeneratedClient:
         self.test_data = AsyncTestDataResource(transport, {})
         self.tiktok = AsyncTikTokResource(transport, {})
         self.twitter = AsyncTwitterResource(transport, {})
+        self.webhook_events = AsyncWebhookEventsResource(transport, {})
         self.youtube = AsyncYouTubeResource(transport, {})
 
     async def fetch(self, url: str, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.FetchResource]:

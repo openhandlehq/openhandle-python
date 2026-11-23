@@ -878,6 +878,14 @@ OPERATIONS: tuple[dict[str, Any], ...] = (
         "scope": ({'name': 'twitter'}, {'name': 'search'}, {'name': 'users'}),
     },
     {
+        "api_path": '/v1/webhook-events',
+        "method": 'get',
+        "operation": 'list',
+        "paginated": True,
+        "path": 'webhookEvents.list',
+        "scope": ({'name': 'webhookEvents'},),
+    },
+    {
         "api_path": '/v1/youtube/charts/artists',
         "method": 'get',
         "operation": 'list',

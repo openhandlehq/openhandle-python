@@ -3082,6 +3082,31 @@ class TwitterResource:
         return TwitterProfileResource(self._transport, {**self._bindings, "identifier": identifier})
 
 
+class WebhookEventsResource:
+    def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
+        self._transport = transport
+        self._bindings = bindings
+
+    def list(self, *, since: str | datetime | None = None, type: Literal["profile.blocked"] | None = None, cursor: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Page[models.WebhookEvent]:
+        """List the webhook events of this workspace
+
+        Every event of this workspace, oldest first: the same events a webhook pushes. A live key reads live events and a test key reads test events. Not billed.
+
+        Example:
+            openhandle.webhook_events.list()
+        """
+        params: dict[str, Any] = {"since": since, "type": type, "cursor": cursor, "limit": limit}
+        result = self._transport.request("get", "/v1/webhook-events", self._bindings, params, timeout=timeout, max_retries=max_retries)
+        return self._transport.page(result, "get", "/v1/webhook-events", self._bindings, params, timeout, max_retries)
+
+    def items(self, *, since: str | datetime | None = None, type: Literal["profile.blocked"] | None = None, cursor: str | None = None, limit: int | None = None, timeout: float | None = None, max_retries: int | None = None) -> Iterator[models.WebhookEvent]:
+        """Iterate items lazily across pages of webhookEvents.list, one request per page."""
+        page: Page[models.WebhookEvent] | None = self.list(since=since, type=type, cursor=cursor, limit=limit, timeout=timeout, max_retries=max_retries)
+        while page is not None:
+            yield from page.data
+            page = page.next()
+
+
 class YouTubeChartsArtistsResource:
     def __init__(self, transport: SyncTransport, bindings: dict[str, str]) -> None:
         self._transport = transport
@@ -3908,6 +3933,7 @@ class GeneratedClient:
         self.test_data = TestDataResource(transport, {})
         self.tiktok = TikTokResource(transport, {})
         self.twitter = TwitterResource(transport, {})
+        self.webhook_events = WebhookEventsResource(transport, {})
         self.youtube = YouTubeResource(transport, {})
 
     def fetch(self, url: str, *, freshness: Freshness | None = None, timeout: float | None = None, max_retries: int | None = None) -> Response[models.FetchResource]:
